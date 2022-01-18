@@ -1,0 +1,230 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Reports.Models.ModelMonthlyRepot>
+@using System.Globalization
+@using System;
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models;
+@{
+    ViewBag.Title = "GetTransactionWithLocation";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="printableArea">
+    @*<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">*@
+    <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+    </style>
+
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+    }
+
+    @foreach (var item in Model.GroupBy(c => c.EmpId))
+    {
+
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="invoice">
+
+                    <div class="bill-info">
+                        <div class="row">
+                            <div class="col-sm-6 mt-md">
+                                <div class="ib" style="width:30%;height:10%">
+                                    @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                    <img src="@icon.Report" alt="okler themes" />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <h2 class="h4 mt-none mb-sm text-dark text-bold">Transcation With Location</h2>
+                                <h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+                                        <tr>
+                                            <th > Employee ID :</th>
+                                            <td > @item.FirstOrDefault().EmpId</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <th>   Designation :</th>
+                                            <td> @item.FirstOrDefault().Designation</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Pay Date :</th>
+                                            <td>  @*@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.MonthNo)*@ </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Basic Salary :</th>
+                                            <td>
+                                                @*@if (item.EmployeeTypeId == 8)
+                                                    {
+                                                        item.BasicSalary = item.PerDaySalary * item.TotalDays;
+                                                    }*@
+
+
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <th>Currency</th>
+                                            <td>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+                                        <tr>
+                                            <th> Employee Name :</th>
+                                            <td>@item.FirstOrDefault().EmpName</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Year :</th>
+                                            <td> @*@item.YearNo*@</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Per Day Amount :</th>
+                                            <td> @*@item.PerDaySalary*@  </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Per Hour Amount :</th>
+                                            <td> @*@item.PerHourSalary*@  </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr >
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Check In</th>
+                                    <th class="text-center">IMEI</th>
+                                    <th class="text-center">Location</th>
+                                    <th class="text-center">Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var value in item)
+                                {
+                                    <tr class="text-center">
+
+                                        <td>@value.AttDate.ToString("dddd"),  @value.AttDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@value.AttDate.ToString("HH:mm")</td>
+                                        <td>@value.MachineName</td>
+                                        <td>@value.location</td>
+                                        <td>@value.address</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <br />
+
+
+
+
+            </div>
+
+        </section>
+        <div class="pagebreak"></div>
+    }
+
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+<script src="custom.js"></script>
+
+<script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            //document.body.innerHTML = html;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+
+        $(function () {
+
+            function initMap() {
+
+                var location = new google.maps.LatLng(50.0875726, 14.4189987);
+
+                var mapCanvas = document.getElementById('map');
+                var mapOptions = {
+                    center: location,
+                    zoom: 16,
+                    panControl: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+
+            }
+
+            google.maps.event.addDomListener(window, 'load', initMap);
+        });
+</script>
+

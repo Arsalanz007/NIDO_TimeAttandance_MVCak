@@ -1,0 +1,64 @@
+﻿@if (ViewBag.Details != null)
+{
+    <div class="modal-content">
+        <div class="modal-header" align="center">
+            <h4 class="modal-title" id="modalLabel">@ViewBag.Details[0].DepartmentDesc Department </h4>
+        </div>
+        <div class="modal-body">
+            <div class="sparkline13-graph">
+                <div class="datatable-dashv1-list custom-datatable-overright">
+                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                        <thead>
+                            <tr>
+                                <th>EmpCode</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var de in ViewBag.Details)
+                            {
+                                string Colour = "";
+
+                                if (de.Remarks == "Absent")
+                                {
+
+                                    Colour = "Pink";
+                                }
+                                else if (de.Remarks == "Present")
+                                {
+
+                                    Colour = "#03a9f0";
+                                }
+                                else
+                                {
+                                    Colour = "orange";
+                                }
+                                <tr>
+                                    <td>@de.EmpCode</td>
+                                    <td>@de.EmpName</td>
+                                    <td>@de.DesignationDesc</td>
+                                    <td><span><i style="color:@Colour" class="fa fa-check-circle">  @de.Remarks</i></span></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+<!-- map JS
+       ============================================ -->
+<script src="~/Assests/Home/js/data-table/bootstrap-table.js"></script>
+<script src="~/Assests/Home/js/data-table/tableExport.js"></script>
+<script src="~/Assests/Home/js/data-table/data-table-active.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="~/Assests/Home/js/data-table/colResizable-1.5.source.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-export.js"></script>

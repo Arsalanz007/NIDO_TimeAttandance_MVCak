@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b0af242859e4ad59be3701b53fb2650" Name="Diagram1">
+        <EntityTypeShape EntityType="Model_Attendance.AllownceMaster" Width="1.5" PointX="7.5" PointY="41.125" />
+        <EntityTypeShape EntityType="Model_Attendance.AttendanceLogMaster" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Model_Attendance.AttendancePooling" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model_Attendance.AttendancePosting" Width="1.5" PointX="9.75" PointY="124.875" />
+        <EntityTypeShape EntityType="Model_Attendance.CityMaster" Width="1.5" PointX="3" PointY="55.875" />
+        <EntityTypeShape EntityType="Model_Attendance.CompanyMaster" Width="1.5" PointX="5.25" PointY="63.25" />
+        <EntityTypeShape EntityType="Model_Attendance.CountryMaster" Width="1.5" PointX="0.75" PointY="54.125" />
+        <EntityTypeShape EntityType="Model_Attendance.DeductionMaster" Width="1.5" PointX="7.5" PointY="69.125" />
+        <EntityTypeShape EntityType="Model_Attendance.DepartmentMaster" Width="1.5" PointX="5.25" PointY="50.25" />
+        <EntityTypeShape EntityType="Model_Attendance.DesignationMaster" Width="1.5" PointX="5.25" PointY="70.5" />
+        <EntityTypeShape EntityType="Model_Attendance.DetailPolicy" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model_Attendance.EmailService" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model_Attendance.Emp_FullAndFinalSettlement" Width="1.5" PointX="9.75" PointY="57.625" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpEducationDetail" Width="1.5" PointX="9.75" PointY="117.5" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpExperienceDetail" Width="1.5" PointX="9.75" PointY="113.625" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpFamilyDetail" Width="1.5" PointX="9.75" PointY="121.375" />
+        <EntityTypeShape EntityType="Model_Attendance.Employee" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Model_Attendance.EmployeeType" Width="1.5" PointX="5.25" PointY="67.375" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpMaster" Width="1.5" PointX="7.5" PointY="45.25" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpScheduleDetail" Width="1.5" PointX="15" PointY="43.5" />
+        <EntityTypeShape EntityType="Model_Attendance.EmpScheduleMaster" Width="1.5" PointX="12.75" PointY="50.875" />
+        <EntityTypeShape EntityType="Model_Attendance.ErrorLogMaster" Width="1.5" PointX="12.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Model_Attendance.GazettedHoliday" Width="1.5" PointX="4.75" PointY="13.75" />
+        <EntityTypeShape EntityType="Model_Attendance.GradeMaster" Width="1.5" PointX="5.25" PointY="47.125" />
+        <EntityTypeShape EntityType="Model_Attendance.InOutType" Width="1.5" PointX="6.75" PointY="13.75" />
+        <EntityTypeShape EntityType="Model_Attendance.JobDetail" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model_Attendance.LeaveApproval" Width="1.5" PointX="12.75" PointY="58.75" />
+        <EntityTypeShape EntityType="Model_Attendance.LeaveDeduction" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Model_Attendance.LeaveMapDetail" Width="1.5" PointX="12" PointY="99.25" />
+        <EntityTypeShape EntityType="Model_Attendance.LeaveMapMaster" Width="1.5" PointX="9.75" PointY="98.625" />
+        <EntityTypeShape EntityType="Model_Attendance.LeaveSetup" Width="1.5" PointX="16.5" PointY="63.625" />
+        <EntityTypeShape EntityType="Model_Attendance.MartialStatu" Width="1.5" PointX="14.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Model_Attendance.MasterPolicy" Width="1.5" PointX="7" PointY="6" />
+        <EntityTypeShape EntityType="Model_Attendance.ShiftMaster" Width="1.5" PointX="7.5" PointY="77.25" />
+        <EntityTypeShape EntityType="Model_Attendance.ShiftScheduleGeneralDetail" Width="1.5" PointX="18.75" PointY="61.875" />
+        <EntityTypeShape EntityType="Model_Attendance.ShiftScheduleGeneralMaster" Width="1.5" PointX="10.5" PointY="44.25" />
+        <EntityTypeShape EntityType="Model_Attendance.SysPolicy" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AccountType" Width="1.5" PointX="3" PointY="60.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AdvanceDetail" Width="1.5" PointX="12" PointY="91.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedBonuses" Width="1.5" PointX="9.75" PointY="51.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedDeductions" Width="1.5" PointX="9.75" PointY="54.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedEOBI" Width="1.5" PointX="12.75" PointY="47.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedLatePolicies" Width="1.5" PointX="9.75" PointY="62.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedProvidentFund" Width="1.5" PointX="12.75" PointY="55.625" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedSecurityDeposit" Width="1.5" PointX="15.75" PointY="55.625" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllowancePosting" Width="1.5" PointX="9.75" PointY="18.25" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AssetsMaster" Width="1.5" PointX="8.75" PointY="14.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AutoEmailDetail" Width="1.5" PointX="8" PointY="10" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AutoEmailSetting" Width="1.5" PointX="10.75" PointY="14.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AutoEmailTypes" Width="1.5" PointX="5.75" PointY="10.375" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_BankMaster" Width="1.5" PointX="5.25" PointY="55.5" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_BonusMaster" Width="1.5" PointX="7.5" PointY="37.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_BonusPosting" Width="1.5" PointX="9.75" PointY="22.25" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Circular" Width="1.5" PointX="12.75" PointY="15.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_DecConCategory" Width="1.5" PointX="8.25" PointY="33.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_DeductionPosting" Width="1.5" PointX="9.75" PointY="74.25" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EmpLateDeduct" Width="1.5" PointX="14.75" PointY="15.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EmployeeStatus" Width="1.5" PointX="5.25" PointY="60.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EmpSalary_CalculationMethod" Width="1.5" PointX="2.75" PointY="6.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EOBIMaster" Width="1.5" PointX="10.5" PointY="30.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EOBIPosting" Width="1.5" PointX="12.75" PointY="31.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ExemptMaster" Width="1.5" PointX="9.75" PointY="109.375" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ExemptTypes" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_IconControl" Width="1.5" PointX="16.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_IncomeTaxMaster" Width="1.5" PointX="9.75" PointY="4" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_IncomeTaxPosting" Width="1.5" PointX="12" PointY="4.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LateAttendnaceMaster" Width="1.5" PointX="16.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LatePolicyMaster" Width="1.5" PointX="7.5" PointY="73.375" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LeaveDeduction" Width="1.5" PointX="18.75" PointY="65.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LoanDetail" Width="1.5" PointX="12" PointY="102.625" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LoanStatusMaster" Width="1.5" PointX="9.75" PointY="96" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Manager" Width="1.5" PointX="12.75" PointY="63.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ManagerLevel" Width="1.5" PointX="10.5" PointY="70.625" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Notifications" Width="1.5" PointX="16.75" PointY="11.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Organization_Heirarchy" Width="1.5" PointX="16.75" PointY="15.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Pay_Schedule" Width="1.5" PointX="2.75" PointY="2.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_PaymentStatusMaster" Width="1.5" PointX="9.75" PointY="89.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Payroll_Options" Width="1.5" PointX="5" PointY="1" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_PendingRequestDetail" Width="1.5" PointX="23.25" PointY="59.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_PendingRequestMaster" Width="1.5" PointX="21" PointY="55.25" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_PFWithdrawlDetail" Width="1.5" PointX="9.75" PointY="105.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ProvidentFundMaster" Width="1.5" PointX="10.5" PointY="65.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ProvidentFundPosting" Width="1.5" PointX="12.75" PointY="72.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Province" Width="1.5" PointX="3" PointY="52.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_ReportCategory" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Reports" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Request" Width="1.5" PointX="18.75" PointY="54" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Role" Width="1.5" PointX="13.5" PointY="68.375" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_SalaryIncrement_Posting" Width="1.5" PointX="15.75" PointY="50.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_SalaryPostingMaster" Width="1.5" PointX="9.75" PointY="36.25" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_SecurityDepositPosting" Width="1.5" PointX="15.75" PointY="47.125" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Setting" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_TaxMaster" Width="1.5" PointX="10.5" PointY="26.625" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_TaxPosting" Width="1.5" PointX="12.75" PointY="26.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_Template" Width="1.5" PointX="10" PointY="0.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_TemplateName" Width="1.5" PointX="7.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_UserRights" Width="1.5" PointX="15.75" PointY="34.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tblMenu" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="Model_Attendance.tblPolicyType" Width="1.5" PointX="4.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Model_Attendance.tblReason" Width="1.5" PointX="4.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tblUserLoginHistory" Width="1.5" PointX="6.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Model_Attendance.UserMaster" Width="1.5" PointX="15.75" PointY="58.875" />
+        <EntityTypeShape EntityType="Model_Attendance.ValueType" Width="1.5" PointX="8.25" PointY="30.25" />
+        <EntityTypeShape EntityType="Model_Attendance.WishChecker" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model_Attendance.WishTempalte" Width="1.5" PointX="18.75" PointY="5.75" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllowancePosting_AllownceMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_AttendancePosting_EmpMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_BankM__CityI__74C5C55A" />
+        <AssociationConnector Association="Model_Attendance.FK_CityMaster_CountryMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_CityMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_CompanyMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_ShiftMaster_CompanyMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_CountryMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Province_CountryMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedDeductions_deductionMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_DeductionPosting_DeductionMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Salar__Depar__7B92BE7A" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_DepartmentMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Manager_DepartmentMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Salar__Desig__5EF67FCC" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_DesignationMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__Emp_FullA__EmpId__1038D5A5" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpEducationDetail_EmpMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpExperienceDetail_EmpMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpFamilyDetail_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_EmployeeType" />
+        <AssociationConnector Association="Model_Attendance.FK__EmpMaster__BankI__5458F5C8" />
+        <AssociationConnector Association="Model_Attendance.FK__EmpMaster__EmpSt__5A27A90E" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Alloc__EmpId__3BF75C52" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Alloc__EmpId__64F971E5" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Salar__EmpId__5E025B93" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpMaster_GradeMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpScheduleMaster_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_LeaveApproval_EmpMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK_LeaveMapedMaster_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedBonuses_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedDeductions_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedLatePolicies_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedSecurityDeposit_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_ExamMaster_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Manager_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_PFWithdrawlDetial_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Request_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_SalaryPostingMaster_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_SecurityDepositPosting_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_UserMaster_EmpMaster1" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpScheduleDetail_EmpScheduleMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpScheduleMaster_EmpScheduleMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_EmpScheduleMaster_ShiftScheduleGeneralMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_LeaveApproval_LeaveApproval" />
+        <AssociationConnector Association="Model_Attendance.FK_LeaveMapDetail_LeaveMapedMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_LeaveDeduction_LeaveSetup" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Request_LeaveSetup" />
+        <AssociationConnector Association="Model_Attendance.FK_MasterPolicy_tblPolicyType" />
+        <AssociationConnector Association="Model_Attendance.FK_ShiftScheduleGeneralDetail_ShiftMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_ShiftScheduleGeneralDetail_ShiftScheduleGeneralMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_BankM__Accou__36C892E1" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AdvanceDetail_tbl_PaymentStatusMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedBonuses_BonuseMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Alloc__EOBII__3CEB808B" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedLatePolicies_tbl_LatePolicyMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Alloc__Provi__65ED961E" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AutoEmailDetail_tbl_AutoEmailTypes" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_BonusPosting_BonusMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_EOBIM__Categ__00D69684" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_ProvidentFundMaster_tbl_DecConCategory" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Payro__Salar__72294FD1" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_EOBIM__Value__01CABABD" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_EOBIPosting_EOBIMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Incom__Incom__4D76EE0F" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_LoanDetail_tbl_LoanStatusMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Manager_tbl_ManagerLevel" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_PendingRequestDetail_tbl_Manager" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Payro__Pay_S__71352B98" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_PendingRequestDetail_tbl_PendingRequestMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_PendingRequestMaster_tbl_Request" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_ProvidentFundMaster_ValueTypes" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_ProvidentFundPosting_ProvidentFundMaster" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_Repor__Categ__78614C14" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_UserRights_tbl_Role" />
+        <AssociationConnector Association="Model_Attendance.FK_UserMaster_tbl_Role" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_TaxMaster_ValueTypes" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_TaxPosting_TaxMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_Template_tbl_TemplateName" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_UserRights_tblMenu1" />
+        <AssociationConnector Association="Model_Attendance.FK_tblMenu_tblMenu" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AdvanceMaster" Width="1.5" PointX="9.75" PointY="82.125" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AdvanceMaster_EmpMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AdvanceDetail_tbl_AdvanceMaster" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_LoanMaster" Width="1.5" PointX="9.75" PointY="78.125" />
+        <AssociationConnector Association="Model_Attendance.FK__tbl_LoanM__EmpId__2C578814" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_LoanDetail_tbl_LoanMaster" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_EmpLateDetails" Width="1.5" PointX="19.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_AllocatedAllowances" Width="1.5" PointX="9.75" PointY="48.375" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedAllowances_AllownceMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedAllowances_EmpMaster" />
+        <EntityTypeShape EntityType="Model_Attendance.tbl_SecurityDepositMaster" Width="1.5" PointX="10.5" PointY="131.625" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_AllocatedSecurityDeposit_tbl_SecurityDepositMaster" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_SecurityDeposit_ValueTypes" />
+        <AssociationConnector Association="Model_Attendance.FK_tbl_SecurityDepositPosting_tbl_SecurityDepositMaster" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

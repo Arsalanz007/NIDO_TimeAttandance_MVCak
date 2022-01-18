@@ -1,0 +1,59 @@
+﻿
+
+@if (ViewBag.LeaveApprovalDetails != null)
+{
+    <div class="modal-content">
+        <div class="modal-header" align="center">
+            <h4 class="modal-title" id="modalLabel">@ViewBag.LeaveApprovalDetails[0].DepartmentDesc Department </h4>
+        </div>
+        <div class="modal-body">
+            <div class="sparkline13-graph">
+                <div class="datatable-dashv1-list custom-datatable-overright">
+                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                        <thead>
+                            <tr>
+                                <th data-field="Code" data-editable="true">Code</th>
+                                <th data-field="Name" data-editable="true">Name</th>
+                                @*<th data-field="Designation" data-editable="true">Designation</th>*@
+                                @*<th data-field="Department" data-editable="true">Department</th>*@
+                                <th data-field="Leave" data-editable="true">Leave Date</th>
+                                <th data-field="Dsc" data-editable="true">Leave Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var de in ViewBag.LeaveApprovalDetails)
+                            {
+                                string leaveDate = de.AttDate.ToString("dd-MMM-yyy");
+
+                                <tr>
+
+                                    <td>@de.EmpCode</td>
+                                    <td>@de.EmpName</td>
+                                    @*<td>@de.DesignationDesc</td>*@
+                                    @*<td>@de.DepartmentDesc</td>*@
+                                    <td>@leaveDate</td>
+                                    <td>@de.LeaveDsc</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+<!-- map JS
+    ============================================ -->
+<script src="~/Assests/Home/js/data-table/bootstrap-table.js"></script>
+<script src="~/Assests/Home/js/data-table/tableExport.js"></script>
+<script src="~/Assests/Home/js/data-table/data-table-active.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-editable.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-editable.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="~/Assests/Home/js/data-table/colResizable-1.5.source.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-export.js"></script>

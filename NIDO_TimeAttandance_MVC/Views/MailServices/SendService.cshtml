@@ -1,0 +1,270 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.EmailModelBulk
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "SendService";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link href="~/Assests/Home/css/FileUpload/css/component.css" rel="stylesheet" />
+<link href="~/Assests/Home/css/FileUpload/css/demo.css" rel="stylesheet" />
+<link href="~/Assests/Home/css/FileUpload/css/normalize.css" rel="stylesheet" />
+<style>
+    .modal-backdrop {
+        position: relative;
+    }
+
+    .note-toolbar {
+        display: none !important;
+    }
+</style>
+<div class="row"><br /></div>
+
+@using (Ajax.BeginForm("sendMail", "MailServices", new AjaxOptions { HttpMethod = "POST", LoadingElementId = "loader", OnSuccess = "OnSuccess" }, new { @class = "adminpro-form", id = "adminpro-order-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="emailsend">
+
+
+        <div class="row">
+            <div class="container-fluid">
+
+                <div class="col-lg-12">
+                    <div>
+                        <div id="composemail" class="tab-pane fade in animated zoomInDown shadow-reset custom-inbox-message active">
+                            <div class="view-mail-wrap">
+                                <div class="mail-title">
+                                    <h2>Compose Mail</h2>
+                                    <div class="view-mail-action">
+                                        <button type="submit" class="btn-info btn" id="sendMail"><i class="fa fa-mail-forward"></i> Send Email</button>
+                                        <a class="btn-danger" id="SendNotification"><i class="fa fa-hacker-news"></i> Send Notification</a>
+                                        <a class="btn-success btn" id="SendBoth"><i class="fa fa-ticket"></i> Send Both</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="compose-email-to">
+                                                    <span>To :</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div class="compose-multiple-email">
+                                                    <div id="email-list" class="multipleInput-container">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="compose-email-to compose-subject-title">
+                                                <span>CC :</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <div class="compose-multiple-email compose-subject-email">
+                                                @*@Html.TextBoxFor(model => model.Subject, new { htmlAttributes = new { @id = "email-subject" } })
+                                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
+                                                <input type="email" name="CC" class="form-control" id="email-subject" />
+                                                @*<input id="email-subject" type="text" />*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="compose-email-to compose-subject-title">
+                                                <span>Subject :</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <div class="compose-multiple-email compose-subject-email">
+                                                @*@Html.TextBoxFor(model => model.Subject, new { htmlAttributes = new { @id = "email-subject" } })
+                                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
+                                                <input type="text" name="Subject" id="email-subject" />
+                                                @*<input id="email-subject" type="text" />*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                         
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-editor-compose">
+                                    @Html.TextAreaFor(model => model.Body, new { @id = "summernote5" })
+                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                    @*<textarea id="summernote5">
+                                        </textarea>*@
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="row">
+                            
+
+                            <div class="box text-center">
+                                <input type="file" name="UploadFiles" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                                <label for="file-5"><figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" /></svg></figure> <span>Choose a file&hellip;</span></label>
+                            </div>
+
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+    <script src="~/Assests/Home/js/custom-file-input.js"></script>
+
+<script>
+    function OnSuccess(msg) {
+        if (msg.Status == 'success') {
+            SendNotif('Sending..!', msg.Message, 'success');
+        }
+        else {
+            SendNotif('Ooopss!', msg.Message, 'error');
+        }
+    }
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        //$('filepond--browser').attr("id","uploadFiles");
+           var EmailList = @Html.Raw(Json.Encode(ViewBag.EmpEmails))
+           var EmpIDsList= @Html.Raw(Json.Encode(ViewBag.EmpIDs))
+
+           $list = $('<ul/>');
+        $('#email-list').append($list);
+
+        var arr = EmailList;
+
+    var i;
+    for (i = 0; i < arr.length; ++i) {
+        $list.append($('<li class="multipleInput-email"><span>' + arr[i] + '</span></li>')
+
+        );
+        }
+
+
+
+
+        $("#SendBoth").click(function () {
+            var subjectform = $('#email-subject').val();
+            var bodyform = $('#summernote5').val();
+            var regex = /(<([^>]+)>)/ig
+                , body = bodyform
+                , bodyform = body.replace(regex, "");
+            var data = new Array();
+
+
+            $.ajax({
+
+                url: '/MailServices/SendBoth',
+                type: 'POST',
+                data: { EmpsIDs: EmpIDsList, EmailList: EmailList, subject: subjectform, body: bodyform },
+                success: function (response) {
+
+                    if (response.Status == 'success') {
+                        SendNotif('Sending Mail..!', response.Message, 'info');
+                        SendNotif("Successfully Send Notification", "", 'success');
+                    }
+                    else {
+                        SendNotif(response.Message, data.Message, 'error');
+                    }
+
+                },
+                error: function () {
+                    SendNotif("Ooopss!", data.Message, 'error');
+                }
+            })
+
+        });
+        $("#SendNotification").click(function () {
+
+            var subjectform = $('#email-subject').val();
+            var bodyform = $('#summernote5').val();
+
+            var regex = /(<([^>]+)>)/ig
+                , body = bodyform
+                , bodyform = body.replace(regex, "");
+
+            var data = new Array();
+            data = EmpIDsList;
+            $.ajax({
+
+                url: '/MailServices/SendNotification',
+                type: 'POST',
+                data: { data: data, subject: subjectform, body: bodyform },
+                success: function (response) {
+
+                    if (response.Status == 'success') {
+                        SendNotif("Successfully Send", response.Message, 'success');
+                    }
+                    else {
+                        SendNotif("Ooopp!", response.Message, 'error');
+                    }
+
+                },
+                error: function () {
+                    SendNotif("Ooopp!", "Post Request Failed", 'error');
+                }
+            })
+
+        });
+
+});
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#but_upload").click(function () {
+         
+            var fd = new FormData();
+            var files = $('#file')[0].files[0];
+            fd.append('file', files);
+
+            $.ajax({
+                url: 'upload.php',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != 0) {
+                        alert('file uploaded');
+                    }
+                    else {
+                        alert('file not uploaded');
+                    }
+                },
+            });
+        });
+    });
+</script>

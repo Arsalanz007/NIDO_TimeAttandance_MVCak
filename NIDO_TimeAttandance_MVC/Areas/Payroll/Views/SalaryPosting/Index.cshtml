@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<style>
+
+
+    .modal{
+        z-index:2000;
+    }
+</style>
+
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-graph">
+                        <form id="frm-Leave" method="POST">
+                            <hr />
+                            <div class="form-group data-custon-pick data-custom-mg data_5">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <div class="input-daterange input-group">
+                                        <span class="input-group-addon">Please select Date Range in which posting is required</span>
+                                        <input type="text" class="form-control" id="startDate" required name="start" autocomplete="off" />
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="form-control" id="endDate" required name="end" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-warning pull-right" type="button" data-toggle="modal" data-target="#modalPublish" >Publish</button>
+
+                            <hr />
+                            <div class="login-form-area mg-t-30 mg-b-15">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="tableLeave" class="cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Ecode</th>
+                                                <th>Name</th>
+                                                <th>Company</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Employee Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Employees)
+                                            {
+                                                <tr>
+                                                    <td>@item.EmpID</td>
+                                                    <td>@item.EmpCode</td>
+                                                    <td>@item.EmpName</td>
+                                                    <td>@item.CompanyName</td>
+                                                    <td>@item.DepartmentDesc</td>
+                                                    <td>@item.DesignationDesc</td>
+                                                    <td>@item.EmployeeType</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="button-drop-style-one" style="float:left">
+                                        <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                            Posting Employee(s)
+                                            <i class="adminpro-icon adminpro-avatar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPublish" role="dialog" aria-labelledby="modalLabel" tabindex="-1" style="z-index:1200" >
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <h4 class="modal-title" id="modalLabel">Publish Salary Posting</h4>
+            </div>
+            <form  method="post" id="PublishForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group data-custon-pick data-custom-mg data_5">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <div class="input-daterange input-group">
+                                        <span class="input-group-addon">Publish Salary Posting Range</span>
+                                        <input type="text" class="form-control" id="Publish_startDate" required name="start" autocomplete="off" />
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="form-control" id="Publish_endDate" required name="end" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#tableLeave').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+
+
+        });
+
+        $('#PublishForm').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+            var DateFrom = $('#Publish_startDate').val();
+            var DateTo = $('#Publish_endDate').val();
+           // var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+           
+            $(".se-pre-con").fadeIn("fast");
+            PublishFormSubmit(DateFrom, DateTo);
+            //FormSubmitPosting(arr, DateFrom, DateTo);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        // Handle form submission event
+        $('#frm-Leave').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+            var DateFrom = $('#startDate').val();
+            var DateTo = $('#endDate').val();
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            $(".se-pre-con").fadeIn("fast");
+            FormSubmitPosting(arr, DateFrom, DateTo);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        function FormSubmitPosting(arr, DateFrom, DateTo) {
+            $.ajax({
+                type: 'POST',
+                url: '/Payroll/SalaryPosting/SavePosting/',
+                data: {
+                    EmpId: arr,
+                    DateFrom: DateFrom,
+                    DateTo: DateTo,
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/Payroll/SalaryPosting/Index/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+
+        function PublishFormSubmit(DateFrom, DateTo) {
+            $.ajax({
+                type: 'POST',
+                url: '/Payroll/SalaryPosting/SalaryPostingPublish/',
+                data: {
+                    DateFrom: DateFrom,
+                    DateTo: DateTo,
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/Payroll/SalaryPosting/Index/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+</script>
+

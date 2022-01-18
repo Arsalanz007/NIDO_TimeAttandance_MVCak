@@ -1,0 +1,87 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.AdvanceReportModel>
+
+@{
+    ViewBag.Title = "GetAdvanceReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@{
+
+    //   DataTable dt = TempData["AttendaceSummaryReport"] as DataTable;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+
+<div class="data-table-area mg-b-15">
+    <div class="row"><br /></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Advance Report from @dateRange[0] to @dateRange[1]</span></h1>
+                            <h1><span class="table-project-n">Currency: @ViewBag.Currency</span></h1>
+
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+           
+                                    <thead>
+                                        <tr>
+                                            <th>Emp Code</th>
+                                            <th>Emp. Name</th>
+                                            <th>Advance Apply Date</th>
+                                            <th>Total Advance</th>
+                                            <th>Installment Month</th>
+                                            <th>Installment Amount</th>
+                                            <th>Status</th>
+                                            <th>Advance Paid</th>
+                                            <th>Advance Remaining</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+
+                                        <tr>
+                                            <td> @item.EmpCode</td>
+                                            <td>@item.EmpName</td>
+                                            @if (item.AdvanceApplyDate.HasValue)
+                                            {
+                                                <td>@item.AdvanceApplyDate.Value.ToShortDateString()</td>
+                                            }
+                                            else
+                                            {
+                                                <td>-----</td>
+                                            }
+
+                                            <td>@item.TotalAdvance</td>
+                                            <td>@item.InstallmentMonth.Value.ToShortDateString()</td>
+                                            <td>@item.InstallmentAmount</td>
+                                            <td>@item.PaymentStatusDesc</td>
+
+                                            <td>@item.TotalAdvancePaid.GetValueOrDefault()</td>
+                                            @{ var balance = item.TotalAdvance - item.TotalAdvancePaid.GetValueOrDefault();}
+                                            <td>@balance</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

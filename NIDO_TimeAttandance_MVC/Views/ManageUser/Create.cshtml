@@ -1,0 +1,154 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelManageUser
+    @using System.Web.Optimization
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@Styles.Render("~/bundles/switch_Css")
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("SaveUser", "ManageUser", new AjaxOptions { HttpMethod = "POST",OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>Create User</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Role</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.RoleID, ViewBag.Roles as IEnumerable<SelectListItem>, "Please Select Role", new { @class = "form-control m-input", required = "*" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Employee</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.Empid, ViewBag.Employee as IEnumerable<SelectListItem>, "Please Select Employee", new { @class = "chosen-select form-control Employee", required = "*", id= "Emp" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>User Name</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.UserName, new { placeholder = "Please Enter User Name", required = "*", id = "txtUserName" })
+                                        <i class="fa fa-user-md login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Super Admin</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="switch switch-sm switch-primary">
+                                        @Html.CheckBoxFor(model => model.IsSuperUser, new { name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button id="btnUpdate" type="submit" class="login-button login-button-lg">Save User</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/switch")
+
+<script>
+    $('#txtUserName').change(function () {
+        var UsrName = $('#txtUserName').val();
+        $.ajax({
+            type: 'POST',
+            url: '/ManageUser/CheckUserName',
+            data: { UserName: UsrName },
+            success: function (msg) {
+                if (msg.Status == "AlreadyExist") {
+                    SendNotif('Ooopss!', "User Name must unique , this name already exist", 'warning');
+                    $('#txtUserName').val("");
+                }
+                else {
+                    SendNotif('Congrat!', "User Name accepted", 'success');
+
+                }
+            },
+            error: function () {
+
+            }
+        })
+
+    });
+</script>
+
+<script>
+    $('#Emp').change(function () {       
+        var EmployeeID = $('#Emp').val();        
+       // alert(EmployeeID);
+        $.ajax({
+            type: 'POST',
+            url: '/ManageUser/CheckEmp',
+            data: { EmployeeID: EmployeeID },
+            success: function (msg) {
+                if (msg.Status == "AlreadyExist") {
+                    document.getElementById("Emp").selectedIndex = "0";   
+                    SendNotif('ooopss!', "This Employee has already User, select another Employee", 'warning');
+                    $('#btnUpdate').toggle();
+                   
+                }
+                else {
+
+                    SendNotif('Congrat!', "Employee Name accepted", 'success');
+                    $('#btnUpdate').show();
+                }
+            },
+            error: function () {
+
+            }
+        })
+
+    });
+</script>

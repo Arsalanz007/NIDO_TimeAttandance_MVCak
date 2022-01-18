@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<style>
+    tr.group-header {
+        cursor: pointer;
+    }
+
+    tr.group-header {
+        cursor: pointer;
+    }
+</style>
+<link href="~/assests/abc/datatables.min.css" rel="stylesheet" />
+<div class="row"><br /></div>
+<form id="frm-Pages">
+    <div class="stockprice-feed-project-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>.</h2>
+                                <div class="main-income-phara low-value-cl">
+                                    <p>Please Select Role on which you map menu</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <div class="row">
+                                        <div class="form-group data-custon-pick data-custom-mg data_5">
+                                            <div class="input-daterange input-group" id="datepicker">
+                                                <div class="input-daterange input-group">
+                                                    <span class="input-group-addon">Role</span>
+                                                    @Html.DropDownList("DropDownValue", (IEnumerable<SelectListItem>)ViewBag.Roles, "Please Select Role Name", new { @class = "form-control", required = "*", id = "RoleID" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="roleMapTable">
+
+
+      
+
+    </div>
+</form>
+
+<script type="text/javascript">
+    
+
+    $("select#RoleID").change(function () {
+        var RoleID = $(this).children("option:selected").val();
+        $("#roleMapTable").load("/RoleMap/_getMenu?RoleID=" + RoleID)
+
+
+    });
+
+
+
+</script>

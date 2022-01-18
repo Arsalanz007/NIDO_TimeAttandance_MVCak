@@ -1,0 +1,87 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Models.ModelScheduleUpdate>
+
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<!-- Static Table Start -->
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Schedule Update Detail</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th>Emp Code</th>
+                                        <th>Emp Name</th>
+                                        <th>Roaster Name</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>
+                                            Action
+                                            <div class="button-drop-style-one" style="float:right">
+                                                <button type="button" class="btn btn-custon-four btn-success primary-btn-cl" onclick="redirect('/ScheduleUpdate/Index/')">
+                                                    Add New
+                                                    <i class="adminpro-icon adminpro-avatar"></i>
+                                                </button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        DateTime start_date = Convert.ToDateTime(item.Startdate);
+                                        string StartDate = start_date.ToString("MM/dd/yyy");
+                                        DateTime end_date = Convert.ToDateTime(item.Enddate);
+                                        string EndDate = end_date.ToString("MM/dd/yyy");
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmpCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmpName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RoasterName)
+                                            </td>
+                                            <td>
+                                                @StartDate
+                                            </td>
+                                            <td>
+                                                @EndDate
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Index", new { id = item.ID }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" }) |
+                                                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Are you sure to Delete this Data......?');", @class = "btn btn-custon-four btn-danger danger-btn-cl" })*@
+                                                <input type="button" value="Delete" class="btn btn-custon-four btn-danger danger-btn-cl" onclick="ActionLinkAlert('/ScheduleUpdate/Delete',@item.ID)" />
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,384 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelShift
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    .error-message {
+        font-weight: 600;
+        font-size: 14px;
+        padding: 5px;
+        background-color: #ffecec;
+        color:red;
+        margin-bottom:2px;
+    }
+</style>
+
+@Styles.Render("~/bundles/switch_Css")
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("Update", "Shift", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.ShiftId)
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1> Shift</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Shift Discription</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.ShiftDesc, new { placeholder = "Please Shift Discription", required = "" })
+                                        <label class="error-message alert alert-danger" style="display:none">This field is required</label> <br />
+
+                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Max Time out</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.MaxTimeout, new { data_mask = "99:99", placeholder = "Please Enter MaxTime out", required = "" })
+                                        <label class="error-message alert alert-danger" style="color:red ; display:none">This field is required</label> <br />
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Shift Time In</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.TimeIn, new { data_mask = "99:99", placeholder = "Please Enter Time In", required = "" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label> <br />
+                                        @*@Html.ValidationMessageFor(model => model.TimeIn, "", new { @class = "text-danger" })*@
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Shift Time Out</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.TimeOut, new { data_mask = "99:99", placeholder = "Please Enter Time Out", required = "" })
+                                        @*@Html.ValidationMessageFor(model => model.TimeOut, "", new { @class = "text-danger" })*@
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Late After</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.ActualIn, new { data_mask = "99:99", placeholder = "Please Enter Actual In", required = "" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Early Going</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.ActualOut, new { data_mask = "99:99", placeholder = "Please Enter Actual Out", required = "" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required</label> <br />
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Company</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.CompanyID, ViewBag.Company as IEnumerable<SelectListItem>, "Please Select Company", new { @class = "form-control m-input", id = "CompanyID" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Shift Absent Time</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.AbsentTime, new { data_mask = "99:99", placeholder = "Please Enter Actual Out", required = "" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Shift Color</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="colorpicker-inner ts-forms mg-b-23">
+                                        <div class="tsbox">
+                                            <label class="label" hidden>HEX</label>
+                                            <label class="color-group" for="hex">
+                                                @Html.TextBoxFor(model => model.ShiftColor, new { type = "text", placeholder = "#ff0000", id = "hex", required = "" })
+                                                @*<input type="text" placeholder="#ff0000" id="hex">*@
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-4">
+                                    <div class="col-md-8">
+                                        <div class="switch switch-sm switch-primary">
+                                            Is Over Time Allowed
+                                            @Html.CheckBoxFor(model => model.IsOverTimeApplicable, new { id = "ISOvertime", name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-8">
+                                        <div class="switch switch-sm switch-primary">
+                                            Half Day Applicable
+                                            @Html.CheckBoxFor(model => model.IsHalfDayApplicable, new { id = "ISHalfDay", name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="col-md-8">
+                                        <div class="switch switch-sm switch-primary">
+                                            Is Night Shift
+                                            @Html.CheckBoxFor(model => model.IsNightShift, new { id = "IsNightShiftExist", name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <hr />
+                        <div class="row" id="DOvertime" style="display: @(Model.IsOverTimeApplicable ? "block" : "none"  )">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Start time</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.ShiftOverTimeStart, new { data_mask = "99:99", placeholder = "Please Enter Start Time of Over time" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>End time</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.ShiftOverTimeEnd, new { data_mask = "99:99", placeholder = "Please Enter End Time of Over time" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="DHalfDay" style="display: @(Model.IsHalfDayApplicable ? "block" : "none"  )">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Half Day Time</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.HalfDay, new { data_mask = "99:99", placeholder = "Please Enter Half Day Time" })
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label><br />
+
+                                        <span style="color:orange"> <i class="fa fa-clock-o login-user" aria-hidden="true"></i>Only 24 Hrs format 12:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" class="login-button login-button-lg" id="updateShift">Update Shift</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        AddRequiredAttr();
+
+        function AddRequiredAttr() {
+
+            let isOverTime = $('#ISOvertime').prop("checked");
+            let isHalfDay = $('#ISHalfDay').prop("checked");
+
+            if (isOverTime) {
+
+                $("#ShiftOverTimeStart").attr('required', '');
+                $("#ShiftOverTimeEnd").attr('required', '');
+
+            }
+
+            if (isHalfDay) {
+
+                $("#HalfDay").attr('required', '');
+
+            }
+
+        }
+
+
+        $('#ISOvertime').change(function () {
+            if (this.checked) {
+
+                $('#DOvertime').fadeIn('fast');
+                $("#ShiftOverTimeStart").attr('required', '');
+                $("#ShiftOverTimeEnd").attr('required', '');
+            }
+
+            else {
+                $('#DOvertime').fadeOut('fast');
+                $("#ShiftOverTimeStart").removeAttr('required', '');
+                $("#ShiftOverTimeEnd").removeAttr('required', '');
+
+            }
+
+        });
+        $('#ISHalfDay').change(function () {
+            if (this.checked) {
+
+
+                $('#DHalfDay').fadeIn('fast');
+                $("#HalfDay").attr('required', '');
+            }
+            else {
+                $('#DHalfDay').fadeOut('fast');
+                $("#HalfDay").removeAttr('required');
+            }
+
+        });
+
+        $('#IsNightShiftExist').change(function () {
+            if (this.checked)
+                $('#IsNightShift').val("true");
+            else
+                $('#IsNightShift').val('false');
+
+        });
+        $('#ISHalfDay').change(function () {
+            if (this.checked)
+                $('#txtIsHalfDay').val("true");
+            else
+                $('#txtIsHalfDay').val('false');
+
+
+
+        });
+        //$('#ISOvertime').change(function () {
+        //    if (this.checked)
+        //        $('#txtOverTime').val("true");
+        //    else
+        //        $('#txtOverTime').val('false');
+
+        //});
+
+
+        $("#updateShift").click(function () {
+
+
+            var inputs = $("#form0").find('input:required');
+
+
+            $.each(inputs, function (key, value) {
+
+                if (!$(value).val()) {
+
+                    $(value).closest('.field').find('.error-message').show()
+                }
+                else {
+                    $(value).closest('.field').find('.error-message').hide()
+
+                }
+            })
+
+
+
+        })
+
+
+
+    });
+
+</script>
+
+@Scripts.Render("~/bundles/switch")

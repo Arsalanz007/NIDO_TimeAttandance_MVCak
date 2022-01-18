@@ -1,0 +1,109 @@
+﻿@using System.Data
+@using NIDO_TimeAttandance_MVC.Utilities;
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "TeamAttendance";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@{
+    int id = int.Parse(HttpContext.Current.Session["UserId"].ToString());
+    DataTable dt = OldDB.RunStoredProc(id);
+}
+
+
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Attendance sheet of @DateTime.Now.ToString("MMM yyy")</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        @foreach (DataColumn column in dt.Columns)
+                                        {
+                                            <th>@column</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow rows in dt.Rows)
+                                    {
+                                        <tr>
+                                            @for (int i = 0; i < rows.ItemArray.Length; i++)
+                                            {
+                                                var rowD = rows[i];
+                                                string color = "";
+
+                                                if (rows[i].ToString() == "23:59:00")
+                                                {
+                                                    rowD = "Absent";
+                                                    color = "#ffa500";
+                                                }
+                                                else if (rows[i].ToString() == "23:50:00")
+                                                {
+                                                    rowD = "Late";
+                                                    color = "#ff0000";
+                                                }
+                                                else if (rows[i].ToString() == "23:55:00")
+                                                {
+                                                    rowD = "Leave";
+                                                    color = "#d60afb";
+                                                }
+                                                else if (rows[i].ToString() == "00:00:00")
+                                                {
+                                                    rowD = "Holiday";
+                                                    color = "#03a9f0";
+                                                }
+                                                else
+                                                {
+                                                    color = "#008000";
+                                                }
+                                                if (i == 0)
+                                                {
+                                                    string ImgPath = "";
+
+                                                    if (string.IsNullOrEmpty(rowD.ToString()))
+                                                    {
+                                                        ImgPath = "/Assests/Home/img/User_Circle.png";
+                                                    }
+                                                    else
+                                                    {
+                                                        ImgPath = rowD.ToString();
+                                                    }
+                                                    <td>
+                                                        <div>
+                                                            <img src="@ImgPath" width="50px" height="50px" alt="" style="border-radius:100%" />
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+
+                                                    <td><span style="color:@color"> @rowD</span></td>
+                                                }
+                                            }
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

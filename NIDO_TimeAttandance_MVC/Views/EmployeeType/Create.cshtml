@@ -1,0 +1,107 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelEmployeeType
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("SaveEmployeeType", "EmployeeType", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>Employee Type</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>EmployeeType</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" id="kids">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.EmployeeTypeDscArray, new { placeholder = "Please Enter Employee Type", required = "" })
+                                        @Html.ValidationMessageFor(model => model.EmployeeTypeDscArray, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-success" onclick="addkid()" value="Add">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" class="login-button login-button-lg">Save Employee Type</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var index = [];
+    // Array starts with 0 but the id start with 0 so push a dummy value
+    index.push(0);
+    // Push 1 at index 1 since one child element is already created
+    index.push(1)
+
+    function addkid() {
+
+        var div = document.createElement('div');
+        var id = getID();
+        // Set this attritube id so that we can access this element using Id
+        div.setAttribute("id", "Div_" + id);
+
+        div.innerHTML = '<div class="login-input-area">@Html.TextBoxFor(model => model.EmployeeTypeDscArray, new { placeholder = "Please Enter Employee Type", required = "" })<i class="fa fa-user login-user" aria-hidden="true"></i> </div>' + ' <button type="button" class="btn btn-danger" id="rem_kid()_' + id + '" onclick="remkid(' + id + ')" value="-"><i class="fa fa-cut" aria-hidden="true"></i></button>';
+        // inside of passing this parameter in remkid we pass id number
+        document.getElementById('kids').appendChild(div);
+    }
+
+    function remkid(id) {
+        // use the id arugment to get the div element using unique id set in addkid
+        try {
+            var element = document.getElementById("Div_" + id)
+            element.parentNode.removeChild(element);
+            index[id] = -1;
+            //id number is = index of the array so we set to -1 to indicate its empty
+        }
+        catch (err) {
+            alert("id: Div_" + id)
+            alert(err)
+
+        }
+    }
+    function getID() {
+        var emptyIndex = index.indexOf(-1);
+        if (emptyIndex != -1) {
+            index[emptyIndex] = emptyIndex
+
+            return emptyIndex
+        } else {
+            emptyIndex = index.length
+            index.push(emptyIndex)
+            return emptyIndex
+        }
+    }
+
+</script>

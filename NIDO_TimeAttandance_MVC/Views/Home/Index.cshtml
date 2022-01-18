@@ -1,0 +1,896 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Models.Home>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Skin CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+<style>
+    #birthdaybox:hover {
+        background-color: #bec3c9;
+        cursor: pointer;
+    }
+    #newJoningBox:hover {
+        background-color: #bec3c9;
+        cursor: pointer;
+    }
+    .joinigHeading{
+        font-family:none;
+        margin: 0 auto;
+        width:50%;
+        border:2px solid ;
+        border-radius:20px;
+    }
+    .is-slideable {
+        position: relative;
+        margin-left: -85%;
+        -webkit-transition: 0.6s margin-left;
+        transition: 0.6s margin-left;
+    }
+
+    .is-slided {
+        margin-left: 0px;
+    }
+
+    .hideable.is-hidden {
+        opacity: 0;
+        -webkit-transition: 0.2s 0s opacity;
+        transition: 0.2s 0s opacity;
+        pointer-events: none;
+    }
+
+    .hideable.is-visible {
+        opacity: 1;
+        -webkit-transition: 0.3s 0.4s opacity;
+        transition: 0.3s 0.4s opacity;
+        pointer-events: auto;
+        z-index: 1;
+    }
+</style>
+
+@{
+    var data = DataHelper.getCircular();
+    string circularTex = "  ";
+    if (data != null)
+    {
+        foreach (var item in data)
+        {
+            circularTex = item.CircularText + "  " + circularTex + " ";
+        }
+    }
+
+}
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <div class="panel-actions">
+                                   
+                
+                                </div>
+                                <h2 class="panel-title">Attendance Record as on @DateTime.Now.ToString("dd MMMM yyyy")</h2>
+                            </header>
+                            <div class="panel-body">
+                                <div class="row text-center">
+                                    @foreach (var item in ViewBag.Stats)
+                                    {
+                                        string TotalPer = (item.TotalEmployees * 100 / item.TotalEmployees).ToString();
+                                        string PresentPer = ((item.Present * 100) / item.TotalEmployees).ToString();
+                                        string AbsentPer = ((item.Absent * 100) / item.TotalEmployees).ToString();
+                                        string LatePer = ((item.Late * 100) / item.TotalEmployees).ToString();
+                                        <div class="col-md-3">
+                                            <div class="circular-bar">
+                                                <div class="circular-bar-chart" data-percent="@TotalPer" data-plugin-options='{ "barColor": "#0088CC", "delay": 300 }'>
+                                                    <strong>Employees</strong>
+                                                    <label>Total @item.TotalEmployees <br /><span class="percent">@TotalPer</span>% </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="circular-bar">
+                                                <div class="circular-bar-chart" data-percent="@PresentPer" data-plugin-options='{ "barColor": "Green", "delay": 600 }'>
+                                                    <strong>Present</strong>
+                                                    <label>Total @item.Present <br />Email<span class="percent">@PresentPer</span>%</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="circular-bar">
+                                                <div class="circular-bar-chart" data-percent="@LatePer" data-plugin-options='{ "barColor": "Red", "delay": 600 }'>
+                                                    <strong>Late</strong>
+                                                    <label>Total @item.Late <br /><span class="percent">@LatePer</span>%</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="circular-bar">
+                                                <div class="circular-bar-chart" data-percent="@AbsentPer" data-plugin-options='{ "barColor": "Orange", "delay": 600 }'>
+                                                    <strong>Absent</strong>
+                                                    <label>Total @item.Absent <br /><span class="percent">@AbsentPer</span>%</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-6 col-sm-12 col-xs-12">
+                <div class="sparkline7-list stock-price-section shadow-reset nt-mg-b-30">
+                    <div class="sparkline7-hd">
+                        <div class="main-spark7-hd">
+                            <h1>Department stats</h1>
+                            <ul class="message-list-menu">
+                                <li>
+                                    <span> &nbsp;&nbsp;&nbsp;</span> <span class="message-info" style="width:200px"></span><span class="message-info">Total</span> <span class="message-info">Present</span><span class="message-info">Absent</span><span class="message-info">Late</span>
+                                </li>
+                            </ul>
+                            <div class="sparkline7-outline-icon">
+                                <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:200px">
+                        <div class="adminpro-message-list">
+                            <ul class="message-list-menu">
+                                @{int a = 0;
+                                    string className = ""; }
+                                @foreach (var dep in ViewBag.DeparmentWise)
+                                {
+                                    a++;
+                                    if (a == 1)
+                                    { className = "message-serial message-cl-one"; }
+                                    if (a == 2)
+                                    { className = "message-serial message-cl-two"; }
+                                    if (a == 3)
+                                    { className = "message-serial message-cl-three"; }
+                                    if (a == 4)
+                                    { className = "message-serial message-cl-four"; }
+                                    if (a == 5)
+                                    { className = "message-serial message-cl-five"; }
+                                    if (a > 5)
+                                    {
+                                        {
+                                            if (dep.TotalEmployees / a == 0)
+                                            {
+                                                className = "message-serial message-cl-four";
+                                            }
+                                            else if (dep.TotalEmployees / a > 0)
+                                            {
+                                                className = "message-serial message-cl-one";
+                                            }
+                                            else
+                                            {
+                                                className = "message-serial message-cl-three";
+                                            }
+                                        }
+                                    }
+                                    <li>
+                                        @*<span class="@className">@a</span> <span class="message-info">@dep.DepartmentDesc</span><span class="message-info">@dep.TotalEmployees</span> <span class="message-info">@dep.Present</span><span class="message-info">@dep.Absent</span><span class="message-info"> @dep.Late</span><span class="message-info">@Html.ActionLink("Details", "Details", new { id = dep.DepartmentId })</span>*@
+                                        <span class="@className">@a</span> <span class="message-info" style="width:200px">@dep.DepartmentDesc</span><span class="message-info">@dep.TotalEmployees</span> <span class="message-info">@dep.Present</span><span class="message-info">@dep.Absent</span><span class="message-info"> @dep.Late</span><span class="message-info">@Html.ActionLink("Details", "Details", new { id = dep.DepartmentId }, new { onclick = string.Format("Details({0}); return false;", dep.DepartmentId) })</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="sparkline7-list stock-price-section nt-mg-b-30">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="sparkline11-list shadow-reset nt-mg-b-30">
+                                <div class="sparkline11-hd">
+                                    <div class="main-sparkline11-hd">
+                                        <h1>Employee Leave</h1>
+                                        <div class="sparkline11-outline-icon">
+                                            <span class="sparkline11-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (ViewBag.OnLeave.Count != 0)
+                                {
+                                    <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:375px">
+                                        @foreach (var ol in ViewBag.OnLeave)
+                                        {
+                                            string pic = "/Assests/Home/img/message/User_Circle.png";
+                                            if (ol.EmpImg != null)
+                                            {
+                                                pic = ol.EmpImg;
+                                            }
+                                            <div class="daily-feed-list">
+                                                <div class="daily-feed-img">
+                                                    <a href="#">
+                                                        <img src="@pic" alt="" width="30%" height="30%" />
+                                                    </a>
+                                                </div>
+                                                <div class="daily-feed-content">
+                                                    <h4><span class="feed-author">@ol.EmpName</span></h4>
+                                                    <p class="res-ds-n-t">@ol.DesignationDesc</p>
+                                                    <p class="res-ds-n-t">@ol.DepartmentDesc</p>
+                                                    <span class="feed-ago">ID- @ol.EmpCode</span>@Html.ActionLink("Details", "Details", new { id = ol.EmpID }, new { onclick = string.Format("LeaveDetails({0}); return false;", ol.EmpID) })
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:auto">
+                                        <div class="text-center">
+                                            <div class="tm-title">
+                                                <h1 class="h4 text-uppercase"> No Gazetted Holidays Found</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        @{
+                            int Total = 0;
+                            int Pending = 0;
+                            int Approved = 0;
+                            string Approved_Per = "";
+                            string Pending_Per = "";
+                            if (ViewBag.TotalRequest != null)
+                            {
+                                Total = ViewBag.TotalRequest;
+                                Pending = ViewBag.Pending;
+                                Approved = Total - Pending;
+
+                                Approved_Per = (decimal.Parse(Approved.ToString()) / decimal.Parse(Total.ToString()) * 100).ToString();
+                                Pending_Per = (decimal.Parse(Pending.ToString()) / decimal.Parse(Total.ToString()) * 100).ToString();
+                            }
+
+
+                        }
+                        <div class="col-lg-4">
+                            <div class="sparkline11-list shadow-reset nt-mg-b-30">
+                                <div class="sparkline11-hd">
+                                    <div class="main-sparkline11-hd">
+                                        <h1>Request Status</h1>
+                                        <div class="sparkline11-outline-icon">
+                                            <span class="sparkline11-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:375px">
+                                    <div class="skill-content-3">
+                                        <div class="skill">
+                                            <div class="progress">
+                                                <div class="lead-content">
+                                                    <h3>@ViewBag.TotalRequest</h3>
+                                                    <p>Total Request</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="100%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="lead-content">
+                                                    <h3>@Approved</h3>
+                                                    <p>Approved</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@Approved%" style="width: @Approved_Per%;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="lead-content">
+                                                    <h3>@ViewBag.Pending</h3>
+                                                    <p>Pending</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@ViewBag.Pending%" style="width: @Pending_Per%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div class="sparkline7-list stock-price-section shadow-reset nt-mg-b-30">
+
+                    <div class="sparkline7-hd">
+                        <div class="main-spark7-hd">
+                            <h1>New Joining</h1>
+
+                            <div class="sparkline7-outline-icon">
+                                <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline7-graph dashone-comment" style="height:100px">
+                        <div id="newJoningBox" data-toggle="modal" data-target="#modalNewJoiningDetails" class="panel-body" style="margin-top:-1%; padding:1%">
+                            <div class="adminpro-message-list">
+
+                                <img src="~/Assests/images/new.png" style="float:left; padding-right:5%; height:20%; width:20%;" />
+                                <div class="ftralert ftralert-warning">
+                                    <p style="font-size:120%;">
+                                        New Joining of @DateTime.Now.ToString("MMMM") : <span class="badge" style="background-color:red;">@ViewBag.NewEmployees.Count</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sparkline7-list stock-price-section shadow-reset nt-mg-b-30">
+
+                    <div class="sparkline7-hd">
+                        <div class="main-spark7-hd">
+                            <h1>Birthdays</h1>
+
+                            <div class="sparkline7-outline-icon">
+                                <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline7-graph dashone-comment" style="height:100px">
+                        <div id="birthdaybox" class="panel-body" style="margin-top:-1%; padding:1%">
+                            <div class="adminpro-message-list">
+
+                                <img src="~/Assests/images/birthdayLog.png" style="float:left; padding-right:5%; height:20%; width:20%;" />
+                                <div class="ftralert ftralert-warning">
+                                    <p style="font-size:120%;">
+                                        @ViewBag.EventsWeekMsg
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sparkline11-list shadow-reset nt-mg-b-30">
+                    <div class="sparkline11-hd">
+                        <div class="main-sparkline11-hd">
+                            <h1>Gazetted Holidays</h1>
+                            <div class="sparkline11-outline-icon">
+                                <span class="sparkline11-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline11-graph dashone-comment comment-scrollbar" style="height:500px">
+
+                        <div class="timeline timeline-simple mt-xlg mb-md">
+                            @foreach (var g in ViewBag.UniqueG)
+                            {
+                                string fullMonthName = new DateTime(DateTime.Now.Year, g, 1).ToString("MMMM");
+
+                                <div class="tm-body">
+                                    <div class="tm-title">
+                                        <h3 class="h5 text-uppercase"> @fullMonthName</h3>
+                                    </div>
+                                    <ol class="tm-items">
+                                        @foreach (var gd in ViewBag.Gazetted)
+                                        {
+
+                                            if (g == gd.Month_Name)
+                                            {
+                                                string HolidayDate = Convert.ToDateTime(gd.HolidayDate).ToString("dd-MMM-yyy");
+                                                <li>
+                                                    <div class="tm-box">
+                                                        <p class="text-muted mb-none">@HolidayDate</p>
+                                                        <p>
+                                                            @gd.GazettedHolidayDesc <span class="text-primary"></span>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ol>
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="modalCircular" href="#" data-toggle="modal" data-target="#InformationproModalalert"></a>
+
+<div id="InformationproModalalert" class="modal modal-adminpro-general fullwidth-popup-InformationproModal fade" role="dialog">
+    <div class="modal-dialog" style="top:20% !important;">
+
+        <div class="modal-content">
+
+            <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+            </div>
+            <div class="modal-body">
+                <h1 class="text-center">Annoucement</h1>
+                <h4>  @circularTex </h4>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<a id="modalWishMsg" href="#" data-toggle="modal" data-target="#InformationproModalalert"></a>
+
+<div id="InformationproModalalert" class="modal modal-adminpro-general fullwidth-popup-InformationproModal fade" role="dialog">
+    <div class="modal-dialog" style="top:20% !important;">
+
+        <div class="modal-content">
+
+            <div class="modal-close-area modal-close-df">
+                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+            </div>
+            <div class="modal-body">
+                <h1 class="text-center"></h1>
+                <h4>  @ViewBag.WishMsg </h4>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@{
+    var TodayEvents = ViewBag.TodayEvents;
+    var UpcomingEvents = ViewBag.UpcomingEvents;
+}
+<a id="Wishes" href="#" data-toggle="modal" data-target="#modalWishes"></a>
+
+<div id="modalWishes" class="modal modal-adminpro-general fullwidth-popup-InformationproModal fade" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal-dialog" style="top:10% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center" id="exampleModalLabel">Birthday and Work Anniversary</h3>
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+            </div>
+
+            <div class="modal-body" style="padding:20px; background-color:#f0f2f5;">
+                <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:400px; padding:0px; background-color:#f0f2f5; ">
+                    @if (TodayEvents.Count != 0)
+                    {
+                        <div style="border-radius:2%;padding:15px; background-color:white; ">
+                            <h4><b>Today's Event</b></h4>
+                            <br />
+                            @foreach (var item in TodayEvents)
+                            {
+                                if (item.isBirthday == true)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="text-center" style="width:100%; float:left;">
+                                                @if (item.EmpImg != null)
+                                                {
+                                                    <img src="@item.EmpImg" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Uploads/Logo/LoginLogo.PNG" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-10">
+                                            <p style="font-size:120%;">
+                                                <strong>@item.EmpName</strong>&nbsp;<span class="badge badge-primary">Birthday&nbsp; <i style="color:white" class="fa fa-birthday-cake"></i></span>
+                                                <span style="font-size:80%; float:right; padding-right:5%; color:#65676b">@item.Age years old</span>
+                                            </p>
+
+                                            <form class="form-inline">
+                                                <div id="1-@item.EmpID" class="form-group is-slideable">
+
+                                                    @if (!item.IsNotiBirthday)
+                                                    {
+                                                        <input id="int-1-@item.EmpID" class="form-control input-box hideable is-hidden" type="text" style="width:350px; border-radius:1%;" name="name" placeholder="Enter your name">
+                                                        <img src="~/Assests/images/Bell-icon.png" onclick="toggle(1,'@item.EmpID')" style="width:35px ;  cursor:pointer;" />
+                                                        <img id="snd-1-@item.EmpID" src="~/Assests/images/send.png" class="hideable is-hidden" onclick="SendServiceWish(1,1,'@item.EmpID')" style="width:40px ;    cursor:pointer;" />
+                                                    }
+                                                    @if (!item.IsEmailBirthday)
+                                                    {
+                                                        <img id="em-1-@item.EmpID" src="~/Assests/images/Email.png" class="hideable is-visible" onclick="SendServiceWish(1,2,'@item.EmpID')" style="width:35px ; margin-left:-40px; border-radius:15%;  cursor:pointer;" />
+                                                    }
+                                                    <br />
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                                if (item.isJob == true)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="text-center" style="width:100%; float:left;">
+                                                @if (item.EmpImg != null)
+                                                {
+                                                    <img src="@item.EmpImg" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Uploads/Logo/LoginLogo.PNG" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-10">
+                                            <p style="font-size:120%;">
+                                                <strong>@item.EmpName</strong>&nbsp;<span class="badge badge-info">&nbsp;Work&nbsp;<i style="color:white" class="fa fa-briefcase"></i></span>
+                                                <span style="font-size:80%; float:right; padding-right:5%; color:#65676b">@item.OfficeAge years old</span>
+                                            </p>
+
+                                            <form class="form-inline">
+                                                <div id="2-@item.EmpID" class="form-group is-slideable">
+
+
+                                                    @* <button style="width:20px;" class="btn btn-primary btn-lg js-toggle-state" type="button">me</button>*@
+
+                                                    <input id="int-2-@item.EmpID" class="form-control input-box hideable is-hidden" type="text" style="width:350px; border-radius:1%;" name="name" placeholder="Enter your name">
+                                                    @*<button  class="btn btn-primary btn-lg hideable is-hidden" type="button"> me</button>*@
+                                                    <img src="~/Assests/images/Bell-icon.png" onclick="toggle(2,'@item.EmpID')" style="width:35px ;  cursor:pointer;" />
+                                                    <img id="snd-2-@item.EmpID" src="~/Assests/images/send.png" class="hideable is-hidden" onclick="SendServiceWish(2,1,'@item.EmpID')" style="width:40px ;   cursor:pointer;" />
+                                                    @if (!item.IsEmailJob)
+                                                    {
+                                                        <img id="em-2-@item.EmpID" src="~/Assests/images/Email.png" class="hideable is-visible" onclick="SendServiceWish(2,2,'@item.EmpID')" style="width:35px ; margin-left:-40px; border-radius:15%;  cursor:pointer;" />
+                                                    }
+                                                    <br />
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr />}
+                            }
+
+
+
+                        </div>
+                        <br />
+                    }
+                    @if (UpcomingEvents.Count != 0)
+                    {
+                        <div style="border-radius:2%;padding:15px; background-color:white; ">
+                            <h4><b>Upcoming Event</b></h4>
+                            <br />
+                            @foreach (var item in UpcomingEvents)
+                            {
+                                if (item.IsBirthDay == 1)
+                                {
+                                    DateTime date = Convert.ToDateTime(item.DOB);
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="text-center" style="width:100%; float:left;">
+                                                @if (item.EmpImg != null)
+                                                {
+                                                    <img src="@item.EmpImg" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Uploads/Logo/LoginLogo.PNG" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-10">
+                                            <p style="font-size:115%;">
+                                                <strong>@item.EmpName</strong>
+                                                &nbsp;<span class="badge badge-primary">Birthday&nbsp; <i style="color:white" class="fa fa-birthday-cake"></i></span>
+                                                <span style="font-size:80%; float:right; padding-right:5%; color:#65676b">@item.Age years old</span>
+                                            </p>
+
+                                            <span style="font-size:140%;  padding-right:5%; color:#65676b">@date.ToString("MMMM")  @date.Day @date.Year</span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                                if (item.IsOfficeBirthDay == 1)
+                                {
+                                    DateTime date = Convert.ToDateTime(item.AppointmentDate);
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="text-center" style="width:100%; float:left;">
+                                                @if (item.EmpImg != null)
+                                                {
+                                                    <img src="@item.EmpImg" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Uploads/Logo/LoginLogo.PNG" style="width:65px;height:65px; border-radius:100%;" />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-10">
+                                            <p style="font-size:115%;">
+                                                <strong>@item.EmpName</strong>&nbsp;<span class="badge badge-info">&nbsp;Work&nbsp;<i style="color:white" class="fa fa-briefcase"></i></span>
+                                                <span style="font-size:80%; float:right; padding-right:5%; color:#65676b">@item.OfficeAge years old</span>
+                                            </p>
+
+                                            <span style="font-size:140%;  padding-right:5%; color:#65676b">@date.ToString("MMMM")  @date.Day @date.Year</span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+
+
+                            }
+
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="panel-body">
+    <div class="modal fade" id="modalNewJoiningDetails" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog modal-lg " role="document"  style="width:1200px;">
+            <div class="modal-content">
+
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <h1 class="text-center joinigHeading" >New Joining of @DateTime.Now.ToString("MMMM")</h1>
+                    <hr />
+                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+
+                        <thead style="background-color: #0088cc;color: white">
+                            <tr>
+                                <th>Emp Code</th>
+                                <th>Name</th>
+                                <th>Appointment Date</th>
+                                <th>Gender</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>City</th>
+
+                                <th>Gender</th>
+                                <th>Company</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.NewEmployees)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.EmpCode</td>
+                                    <td>@item.EmpName</td>
+                                    <td>@item.AppointmentDate</td>
+                                    <td>@item.Gender</td>
+                                    <td>@item.Designation</td>
+                                    <td>@item.DepartmentName</td>
+                                    <td>@item.CityName</td>
+                                    <td>@item.GradeDsc</td>
+                                    <td>@item.CompanyName</td>
+                                </tr>
+                            }
+
+                           
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Departmentwise Detail PopUp start -->
+<div class="panel-body">
+    <div class="modal fade" id="modalDetails" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document" id="empList">
+
+        </div>
+    </div>
+</div>
+<a id="btnmodal" data-target="#modalDetails" data-toggle="modal"></a>
+<!-- Departmentwise Detail PopUp End -->
+<!-- OnLeave Detail PopUp start -->
+<div class="panel-body">
+    <div class="modal fade" id="modalOnLeaveDetails" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document" id="OnLeavedDetail">
+
+        </div>
+    </div>
+</div>
+<a id="btnmodalLeave" data-target="#modalOnLeaveDetails" data-toggle="modal"></a>
+<!-- Departmentwise Detail PopUp End -->
+<!-- Vendor -->
+<script src="~/Assests/Dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+<script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+<!-- Specific Page Vendor -->
+<script src="~/Assests/Dashboard/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+<!-- Theme Initialization Files -->
+<script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+<!-- Examples -->
+<script>
+    function Details(id) {
+        $.ajax({
+            url: '/Home/Details',
+            datatype: "json",
+            type: 'POST',
+            contenttype: 'application/json; charset=utf-8',
+            data: { id: id },
+            dataType: 'html',
+            success: function (data) {
+                $('#empList').html(data);
+                $('#btnmodal')[0].click();
+            },
+            error: function () {
+                alert("faild");
+            }
+        })
+    }
+</script>
+
+<script>
+    function LeaveDetails(id) {
+        $.ajax({
+            url: '/LeaveApproval/Details',
+            datatype: "json",
+            type: 'POST',
+            contenttype: 'application/json; charset=utf-8',
+            data: {
+                id: id,
+                PartialViewName: "_OnLeaveDetail"
+            },
+            dataType: 'html',
+            success: function (data) {
+                $('#OnLeavedDetail').html(data);
+                $('#btnmodalLeave')[0].click();
+            },
+            error: function () {
+                alert("faild");
+            }
+        })
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        if (@DataHelper.IsNearExpire.ToString().ToLower()== true) {
+            SendNotif("License Expiry Notice!", "Dear User your license is about to expire within " +@DataHelper.DaysExpireRemaining+" days. Please contact Nedo corporation", 'warning');
+        }
+    });
+</script>
+
+<script>
+    function toggle(id, EmpId) {
+
+        $('#' + id + '-' + EmpId).toggleClass('is-slided');
+        $('#int-' + id + '-' + EmpId).toggleClass('is-hidden').toggleClass('is-visible');
+        $('#em-' + id + '-' + EmpId).toggleClass('is-hidden').toggleClass('is-visible');
+        $('#snd-' + id + '-' + EmpId).toggleClass('is-hidden').toggleClass('is-visible');
+    }
+
+    function SendServiceWish(EventType, ServiceType, EmpID) {
+           // Event Type       1=Birthday
+          //                   2=Job
+         // ServiceType       1=Notification
+        //                    2=Email
+
+        if (ServiceType == 1) {             // notification service
+            var body = '';
+            if (EventType==1)
+              body=  $('#int-1-' + EmpID + '').val();
+            else
+               body= $('#int-2-' + EmpID + '').val();
+            $.ajax({
+                url: '/MailServices/SendWishNotification',
+                datatype: "json",
+                type: 'POST',
+                contenttype: 'application/json; charset=utf-8',
+                data: {
+                    EmpID: EmpID,
+                    WishType: EventType,
+                    body: body
+                },
+
+                success: function (response) {
+
+                    if (response.Status == 400) {
+                        SendNotif('Error', response.Message, 'error');
+                    }
+                    else if (response.Status == 500) {
+                        SendNotif('error', response.Message, 'error');
+                    }
+                    else {
+
+                        SendNotif('Success', response.Message, 'success');
+                    }
+                },
+                error: function () {
+                    alert("faild");
+                }
+            })
+        }
+        if (ServiceType == 2) {     // email service
+            $.ajax({
+                url: '/MailServices/SendWishEmail',
+                datatype: "json",
+                type: 'POST',
+                contenttype: 'application/json; charset=utf-8',
+                data: {
+                    EmpID: EmpID,
+                    WishType: EventType
+                },
+
+                success: function (response) {
+
+                    if (response.Status == 400) {
+                        SendNotif('Error', response.Message, 'error');
+                    }
+                    else if (response.Status == 500) {
+                        SendNotif('error', response.Message, 'error');
+                    }
+                    else {
+
+                        SendNotif('Success', response.Message, 'success');
+                    }
+                },
+                error: function () {
+                    alert("faild");
+                }
+            })
+        }
+    }
+
+    $(document).ready(function () {
+        @if (data != null)
+        {
+            <text>
+                $('#modalCircular').click();
+            </text>
+        }
+
+        $("#birthdaybox").click(function () {
+            $('#Wishes').click();
+
+        });
+
+        @{string WishMsg = ViewBag.WishMsg;}
+        @if(!WishMsg.Contains("no"))
+        {
+              <text>
+        $('#modalWishMsg').click();
+            </text>
+        }
+
+
+   });
+
+</script>

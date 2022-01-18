@@ -1,0 +1,517 @@
+﻿@model  IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.PayrollDashModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var GrossSalary = String.Format("{0:0.00}", Model.Sum(c => c.GrossSalary));
+    var Deduction = String.Format("{0:0.00}", Model.Sum(c => c.Deduction));
+    var Tax = String.Format("{0:0.00}", Model.Sum(c => c.Tax));
+    var NetSalary = String.Format("{0:0.00}", Model.Sum(c => c.NetSalary));
+    var LoanAmount = String.Format("{0:0.00}", Model.Sum(c => c.LoanAmount));
+    var PaidLoan = String.Format("{0:0.00}", Model.Sum(c => c.PaidLoan));
+    var PfDeduction = String.Format("{0:0.00}", Model.Sum(c => c.PfDeduction));
+    var PfContribution = String.Format("{0:0.00}", Model.Sum(c => c.PfContribution));
+    var EOBIDeduction = String.Format("{0:0.00}", Model.Sum(c => c.EOBIDeduction));
+    var EOBIContribution = String.Format("{0:0.00}", Model.Sum(c => c.EOBIContribution));
+
+    var sal = Model.Where(c=>c.GrossSalary > 0).Select(c => c.GrossSalary).ToList();
+
+    int? Month = 0;
+    int? Year = 0;
+
+
+    if (Model.Count() == 0)
+    {
+        Month = DateTime.Now.Month;
+        Year = DateTime.Now.Year;
+    }
+    else
+    {
+        Month = Model.FirstOrDefault().MonthNo;
+        Year = Model.FirstOrDefault().YearNo;
+
+    }
+
+
+}
+
+<style>
+    .card-heading {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .card-border {
+        border: 2px solid;
+        border-radius: 5px;
+    }
+
+    .card-border-success {
+        border-color: #28a745;
+    }
+
+    .card-border-danger {
+        border-color: #ff0000;
+    }
+
+    .card-border-warning {
+        border-color: #f8ac59;
+    }
+
+    .card-border-primary {
+        border-color: #23c6ec;
+    }
+
+
+
+    .text-left {
+        text-align: left;
+        padding: 0px;
+    }
+
+    .text-right {
+        text-align: right;
+        padding: 0px;
+    }
+
+    .author-per-img img {
+        border-radius: 0
+    }
+
+    .income-dashone-total {
+        border-radius: 5px;
+    }
+
+    .income-title {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .income-dashone-pro {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .main-income-head {
+        color: white !important;
+    }
+</style>
+
+<div class="admin-activity-permission-area" style="margin: 15px 0;">
+    <div class="container-fluid">
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                <div class=" author-permissio-wrap widget-ov-mg-t-30 shadow-reset card-border card-border-success">
+                    <div class="row author-per-img">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-8">
+                                <h2 class="card-heading">Gross Salary</h2>
+                                <label>Rs @GrossSalary</label>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <img src="~/Assests/images/gross-salary.png" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                <div class=" author-permissio-wrap widget-ov-mg-t-30 shadow-reset card-border card-border-danger">
+                    <div class=" row author-per-img">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-8">
+                                <h2 class="card-heading">Deduction</h2>
+                                <label>Rs @Deduction</label>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <img src="~/Assests/images/deduct.png" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                <div class=" author-permissio-wrap widget-ov-mg-t-30 shadow-reset card-border card-border-warning">
+                    <div class=" row author-per-img">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-8">
+                                <h2 class="card-heading">Tax</h2>
+                                <label>Rs @Tax</label>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <img src="~/Assests/images/tax.png" alt="">
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                <div class="author-permissio-wrap widget-ov-mg-t-30 shadow-reset card-border card-border-primary">
+                    <div class="row author-per-img">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-8">
+                                <h2 class="card-heading">Net Salary</h2>
+                                <label>Rs @NetSalary</label>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <img src="~/Assests/images/netcash.png" alt="">
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="col-lg-12" style="margin-top:40px">
+    <div class="row">
+
+        <div class="col-lg-8" >
+            <div class="charts-single-pro shadow-reset nt-mg-b-30" style="border:1px solid #8593e6; border-radius:5px;">
+                <div class="alert-title">
+                    <div class="col-lg-4 col-md-3">
+                        <h1>Payroll Summary</h1>
+
+                    </div>
+                    <div class="col-lg-4 col-md-3 pull-right">
+                        <label class="pull-right">Last Salary Posted : @ViewBag.SalaryPostDate</label>
+
+                    </div>
+                  
+                </div>
+                <div id="bar4-chart">
+                    <canvas id="payRollChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title" style="        background-color: #ffcd72">
+                        <div class="main-income-head">
+                            <h2>Loan</h2>
+
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro" style="height:110px">
+                        <div class="lead-content ">
+                            <div class="col-xs-6 text-left">
+                                <h4>Given</h4>
+
+                                <h5>Rs. @LoanAmount</h5>
+
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h4>Recovered</h4>
+                                <h5>Rs. @PaidLoan</h5>
+
+                            </div>
+                        </div>
+                        <div class="analytics-adminpro4"  style="margin-top: 75px;">
+
+                            <div class="skill">
+                                <div class="progress">
+
+                                    <div class="progress-bar wow fadeInLeft" data-progress="@(ViewBag.LoanPercent) %" style="width: @(ViewBag.LoanPercent)%" data-wow-duration="1.5s" data-wow-delay="1.2s">
+
+                                        @if (ViewBag.LoanPercent > 0)
+                                        {
+                                            <span>@(ViewBag.LoanPercent) %</span>
+
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title" style="        background-color: #ff8282">
+                        <div class="main-income-head">
+                            <h2>Provident Fund</h2>
+
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro" style="height:110px">
+
+                        <div class="analytics-adminpro1">
+
+                            <div class="">
+                                <div class="">
+                                    <div class="lead-content ">
+                                        <div class="col-xs-6 text-left">
+                                            <h4>Deduct</h4>
+
+                                            <h5>Rs. @PfDeduction</h5>
+
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h4>Contribution</h4>
+                                            <h5>Rs. @PfContribution</h5>
+
+                                        </div>
+                                    </div>
+                                    @*<div class="progress-bar wow fadeInLeft" data-progress="@(ViewBag.LoanPercent) %" style="width: @(ViewBag.LoanPercent)%" data-wow-duration="1.5s" data-wow-delay="1.2s">
+
+                                            @if (ViewBag.LoanPercent > 0)
+                                            {
+                                                <span>@(ViewBag.LoanPercent) %</span>
+
+                                            }
+
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title" style="        background-color:#23c6ec">
+                        <div class="main-income-head">
+                            <h2>EOBI</h2>
+
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro" style="height:110px">
+
+                        <div class="analytics-adminpro2">
+
+                            <div class="">
+                                <div class="">
+                                    <div class="lead-content ">
+                                        <div class="col-xs-6 text-left">
+                                            <h4>Deduct</h4>
+
+                                            <h5>Rs. @EOBIDeduction</h5>
+
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h4>Contribution</h4>
+                                            <h5>Rs. @EOBIContribution</h5>
+
+                                        </div>
+                                    </div>
+                                    @*<div class="progress-bar wow fadeInLeft" data-progress="@(ViewBag.LoanPercent) %" style="width: @(ViewBag.LoanPercent)%" data-wow-duration="1.5s" data-wow-delay="1.2s">
+
+                                            @if (ViewBag.LoanPercent > 0)
+                                            {
+                                                <span>@(ViewBag.LoanPercent) %</span>
+
+                                            }
+
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="sparkline12-list shadow-reset mg-t-30">
+    <div class="sparkline12-hd">
+        <div class="main-sparkline12-hd">
+            
+                <h1>Employees Payroll Summary</h1>
+                <label style="margin-top:10px;"> Month : @(new DateTime(2000, Month.Value, 1).ToString("MMMM")) </label>
+          
+        </div>
+    </div>
+
+    <div class="sparkline13-graph">
+        <div class="datatable-dashv1-list custom-datatable-overright">
+            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Name</th>
+                        <th>Desination</th>
+                        <th>Gross Salary</th>
+                        <th>Deduction</th>
+                        <th>Tax</th>
+                        <th>Net Salary</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.EmpName</td>
+                            <td>@item.Designation</td>
+                            <td>Rs @item.GrossSalary</td>
+                            <td>Rs @item.Deduction</td>
+                            <td>Rs @item.Tax</td>
+                            <td>Rs @item.NetSalary </td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+<script src="~/Assests/Home/js/charts/Chart.js"></script>
+
+
+<script>
+
+
+    var monthList =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.MonthList));
+
+    var ctx = document.getElementById("payRollChart");
+
+    var netSalary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var deduction = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var tax       = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    //var eobi = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    //var providentFund = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+
+    $.each(monthList, function (key, value) {
+
+        netSalary[value.MonthNo - 1] = value.NetSalary
+        deduction[value.MonthNo - 1] = value.Deduction
+        tax[value.MonthNo - 1] = value.Tax
+
+    })
+
+
+    // var netSalary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+
+            @*netSalary[@Month - 1] = @NetSalary
+            deduction[@Month - 1] = @Deduction
+            tax[@Month - 1] = @Tax*@
+
+
+
+
+    var payRollChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+            label: 'Net Salary',
+              //  hidden : true,
+                data: netSalary,
+                borderWidth: 1,
+                yAxisID: "y-axis-1",
+                backgroundColor: '#FFC13B',
+                borderColor: '#FFC13B',
+            },
+                {
+                    label: 'Deduction',
+                    //  hidden : true,
+                    data: deduction,
+                    borderWidth: 1,
+                    yAxisID: "y-axis-1",
+                    backgroundColor:'#303030',
+                    borderColor: '#303030',
+                },
+                {
+                    label: 'Tax',
+                    //  hidden : true,
+                    data: tax,
+                    borderWidth: 1,
+                    yAxisID: "y-axis-1",
+                    backgroundColor: '#03a9f4',
+                    borderColor: '#03a9f4',
+                }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: "Payroll Summary of @(new DateTime(2020,Month.Value,1).ToString("MMMM")) - @(new DateTime(2020,Month.Value,1).ToString("yyyy")) "
+            },
+            legend: {
+                display: true
+            },
+
+            scales: {
+                yAxes: [{
+                    type: "linear",
+                    display: true,
+                    position: "left",
+                    id: "y-axis-1",
+                    gridLines: {
+                        drawOnChartArea: false
+                    },
+                    ticks: {
+                        min: 0,
+                        max: 1000000,
+                        stepSize: 100000,
+
+                    }
+                }],
+            }
+        }
+    });
+
+</script>
+
+@*bar chart working on bar-chart.js   // ~/Assests/Home/js/charts/bar-chart.js*@

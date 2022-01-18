@@ -1,0 +1,281 @@
+﻿@using System.Data
+@using NIDO_TimeAttandance_MVC.Utilities;
+@using System.Globalization;
+@{
+    ViewBag.Title = "LateAttendace";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<style>
+    .badge {
+        margin-top: 13px;
+        padding: 3px 8px 3px;
+        font-size: 16.025px;
+        /*font-weight: bold;*/
+        white-space: nowrap;
+        color: #ffffff;
+        background-color: #999999;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 15px;
+    }
+
+        .badge:hover {
+            color: #ffffff;
+            text-decoration: none;
+            /*cursor: pointer;*/
+        }
+
+    .badge-error {
+        background-color: #ff0000a6;
+    }
+
+    .badge.badge-outlined.badge-error {
+        border-color: #ef1c1c;
+        color: #ef1c1c
+    }
+</style>
+<div class="text-center">
+    <div class="user-prfile-activity-area mg-b-40 mg-t-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="sparkline7-list profile-online-mg-t-30 shadow-reset">
+
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Top 5 Late Attendance @DateTime.Now.ToString("MMMM")</h1>
+                                <div class="sparkline7-outline-icon">
+                                    <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline7-graph">
+                            <div class="user-profile-contact ">
+                                <ul class="profile-contact-menu">
+
+                                    @if (ViewBag.LateUsers != null)
+                                    {
+                                        foreach (var m in ViewBag.LateUsers)
+                                        {
+                                            string EmpImg = "/Assests/Home/img/message/User_Circle.png";
+                                            // string EmpImg = "/Uploads/ProfilePic/User_10/thumb_20191223_10_28468420_10214361912669007_4208059401564585984_o.jpg";
+                                            if (m.EmpImg != null)
+                                            {
+                                                EmpImg = m.EmpImg;
+                                            }
+
+                                            <li>
+                                                <a>
+                                                    <div class="row" style=" border: 1px solid #eee; padding:5px; border-radius:2px; margin-top:-10px;">
+                                                        <div class="col-lg-10">
+                                                            <img src="@EmpImg" alt="" /> <span> <strong>@m.EmpName</strong></span>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <span class="badge badge-error outlined">@m.CountLate</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="charts-single-pro shadow-reset nt-mg-b-30">
+                        <div class="alert-title">
+                            <h2>Annual Late Chart of @DateTime.Now.ToString(" yyy")</h2>
+                            <p>Annual Late Chart Stats Throughout the year </p>
+                        </div>
+                        <div id="bar1-chart">
+                            <canvas id="barchart4"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @{
+        int id = int.Parse(HttpContext.Current.Session["UserId"].ToString());
+        DataTable dt = OldDB.GetTeamYearlyLateAttendace(id, 2);
+    }
+    <div @*class="data-table-area mg-b-15"*@>
+        <div @*class="container-fluid"*@>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sparkline13-list shadow-reset">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <h1><span class="table-project-n">Attendance sheet of @DateTime.Now.ToString("MMM yyy")</span></h1>
+                                <div class="sparkline13-outline-icon">
+                                    <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <thead>
+                                        <tr>
+                                            @foreach (DataColumn column in dt.Columns)
+                                            {
+                                                <th>@column</th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (DataRow rows in dt.Rows)
+                                        {
+                                            <tr>
+                                                @for (int i = 0; i < rows.ItemArray.Length; i++)
+                                                {
+                                                    var rowD = rows[i];
+
+                                                    if (i == 0)
+                                                    {
+                                                        string ImgPath = "";
+
+                                                        if (string.IsNullOrEmpty(rowD.ToString()))
+                                                        {
+                                                            ImgPath = "/Assests/Home/img/User_Circle.png";
+                                                        }
+                                                        else
+                                                        {
+                                                            ImgPath = rowD.ToString();
+                                                        }
+                                                        <td>
+                                                            <div>
+                                                                @*<img src="@ImgPath" width="30" height="20" alt="" />*@
+
+                                                                <span> @rowD.ToString()</span>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <td><span> @rowD.ToString()</span></td>
+                                                        @*<td>
+                                                                <div class="col-lg-2">
+                                                                    <span class="badge badge-error outlined">@rowD.ToString()</span>
+                                                                </div>
+                                                            </td>*@
+                                                    }
+                                                }
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/Management/GetAnnualStats',
+            datatype: "json",
+            type: 'POST',
+            async: true,
+            contenttype: 'application/json; charset=utf-8',
+            success: function (msg) {
+                if (msg.Status == "Success") {
+
+                    var LateCount =[]
+                    var AbsentCount =[]
+                    var monthNames = []
+                    var AnnualStats = msg.Trend;
+                    console.log(AnnualStats);
+
+                    AnnualStats.forEach(function (item) {
+                        LateCount.push(item.CountLate)
+                        AbsentCount.push(item.CountAbsent)
+                        monthNames.push(getmonthName(item.month))
+                    });
+                    generateBar(LateCount, AbsentCount, monthNames);
+                }
+            },
+            error: function () {
+
+            }
+        });
+        function getmonthName(id) {
+            var month = [ 'January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'Septembor', 'October', 'Novembor', 'Decembor'];
+            return month[id];
+        }
+        function generateBar(LateCount, AbsentCount, monthNames) {
+            console.log(LateCount);
+            var ctx = document.getElementById("barchart4");
+            var barchart5 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+
+
+                    labels: monthNames,
+                    datasets: [
+                        {
+                            label: 'Late',
+                            data: LateCount,
+                            backgroundColor: 'rgba(251, 26, 0, 0.6)',
+
+
+                        },
+                        {
+                            label: 'Absent',
+                            backgroundColor: 'rgba(48, 48, 48, 0.8)',
+
+
+
+                            data: AbsentCount,
+
+                        },
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Bar Chart Stacked"
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0
+                            },
+                            ticks: {
+                                fontColor: "#000", // this here
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0
+                            },
+                            ticks: {
+                                fontColor: "#fff", // this here
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,270 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.LoanLedgerModel>
+@{
+    ViewBag.Title = "GetLoanReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    double? totalRemaningLoan = 0;
+}
+
+@{
+    var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+
+
+}
+
+@{
+
+    //   DataTable dt = TempData["AttendaceSummaryReport"] as DataTable;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+
+    <div class="stockprice-feed-project-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <h5>From here you can print out / Save in Pdf format</h5>
+                                <div class="price-adminpro-rate">
+                                    <div class="text-right mr-lg">
+                                        <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="data-table-area mg-b-15">
+    <div class="row"><br /></div>
+    <div class="container-fluid">
+    
+    </div>
+</div>
+
+<div id="printableArea">
+
+
+    <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+    </style>
+
+    @foreach (var item in Model)
+    {
+
+        {
+            totalRemaningLoan = item.TotalLoan - item.TotalLoanPaid;
+        }
+
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="invoice" id="printableArea">
+
+                    <div class="bill-info">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6 mt-md">
+                                <div class="ib" style="width:30%;height:10%">
+                                    @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                    <img src="@icon.Report" alt="okler themes" />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <h2 class="h4 mt-none mb-sm text-dark text-bold">Loan Ledger </h2>
+                                <h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+                                        <tr>
+                                            <th> Employee ID :</th>
+                                            <td> @item.EmpId</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <th>   Designation :</th>
+                                            <td> @item.DepartmentDesc</td>
+                                        </tr>
+                                        <tr>
+                                            <th> 	Loan Start Date :  </th>
+                                            <td>  @item.LoanStartDate.Value.ToShortDateString()  </td>
+                                        </tr>     
+                                        <tr>
+                                            <th> 	Loan Apply Date :  </th> 
+                                            @if(item.LoanApplyDate!=null){
+                                                <td>@item.LoanApplyDate</td>
+                                            }
+                                            else{
+                                                <td>----</td>
+                                            }                   
+                                        <td>  @item.LoanApplyDate.Value.ToShortDateString()  </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Currency</th>
+                                            <td>@ViewBag.Currency</td>
+                                        </tr>
+                                        @*<tr>
+                                    <th> Pay Date :</th>
+                                    <td>  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.MonthNo)</td>
+                                </tr>*@
+                                        @*<tr>
+                                    <th>Basic Salary :</th>
+                                    <td>
+                                        @if (item.EmployeeTypeId == 8)
+                                        {
+                                            item.BasicSalary = item.PerDaySalary * item.TotalDays;
+                                        }
+                                        @item.BasicSalary
+
+                                    </td>
+                                </tr>*@
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+                                        <tr>
+                                            <th> Employee Name :</th>
+                                            <td>@item.EmpName</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Total Loan :</th>
+                                            <td> @item.TotalLoan</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th> 	Loan End Date : </th>
+                                            <td> @item.LoanMaturityDate.Value.ToShortDateString()  </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <br />
+
+                @*@{
+            double? TotalEarning = 0;
+
+            item.OTAmount = (Int32)(item.OTAmount == null ? 0 : item.OTAmount);
+            item.LeaveAmount = (Int32)(item.LeaveAmount == null ? 0 : item.LeaveAmount);
+            item.HolidayOTAmount = (Int32)(item.HolidayOTAmount == null ? 0 : item.HolidayOTAmount);
+
+            item.AbsentAmount = (Int32)(item.AbsentAmount == null ? 0 : item.AbsentAmount);
+            item.HalfDayAmount = (Int32)(item.HalfDayAmount == null ? 0 : item.HalfDayAmount);
+            item.LateAmount = (Int32)(item.LateAmount == null ? 0 : item.LateAmount);
+            item.LoanAmount = (Int32)(item.LoanAmount == null ? 0 : item.LoanAmount);
+            item.AdvanceAmount = (Int32)(item.AdvanceAmount == null ? 0 : item.AdvanceAmount);
+
+            //item.TotalOT = item.TotalOT == null ? 0 : item.TotalOT;
+            item.TotalAbsent = item.TotalAbsent == null ? 0 : item.TotalAbsent;
+            item.TotalLeave = item.TotalLeave == null ? 0 : item.TotalLeave;
+            item.TotalLate = item.TotalLate == null ? 0 : item.TotalLate;
+            item.TotalHalfDay = item.TotalHalfDay == null ? 0 : item.TotalHalfDay;
+            IList<PaySlipAllowanceModel> pam = item.Allowances;
+            IList<PaySlipDeductionModel> pdm = item.Deductions;
+            IList<PaySlipEOBIModel> peoid = item.EOBI;
+            IList<PaySlipProvidentFundModel> ppf = item.ProvidentFund;
+
+
+
+            TotalEarning = item.OTAmount + item.LeaveAmount + item.HolidayOTAmount + pam.Sum(x => x.AllowanceAmount);
+            double? TotalDeduction = 0;
+            TotalDeduction = item.AbsentAmount + item.HalfDayAmount + item.LateAmount + item.LoanAmount + pdm.Sum(x => x.DeductionAmount) + peoid.Sum(c => c.EOBIAmount) + ppf.Sum(c => c.ProvidentFundAmount);
+            double? OverAlltotal = item.BasicSalary + (TotalEarning - TotalDeduction);
+        }*@
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr></tr>
+                            <tr class="text-dark">
+                                <th id="Date" class="text-center text-semibold">Installment Month</th>
+
+                                <th id="TimeOut" class="text-center text-semibold">Installment Date</th>
+                                <th id="Working" class="text-center text-semibold">Amount</th>
+                                <th id="Short" class="text-center text-semibold">Status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var detail in item.LoanDetails)
+                            {
+                                <tr>
+                                    <td class="text-center">@detail.InstallmentMonth.ToString("MMMM")</td>
+                                    <td class="text-center">@detail.InstallmentDate.Value.ToShortDateString()</td>
+                                    <td class="text-center">@String.Format("{0:0.00}", detail.Amount)</td>
+                                    <td class="text-center">@detail.PaymentStatusDesc</td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;" class="text-center">Total Paid Loan</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;" class="text-center"> @String.Format("{0:0.00}", item.TotalLoanPaid)</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;" class="text-center">Total Remaining Loan</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;" class="text-center">@String.Format("{0:0.00}", totalRemaningLoan)</td>
+                            </tr>
+
+
+
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+                Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+
+            </div>
+
+        </section>
+        <div class="pagebreak"></div>
+    }
+</div>
+
+    <script>
+        function printDiv(divName) {
+                    var printContents = document.getElementById(divName).innerHTML;
+                    //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+                    var originalContents = document.body.innerHTML;
+                    document.body.innerHTML = printContents;
+                    //document.body.innerHTML = html;
+                    window.print();
+                    document.body.innerHTML = originalContents;
+                }
+
+</script>

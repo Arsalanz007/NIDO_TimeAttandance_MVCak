@@ -1,0 +1,99 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.EmpEducationDetail>
+
+<table id="tblEducation">
+    <thead>
+        <tr>
+            <th>Degree</th>
+            <th>Institute</th>
+            <th>GPA/Grade</th>
+            <th>Year</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.Education != null)
+        {
+            foreach (var item in ViewBag.Education)
+            {
+                <tr>
+                    <td>@item.Degree</td>
+                    <td>@item.Institute</td>
+                    <td>@item.GradeOrGPA</td>
+                    <td>@item.Year</td>
+                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="Remove(this)" /></td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>            
+            <td><input type="text" class="form-control" id="txtDegree" /></td>
+            <td><input type="text" class="form-control" id="txtInstitute" /></td>
+            <td><input type="text" class="form-control" id="txtGPA" /></td>
+            <td><input type="text" class="form-control" id="txtYear" /></td>
+            <td><input type="button" id="btnAdd" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+    $("#btnAdd").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtDegree = $("#txtDegree");
+        var txtInstitute = $("#txtInstitute");
+        var txtGPA = $("#txtGPA");
+        var txtYear = $("#txtYear");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblEducation > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtDegree.val());
+
+        //Add txtInstitute cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtInstitute.val());
+
+
+        //Add txtGPA cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtGPA.val());
+
+        //Add txtYear cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtYear.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input  />");
+        btnRemove.attr("type", "button");
+        btnRemove.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtDegree.val("");
+        txtInstitute.val("");
+        txtGPA.val("");
+        txtYear.val("");
+    });
+
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblEducation")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>

@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html class="fixed">
+<head>
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+    }
+    <!-- Basic -->
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Nedo | Attandance System</title>
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="public">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon  ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="@icon.Title">
+
+
+
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Web Fonts  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/owl-carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/owl-carousel/owl.theme.css" />
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme-custom.css">
+    <!-- Head Libs -->
+    <script src="~/Assests/Dashboard/assets/vendor/modernizr/modernizr.js"></script>
+
+</head>
+<body>
+    <section class="body">
+        @RenderBody()
+    </section>
+
+    <!-- Vendor -->
+    <script src="~/Assests/Dashboard/assets/vendor/jquery/jquery.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    
+    <!-- Specific Page Vendor -->
+    <script src="~/Assests/Dashboard/assets/vendor/owl-carousel/owl.carousel.js"></script>
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+    <!-- Theme Custom -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.custom.js"></script>
+    <!-- Theme Initialization Files -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+
+</body>
+</html>

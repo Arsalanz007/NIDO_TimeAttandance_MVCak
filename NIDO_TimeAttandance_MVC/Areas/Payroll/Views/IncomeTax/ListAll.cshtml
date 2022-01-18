@@ -1,0 +1,80 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.IncomeTaxModel>
+
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+
+                            <h1><span class="table-project-n">Income Tax</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th>Serial No</th>
+
+                                        <th>Salary Start</th>
+                                        <th>Salary End</th>
+                                        <th>Percentage</th>
+                                        <th>Extra Amount</th>
+                                        
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                                    {
+                                    <tr>
+                                        <td>
+                                            @item.Index
+                                        </td>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Data.SalaryStartSlab)
+                                        </td>
+                                        <td>
+                                           
+                                            @(item.Data.SalaryEndSlab.HasValue ? item.Data.SalaryEndSlab.ToString() : "Onwards")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Data.Percentage)
+                                        </td>
+                                        <td>
+                                            
+
+                                            @Html.DisplayFor(modelItem => item.Data.ExtraTaxAmount)
+                                        </td>
+                                        
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Data.IncomeTaxId }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })
+                                        </td>
+                                    </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

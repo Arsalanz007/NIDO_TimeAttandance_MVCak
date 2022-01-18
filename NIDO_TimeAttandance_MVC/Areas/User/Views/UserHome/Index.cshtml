@@ -1,0 +1,545 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+<link href="~/Assests/TodayCalender.css" rel="stylesheet" />
+@foreach (var item in ViewBag.BasicInfo)
+{
+    <div class="user-profile-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="user-profile-wrap shadow-reset">
+                        <div class="row">
+                            @{
+                                int TotalDaysPer = 0;
+                                int TotalPresentPer = 0;
+                                int TotallatePer = 0;
+                                int TotalAbsentPer = 0;
+                                if (item.Workingdays > 0)
+                                {
+                                    TotalDaysPer = ((item.Workingdays * 100) / item.Workingdays);
+                                    TotalPresentPer = ((item.No_of_Present * 100) / item.Workingdays);
+                                    TotallatePer = ((item.No_Of_Late * 100) / item.Workingdays);
+                                    TotalAbsentPer = ((item.No_Of_Absent * 100) / item.Workingdays);
+                                }
+
+                                string TotalDaysPercent = TotalDaysPer.ToString() + "%";
+                                string TotalPresentPercent = TotalPresentPer.ToString() + "%";
+                                string TotalLatePercent = TotallatePer.ToString() + "%";
+                                string TotalAbsentPercent = TotalAbsentPer.ToString() + "%";
+                            }
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="skill-content-3 analytics-adminpro col-md-6">
+                                        <div class="skill">
+                                            <div class="progress">
+                                                <div class="lead-content">
+                                                    <h3><span class="counter" style="color:#23c6ec">@item.Workingdays</span></h3>
+                                                    <p>Total Days</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@TotalDaysPercent" style="width: @TotalDaysPercent;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                                    @*<span>@TotalDaysPercent</span>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-content-3 analytics-adminpro analytics-adminpro3 col-md-6">
+                                        <div class="skill">
+                                            <div class="progress progress-bt">
+                                                <div class="lead-content">
+                                                    <h3><span class="counter" style="color:#2bcdc0">@item.No_of_Present</span></h3>
+                                                    <p>Total Present</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@TotalPresentPercent" style="width: @TotalPresentPercent;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                                    @*<span>@TotalPresentPercent</span>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="skill-content-3 analytics-adminpro analytics-adminpro4 col-md-6">
+                                        <div class="skill">
+                                            <div class="progress">
+                                                <div class="lead-content">
+                                                    <h3><span class="counter" style="color:#f8ac59"> @item.No_Of_Absent</span></h3>
+                                                    <p>Total Absent</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@TotalAbsentPercent" style="width: @TotalAbsentPercent;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-content-3 analytics-adminpro analytics-adminpro2">
+                                        <div class="skill">
+                                            <div class="progress progress-bt">
+                                                <div class="lead-content">
+                                                    <h3><span class="counter" style="color:red">@item.No_Of_Late</span></h3>
+                                                    <p>Total Late</p>
+                                                </div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="@TotalLatePercent" style="width: @TotalLatePercent;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                                    @*<span>@TotalAbsentPercent</span>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--fsdfsd-->
+                            <div class="container1">
+                                <div class="card">
+                                    <div class="front">
+                                        <div class="contentfront">
+                                            <div class="month">
+                                                <table>
+                                                    <tr class="orangeTr">
+                                                        <th>M</th>
+                                                        <th>T</th>
+                                                        <th>W</th>
+                                                        <th>T</th>
+                                                        <th>F</th>
+                                                        <th>S</th>
+                                                        <th>S</th>
+                                                    </tr>
+                                                    <tr class="whiteTr">
+                                                        <th></th>
+                                                        <th>1</th>
+                                                        <th>2</th>
+                                                        <th>3</th>
+                                                        <th>4</th>
+                                                        <th>5</th>
+                                                        <th>6</th>
+                                                    </tr>
+                                                    <tr class="whiteTr">
+                                                        <th>7</th>
+                                                        <th>8</th>
+                                                        <th>9</th>
+                                                        <th>10</th>
+                                                        <th>11</th>
+                                                        <th>12</th>
+                                                        <th>13</th>
+                                                    </tr>
+                                                    <tr class="whiteTr">
+                                                        <th>14</th>
+                                                        <th>15</th>
+                                                        <th>16</th>
+                                                        <th>17</th>
+                                                        <th>18</th>
+                                                        <th>19</th>
+                                                        <th>20</th>
+                                                    </tr>
+                                                    <tr class="whiteTr">
+                                                        <th>21</th>
+                                                        <th>22</th>
+                                                        <th>23</th>
+                                                        <th>24</th>
+                                                        <th>25</th>
+                                                        <th>26</th>
+                                                        <th>27</th>
+                                                    </tr>
+                                                    <tr class="whiteTr">
+                                                        <th>28</th>
+                                                        <th>29</th>
+                                                        <th>30</th>
+                                                        <th>31</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="date">
+                                                <div class="datecont">
+                                                    <div id="date"></div>
+                                                    <div id="day"></div>
+                                                    <div id="month"></div>
+                                                    <i class="fa fa-pencil edit" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="back">
+
+                                        </div>*@
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Shift Detail</h1>
+                            </div>
+                        </div>
+                        <div id="calendar"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Leave status</h1>
+                            </div>
+                        </div>
+
+                        @foreach (var d in ViewBag.LeaveData)
+                        {
+                            string availPer = "";
+                            string BalancePer = "";
+                            if (d.AvailLeave > 0)
+                            {
+                                var totalLeave = decimal.Parse(d.TotalLeave.ToString());
+                                if(totalLeave <=0)
+                                {
+                                    totalLeave = 1;
+                                }
+                                //availPer = String.Format("{0:0.00}", decimal.Parse(d.AvailLeave.ToString()) / decimal.Parse(d.TotalLeave.ToString()) * 100);
+                                //BalancePer = String.Format("{0:0.00}", decimal.Parse(d.Balance.ToString()) / decimal.Parse(d.TotalLeave.ToString()) * 100);
+                                  availPer = String.Format("{0:0.00}", decimal.Parse(d.AvailLeave.ToString()) /totalLeave * 100);
+                                BalancePer = String.Format("{0:0.00}", decimal.Parse(d.Balance.ToString()) / totalLeave * 100);
+                            }
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="single-skill widget-ov-mg-t-30 widget-ov-mg-t-n-30 shadow-reset">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular">
+                                                    <input type="text" class="knob" value="0" data-rel="100" data-linecap="round" data-width="90" data-bgcolor="#999" data-fgcolor="#039cfd" data-thickness=".10" data-readonly="true" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular3">
+                                                    <h2>@d.TotalLeave</h2>
+                                                    <p>Total Allowed Leave</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="row">
+                                <div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="single-skill shadow-reset">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular">
+                                                    <input type="text" class="knob" value="0" data-rel="@availPer" data-linecap="round" data-width="90" data-bgcolor="#999" data-fgcolor="#7266ba" data-thickness=".10" data-readonly="true" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular1">
+                                                    <h2>@d.AvailLeave</h2>
+                                                    <p>Awailed Leave</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="single-skill widget-ov-mg-t-30 widget-ov-mg-t-n-30 shadow-reset">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular">
+                                                    <input type="text" class="knob" value="0" data-rel="@BalancePer" data-linecap="round" data-width="90" data-bgcolor="#999" data-fgcolor="#f1b53d" data-thickness=".10" data-readonly="true" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="progress-circular4">
+                                                    <h2>@d.Balance</h2>
+                                                    <p>Balance Leave</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                            <div class="sparkline11-list shadow-reset nt-mg-b-30">
+                                <div class="sparkline7-hd">
+
+                                    <div class="main-spark7-hd">
+                                        <h1>Missing Attendance       <a href="/User/Attendance/Manual/" class="btn btn-custon-four btn-default warning-btn-cl" style="float:right ;padding:10px">Send Request</a>  </h1>
+                                    </div>
+                                </div>
+                                <div class="sparkline11-graph dashone-comment comment-scrollbar">
+                                    <div class="panel-body">
+                                        <div class="timeline timeline-simple mt-xlg mb-md">
+                                            @foreach (var g in ViewBag.UniqueColoumn)
+                            {
+
+                                                <div class="tm-body">
+                                                    <div class="tm-title">
+                                                        <h3 class="h5 text-uppercase">@g </h3>
+                                                    </div>
+                                                    <ol class="tm-items">
+                                                        @foreach (var gd in ViewBag.MissingEntries)
+                            {
+                                string att = gd.AttDate.ToString("dd MMM yyy");
+                                if (g == gd.Remarks)
+                                {
+                                                                <li>
+                                                                    <div class="tm-box">
+                                                                        <p class="text-muted mb-none">@att</p>
+                                                                        <p>
+                                                                            @gd.AttDay <span class="text-primary"></span>
+                                                                        </p>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ol>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if (TempData["wish"] != null)
+                        {
+
+    <div id="modalBirthDayWishes" class="modal modal-adminpro-general fullwidth-popup-InformationproModal fade" role="dialog">
+        <div class="modal-dialog modal-lg" style="top:10% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">Birthday and Work Anniversary</h3>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+
+                <div class="modal-body" style="padding:20px; background-color:#f0f2f5;">
+
+
+
+                    <div class="sparkline7-graph dashone-comment comment-scrollbar" style="height:400px; padding:0px; background-color:#f0f2f5; ">
+                    
+                        <div style="border-radius:2%;padding:15px; background-color:white; ">
+                            @*<h4><b>Today's Event</b></h4>*@
+                            <br>
+
+                            <h2 class="title">Hello </h2>
+
+                            <h5 class="title"> @TempData["wish"]</h5>
+
+                        </div>
+
+
+                    </div>
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+<input id="checkin" hidden="hidden" value="@ViewBag.CheckInTime" />
+
+<script src="~/Assests/Dashboard/assets/vendor/fullcalendar/lib/moment.min.js"></script>
+<script src="~/Assests/Dashboard/assets/vendor/fullcalendar/fullcalendar.js"></script>
+
+<script>
+    (function ($) {
+        'use strict';
+
+        var initCalendar = function () {
+            var events = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/User/UserHome/GetRoastersByID",
+                'Cache-Control': 'max-age=1000',
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Remarks,
+                            description: v.EmpId,
+                            start: moment(v.AttDate),
+                            end: v.AttDate != null ? moment(v.AttDate) : null,
+                            color: v.BarColor,
+                            allDay: true,
+
+                        });
+                    })
+                    GenerateCalander(events);
+                },
+                error: function (error) {
+
+                }
+            });
+
+            function GenerateCalander(events) {
+                var $calendar = $('#calendar');
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                $calendar.fullCalendar({
+                    header: {
+                        left: 'title',
+                        right: 'prev,today,next,basicDay,basicWeek,month'
+                    },
+                    timeFormat: '',
+
+                    titleFormat: {
+                        month: 'MMMM YYYY',      // September 2009
+                        week: "MMM d YYYY",      // Sep 13 2009
+                        day: 'dddd, MMM d, YYYY' // Tuesday, Sep 8, 2009
+                    },
+
+                    themeButtonIcons: {
+                        prev: 'fa fa-caret-left',
+                        next: 'fa fa-caret-right',
+                    },
+
+                    editable: false,
+                    droppable: true, // this allows things to be dropped onto the calendar !!!
+                    drop: function (date, allDay) { // this function is called when something is dropped
+
+                        var $externalEvent = $(this);
+                        // retrieve the dropped element's stored Event Object
+                        var originalEventObject = $externalEvent.data('eventObject');
+                        // we need to copy it, so that multiple events don't have a reference to the same object
+                        var copiedEventObject = $.extend({}, originalEventObject);
+
+                        // assign it the date that was reported
+                        copiedEventObject.start = date;
+                        copiedEventObject.allDay = allDay;
+                        copiedEventObject.className = $externalEvent.attr('data-event-class');
+                        // render the event on the calendar
+                        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#RemoveAfterDrop').is(':checked')) {
+                            // if so, remove the element from the "Draggable Events" list
+                            $(this).remove();
+                        }
+
+                    },
+                    events: events,
+                });
+
+                // FIX INPUTS TO BOOTSTRAP VERSIONS
+                var $calendarButtons = $calendar.find('.fc-header-right > span');
+                $calendarButtons
+                    .filter('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mt-sm mr-md mb-sm ml-sm"></div>')
+                    .parent()
+                    .after('<br class="hidden" />');
+
+                $calendarButtons
+                    .not('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mb-sm mt-sm"></div>');
+
+                $calendarButtons
+                    .attr({ 'class': 'btn btn-sm btn-default' });
+            }
+        };
+
+        $(function () {
+            initCalendar();
+        });
+
+    }).apply(this, [jQuery]);
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        startTime();
+
+        if ($("#modalBirthDayWishes").length > 0) {
+
+
+            $("#modalBirthDayWishes").modal('show');
+        }
+
+
+    })
+    let cardElement = document.querySelector(".card");
+    cardElement.addEventListener("click", flip);
+    function flip() {
+        cardElement.classList.toggle("flipped")
+    }
+    function startTime() {
+        var weekday = new Array();
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+        var month = new Array();
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var d = today.getDate();
+        var y = today.getFullYear();
+        var wd = weekday[today.getDay()];
+        var mt = month[today.getMonth()];
+        var Check = document.getElementById("checkin").value;;
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('date').innerHTML =
+            d;
+        document.getElementById('day').innerHTML =
+            wd;
+        document.getElementById('month').innerHTML =
+            mt + "/" + y + " <br/>Check In " + Check;
+
+        var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) { i = "0" + i };
+        return i;
+    }
+
+</script>

@@ -1,0 +1,116 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.User.Models.ImportExcelResult
+@{
+    ViewBag.Title = "SaveExcelAttendanceData";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+
+                        @*@if (ViewBag.Error != null)
+                        {
+                            <span class="alert alert-danger">@ViewBag.Error</span>
+                        }
+
+                        else*@
+                        {
+                            <div class="income-rate-total">
+
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+
+
+                                    <thead>
+                                        <tr>
+                                            <th> Total Rows</th>
+                                            <th> Accept Employee</th>
+                                            <th> Rejected Employee</th>
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@Model.TotalEmpCount</td>
+                                            <td>@Model.AcceptEmpCount</td>
+                                            <td>@Model.RejectEmpCount</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h2 style="font-family:none ; margin-top:10px;">Rejected Employee Leaves Info</h2>
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+
+
+                                    <thead>
+                                        <tr>
+
+                                            <th>Emp Code</th>
+                                            <th>Joining Date</th>
+                                            <th>Confirmation Date</th>
+                                            <th>Leave Start Date</th>
+                                            <th>Sick</th>
+                                            <th>Casual</th>
+                                            <th>Annual</th>
+                                            <th>Reason</th>
+
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.RejectEmpCount == 0)
+                                        {
+                                            <tr> <td colspan="4"> No Employee Rejected</td></tr>
+                                        }
+                                        @foreach (var item in Model.RejectEmpLeaveList)
+                                        {
+                                    <tr>
+                                        <td>@item.Key.EmpCode</td>
+
+                                        <td>@item.Key.JoiningDate</td>
+
+                                        <td>@item.Key.ConfirmationDate</td>
+                                        <td>@item.Key.LeaveStartDate</td>
+                                        <td>@item.Key.Sick</td>
+                                        <td>@item.Key.Casual</td>
+                                        <td>@item.Key.Annual</td>
+                                        <td class="red">@item.Value</td>
+
+
+                                    </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

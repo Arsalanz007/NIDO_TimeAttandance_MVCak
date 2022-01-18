@@ -1,0 +1,105 @@
+﻿
+@model IEnumerable<NIDO_TimeAttandance_MVC.EmpExperienceDetail>
+<table id="tblExperince">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>CompanyName</th>
+            <th>FromTime</th>
+            <th>ToTime</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (ViewBag.Experince != null)
+        {
+            foreach (var item in ViewBag.Experince)
+            {
+                <tr>
+                    <td>@item.Position</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.FromTime</td>
+                    <td>@item.ToTime</td>
+                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="Remove1(this)" /></td>
+                </tr>
+            }
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><input type="text" class="form-control" id="txtPosition" /></td>
+            <td><input type="text" class="form-control" id="txtCompanyName" /></td>
+            <td class="form-group data-custon-pick data_1"><input type="text" class="form-control input-group date input-group-addon" id="txtFromTime" /></td>
+            <td class="form-group data-custon-pick data_1"><input type="text" class="form-control input-group date input-group-addon" id="txtToTime" /></td>
+            <td><input type="button" id="btnAdd1" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- datapicker JS
+      ============================================ -->
+<script src="~/Assests/Home/js/datapicker/bootstrap-datepicker.js"></script>
+<script src="~/Assests/Home/js/datapicker/datepicker-active.js"></script>
+<script type="text/javascript">
+    $("#btnAdd1").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtPosition = $("#txtPosition");
+        var txtCompanyName = $("#txtCompanyName");
+        var txtFromTime = $("#txtFromTime");
+        var txtToTime = $("#txtToTime");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblExperince > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtPosition.val());
+
+        //Add txtCompanyName cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtCompanyName.val());
+
+
+        //Add txtFromTime cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtFromTime.val());
+
+        //Add txtToTime cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtToTime.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove1 = $("<input  />");
+        btnRemove1.attr("type", "button");
+        btnRemove1.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove1.attr("onclick", "Remove1(this);");
+        btnRemove1.val("Remove");
+        cell.append(btnRemove1);
+
+        //Clear the TextBoxes.
+        txtPosition.val("");
+        txtCompanyName.val("");
+        txtFromTime.val("");
+        txtToTime.val("");
+    });
+
+    function Remove1(button1) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button1).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblExperince")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>

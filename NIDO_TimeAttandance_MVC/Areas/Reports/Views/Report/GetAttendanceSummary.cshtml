@@ -1,0 +1,110 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewBag.Title = "GetAttendanceSummary";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+@{
+
+    //   DataTable dt = TempData["AttendaceSummaryReport"] as DataTable;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+<script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+        });
+
+
+
+</script>
+<div class="container-fluid">
+    <div class="row"><br /></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="sparkline13-list shadow-reset">
+                <div class="sparkline13-hd">
+                    <div class="main-sparkline13-hd">
+                        <h1><span class="table-project-n">Attendance sheet from @dateRange[0] to @dateRange[1]</span></h1>
+                        <div class="sparkline13-outline-icon">
+                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                            <span><i class="fa fa-wrench"></i></span>
+                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sparkline13-graph">
+                    <div class="datatable-dashv1-list custom-datatable-overright">
+                        @if (Model != null)
+                        {
+                            <table id="table" data-toggle="table" data-pagination="true" data-export-title="Attendance Summary Report"  data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        @foreach (DataColumn column in Model.Columns)
+                                        {
+                                            <th>@column</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow rows in Model.Rows)
+                                    {
+                                        <tr>
+                                            @for (int i = 0; i < rows.ItemArray.Length; i++)
+                                            {
+                                                var rowD = rows[i];
+
+                                                if (i == 0)
+                                                {
+                                                    string ImgPath = "";
+
+                                                    if (string.IsNullOrEmpty(rowD.ToString()))
+                                                    {
+                                                        ImgPath = "/Assests/Home/img/User_Circle.png";
+                                                    }
+                                                    else
+                                                    {
+                                                        ImgPath = rowD.ToString();
+                                                    }
+                                                    <td>
+
+
+
+                                                        <div style="width:50px;">
+                                                            <img src="@ImgPath" width="70%" height="70%" alt="" style="border-radius:50%;" />
+                                                        </div>
+
+
+                                                    </td>
+                                                }
+                                                else
+                                                {
+
+                                                    <td><span> @rowD.ToString()</span></td>
+                                                    @*<td>
+                                                            <div class="col-lg-2">
+                                                                <span class="badge badge-error outlined">@rowD.ToString()</span>
+                                                            </div>
+                                                        </td>*@
+                                                }
+                                            }
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <div class="row"><br /></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

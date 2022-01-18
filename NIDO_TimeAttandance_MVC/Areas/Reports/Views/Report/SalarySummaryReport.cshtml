@@ -1,0 +1,216 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.PaySlipModel>
+@using System.Globalization
+@using System;
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models;
+
+@{
+    ViewBag.Title = "SalarySummaryReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="panel">
+    <div class="panel-body">
+        <div id="printableArea">
+            @*<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">*@
+            <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+            <style type="text/css">
+                @@media print {
+                    .pagebreak {
+                        page-break-before: always;
+                    }
+                    /* page-break-after works, as well */
+                }
+            </style>
+
+            @{
+                var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+            }
+
+            <div class="invoice">
+
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6 mt-md">
+                            <div class="ib" style="width:30%;height:10%">
+                                @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                <img src="@icon.Report" alt="okler themes" />
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <h2 class="h4 mt-none mb-sm text-dark text-bold">Salary Summary Report</h2>
+                            <h4 class="h5 m-none mb-sm text-dark text-bold">@ViewBag.DateRange</h4>
+                            <h4 class="h5 m-none text-dark text-bold">Currency: @ViewBag.Currency</h4>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                </div>
+
+
+            </div>
+            <div>
+                <table id="table" class="table table-bordered" style="text-align:center">
+        
+                        <thead >
+
+                            <tr class="text-dark">
+                                <th class="text-center text-semibold">Emp. Code</th>
+
+                                <th class="text-center text-semibold">Emp. Name</th>
+                                <th class="text-center text-semibold">Basic Salary</th>
+                                <th class="text-center text-semibold">Total Earnings</th>
+                                <th class="text-center text-semibold">Total Bonus</th>
+                                <th class="text-center text-semibold">Gross</th>
+                                <th class="text-center text-semibold">Total Deductions</th>
+                                <th class="text-center text-semibold">Net Salary</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var TotalBasic = 0.0;
+                                var TotalEarnings = 0.0;
+                                var TotalGross = 0.0;
+                                var TotDeductions = 0.0;
+                                var TotalNetSalary = 0.0;
+                                var TotalBonuses = 0.0;
+                            }
+                            @foreach (var item in ViewBag.DataMaster)
+                            {
+                                string NoOfLates = "";
+                                string OverTIme = "";
+                                string WorkingHrsTime = "";
+                                TimeSpan tm, tOverTime, WorkingHrs;
+                                item.BasicSalary = (Int32)(item.BasicSalary == null ? 0 : item.BasicSalary);
+                                item.PerDaySalary = (Int32)(item.PerDaySalary == null ? 0 : item.PerDaySalary);
+                                item.PerHourSalary = (Int32)(item.PerHourSalary == null ? 0 : item.PerHourSalary);
+                                if (item.EmployeeTypeId == 8)
+                                {
+                                    item.BasicSalary = item.PerDaySalary * item.TotalDays;
+                                }
+
+                                TotalBasic += item.BasicSalary;
+
+
+
+                                double? TotalEarning = 0;
+
+                                item.OTAmount = (Int32)(item.OTAmount == null ? 0 : item.OTAmount);
+                                item.LeaveAmount = (Int32)(item.LeaveAmount == null ? 0 : item.LeaveAmount);
+                                item.HolidayOTAmount = (Int32)(item.HolidayOTAmount == null ? 0 : item.HolidayOTAmount);
+
+                                item.AbsentAmount = (Int32)(item.AbsentAmount == null ? 0 : item.AbsentAmount);
+                                item.HalfDayAmount = (Int32)(item.HalfDayAmount == null ? 0 : item.HalfDayAmount);
+                                item.LateAmount = (Int32)(item.LateAmount == null ? 0 : item.LateAmount);
+                                item.LoanAmount = (Int32)(item.LoanAmount == null ? 0 : item.LoanAmount);
+                                item.AdvanceAmount = (Int32)(item.AdvanceAmount == null ? 0 : item.AdvanceAmount);
+
+                                //item.TotalOT = item.TotalOT == null ? 0 : item.TotalOT;
+                                item.TotalAbsent = item.TotalAbsent == null ? 0 : item.TotalAbsent;
+                                item.TotalLeave = item.TotalLeave == null ? 0 : item.TotalLeave;
+                                item.TotalLate = item.TotalLate == null ? 0 : item.TotalLate;
+                                item.TotalHalfDay = item.TotalHalfDay == null ? 0 : item.TotalHalfDay;
+                                IList<PaySlipAllowanceModel> pam = item.Allowances;
+                                IList<PaySlipDeductionModel> pdm = item.Deductions;
+                                IList<PaySlipBonusModel> pbm = item.Bonuses;
+
+
+                                TotalEarning = item.OTAmount + item.LeaveAmount + item.HolidayOTAmount + pam.Sum(x => x.AllowanceAmount) + pbm.Sum(x=>x.BonusAmount);
+                                double? TotalDeduction = 0;
+                                TotalDeduction = item.AbsentAmount + item.HalfDayAmount + item.LateAmount + item.LoanAmount + pdm.Sum(x => x.DeductionAmount);
+                                double? OverAlltotal = item.BasicSalary + (TotalEarning - TotalDeduction);
+                                double Gross = TotalEarning + item.BasicSalary;
+                                TotalEarnings += TotalEarning.Value;
+                                TotalGross += Gross;
+                                TotDeductions += TotalDeduction.Value;
+                                TotalNetSalary += OverAlltotal.Value;
+                                var TotalBonus = pbm.Sum(x => x.BonusAmount);
+                                TotalBonuses += TotalBonus.Value;
+
+
+                            <tr>
+                                <td>@item.EmpCode</td>
+                                <td>@item.EmpName</td>
+                                <td> @item.BasicSalary</td>
+                                <td> @TotalEarning</td>
+                                <td> @TotalBonus</td>
+
+                                <td> @Gross</td>
+                                <td> @TotalDeduction</td>
+                                <td>@OverAlltotal.Value</td>
+
+
+                            </tr>
+
+
+                            }
+                            <tr style="background: #90a8c3; color: #fff;">
+                                <td colspan="2">Total</td>
+                                <td>@TotalBasic</td>
+                                <td>@TotalEarnings</td>
+                                <td>@TotalBonuses</td>
+                                <td>@TotalGross</td>
+                                <td>@TotDeductions</td>
+                                <td>@TotalNetSalary</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+
+
+
+
+</div>
+            <script>
+                function printDiv(divName) {
+                    var printContents = document.getElementById(divName).innerHTML;
+                    //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+                    var originalContents = document.body.innerHTML;
+                    document.body.innerHTML = printContents;
+                    //document.body.innerHTML = html;
+                    window.print();
+                    document.body.innerHTML = originalContents;
+                }
+            </script>
+
+
+            </div>
+</section>

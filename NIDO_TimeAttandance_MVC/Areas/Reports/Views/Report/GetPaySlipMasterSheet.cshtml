@@ -1,0 +1,324 @@
+﻿@using System.Globalization
+@using System;
+@using System.Data
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models;
+@{
+    ViewBag.Title = "GetPaySlipMasterSheet";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    double? grossSalary;
+    double? netSalary;
+    double?  totalDeduction=0;
+    var leaves = (List<LeaveModel>)ViewBag.leaves;
+    int serialNo = 0;
+}
+
+@{
+    string ViewName = ViewBag.ViewName;
+
+    var paySlipData = (DataTable)ViewBag.DataMaster;
+    var empLates = (List<LateDeductViewModel>)ViewBag.DataMaster2;
+    var lates = (List<LateDeductModel>)ViewBag.AllLates;
+
+
+}
+
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="printableArea">
+
+    <style>
+        /*  .single-line-column {
+                    padding: 35px 0;
+                }
+
+                .double-line-column {
+                    padding: 20px 0;
+                }
+        */
+        table {
+            color: black;
+            font-size: 7px;
+        }
+
+        table, th, td {
+            color: black;
+            border: 1px solid black !important;
+        }
+
+        .rotate {
+            /* FF3.5+ */
+            -moz-transform: rotate(-90.0deg);
+            /* Opera 10.5 */
+            -o-transform: rotate(-90.0deg);
+            /* Saf3.1+, Chrome */
+            -webkit-transform: rotate(-90.0deg);
+            /* IE6,IE7 */
+            filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=0.083);
+            /* IE8 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";
+            /* Standard */
+            transform: rotate(-90.0deg);
+        }
+    </style>
+    @*<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">*@
+    <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+    </style>
+
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+    }
+
+
+
+    <section class="panel">
+        <div class="panel-body">
+            <div class="invoice">
+
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="col-sm-6 mt-md">
+                            <div class="ib" style="width:30%;height:10%">
+                                @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                <img src="@icon.Report" alt="okler themes" />
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <h2 class="h4 mt-none mb-sm text-dark text-bold">Pay Slip Master Sheet Report</h2>
+                            <h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <br />
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered text-center" style="text-align:center">
+                    <thead>
+                        <tr class="text-center">
+                            <th width="20" rowspan="2" class="single-line-column">S.NO</th>
+                            <th width="20" rowspan="2" class="single-line-column">Department</th>
+                            <th width="150" rowspan="2" class="single-line-column">Name</th>
+                            <th width="150" rowspan="2" class="single-line-column">Designation</th>
+                            <th rowspan="2" class="single-line-column">D.O.J</th>
+
+                            <th rowspan="2" class="double-line-column">Loan Balance </th>
+                            <th rowspan="2" class="double-line-column">Security Deposit Balance</th>
+                            <th rowspan="2" class="double-line-column">Security Deposit 45 Days</th>
+                            <th rowspan="2" class="double-line-column">Gross Salary</th>
+                            <th colspan="7">Working Days</th>
+                            <th colspan="11">Less: Deduction</th>
+                            @*<th>Add</th>*@
+                            <th rowspan="2" class="double-line-column">Total Deduction</th>
+                            <th rowspan="2" class="double-line-column">Leave Adjusted amount</th>
+                            <th rowspan="2" class="double-line-column">Total Salary</th>
+                            
+
+
+
+                           
+
+                        </tr>
+                        <tr>
+                            <th>Total Days</th>
+                            <th>Absent</th>
+                            @foreach (var late in lates.Select(q=>q.Amount).Distinct())
+                            {
+                                <th> @late% </th>
+
+                            }
+
+                            <th>Extra Day Salary</th>
+
+                            <th>Security Deposit</th>
+                            <th>Eid Bonus</th>
+                            <th>Advance Salary</th>
+                            <th>Absent</th>
+
+                            @foreach (var late in lates.Select(q=>q.Amount).Distinct())
+                            {
+                                <th> @late% Day</th>
+
+
+                            }
+
+                            <th>Tax Deduction</th>
+                            <th>EOBI Deduction</th>
+                            <th>Loan</th>
+                            <th>Other Deductions</th>
+                            <th>Arrears (if Any)</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in paySlipData.AsEnumerable().GroupBy(c => c["DepartmentId"]))
+                        {
+
+
+                            var departFlag = true;
+                            foreach (var value in item)
+                            {
+                                var empId = (long)value["EmpId"];
+
+
+                        <tr>
+                            <td>@(++serialNo) </td>
+
+                            @if (departFlag)
+                            {
+                                departFlag = false;
+                                <td rowspan="@item.Count()"><label>@item.FirstOrDefault()["DepartmentDesc"] </label> </td>
+
+                            }
+
+                            <td>@value["EmpName"]</td>
+                            <td>@value["DesignationDesc"] </td>
+                            <td>@(value["DOJ"])</td>
+                            @*<td>@(value["DOJ"].ToString().HasValue ? value.DOJ.Value.ToString("dd/MM/yyyy") : "")</td>*@
+
+                            <td>@value["LoanBalance"]</td>
+                            <td>@value["SecurityDepositPaidAmount"]</td>
+                            <td>@value["SecurityDepositTotal"]</td>
+                            <td>@value["BasicSalary"]</td>
+                            <td>@value["TotalDays"]</td>
+                            <td>@value["TotalAbsent"]</td>
+                            @foreach (var lateDeduct in empLates.Where(a => a.empId == empId).ToList())
+                            {
+
+                                <td>@lateDeduct.count</td>
+
+                                //var currentLate = empLates.Where(c => c.Amount == lateDeduct.Amount).ToList();
+
+                                //double? amount = currentLate.Count == 0 ? 0 : currentLate.FirstOrDefault().Amount;
+
+
+
+                            }
+
+
+                            <td>0</td>
+                            <td>@value["SecurityDepositAmount"]</td>
+                            <td>0</td>
+                            <td>@value["AdvanceAmount"]</td>
+                            <td>@value["AbsentAmount"]  </td>
+                            @foreach (var lateDeduct in empLates.Where(a => a.empId == empId).ToList())
+                            {
+                                double? amount = lateDeduct.deduct / 100;
+
+                                <td>@String.Format("{0:0.00}", ((double)value["PerDaySalary"] * amount * lateDeduct.count))</td>
+                                totalDeduction += ((double)value["PerDaySalary"] * amount * lateDeduct.count);
+                            }
+
+
+                            <td>@value["TaxesAmount"]</td>
+
+                            <td>@value["EOBIAmount"]</td>
+                            <td>@String.Format("{0:0.00}", value["LoanAmount"]) </td>
+                            @{double? totalDeductionAmount = (Convert.ToDouble(value["TotalDeductions"]) + (totalDeduction + Convert.ToDouble(@value["TaxesAmount"]) + Convert.ToDouble(@value["EOBIAmount"]))); }
+
+                            <td>@value["DeductionAmount"]</td>
+                            <td>@value["Arrears"]</td>
+                            <td>@totalDeductionAmount</td>
+                            @{
+                                 var empLeaves = leaves.Where(c => c.EmpId == empId).ToList();
+                                var perdaysal = Convert.ToDouble(value["BasicSalary"]) / Convert.ToInt32(value["TotalDays"].ToString().Trim());
+                                var totLeave = empLeaves.Sum(x => x.ApproveLeave);
+                                var TotLeaveAmount = perdaysal * totLeave;
+                                TotLeaveAmount = Math.Round(TotLeaveAmount);
+                            }
+                         
+
+                        <td> @TotLeaveAmount</td>
+                            @{double? totalAmount = (Convert.ToDouble(value["OverAlltotal"])+TotLeaveAmount + Convert.ToDouble(value["Arrears"]) - (totalDeduction + Convert.ToDouble(@value["TaxesAmount"]) + Convert.ToDouble(@value["EOBIAmount"]))); }
+                            <td>@String.Format("{0:0.00}",@totalAmount+@TotLeaveAmount)</td>
+                            @{ totalAmount = 0; totalDeductionAmount = 0;
+                                totalDeduction = 0;
+                            }
+
+
+
+                        </tr>
+                            }
+
+                        }
+
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+    <div class="pagebreak"></div>
+
+
+
+
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        //document.body.innerHTML = html;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+

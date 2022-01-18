@@ -1,0 +1,244 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelManualPosting
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@Styles.Render("~/bundles/manualPosting")
+
+<div class="panel-body">
+    <div class="modal fade" id="modal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h4 class="modal-title" id="modalLabel">Please Enter Date in which Manual Attandance is required</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Date</label>
+                        <div class="col-md-9">
+                            <div class="input-daterange input-group" data-plugin-datepicker>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" name="txtDate1" id="txtDate1" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="loadEmp">Load</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-graph">
+                        <form id="frm-ManualPosting" method="POST">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-daterange input-group">
+                                                <span class="input-group-addon">Reason</span>
+                                                @Html.DropDownListFor(model => model.ReasonID, ViewBag.Reason as IEnumerable<SelectListItem>, "Please Select Reason", new { @class = "form-control m-input Reason", required = "*" })
+                                                <span class="input-group-addon">Pick time</span>
+                                                <span class="input-group-addon">  <i class="fa fa-clock-o"> </i> </span>
+                                                <input type="text" id="txttime" placeholder="Please enter time" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'>
+                                                <span class="input-group-addon">IN/OUT</span>
+                                                <select class="form-control typeID">
+                                                    <option>Please Select type</option>
+                                                    <option value="1">IN</option>
+                                                    <option value="2">Out</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-daterange input-group">
+                                                <span class="input-group-addon">Remarks</span>
+                                                @*<input type="text" id="txtRemarks" placeholder="Please Enter Remarks" class="form-control" />*@
+                                                <textarea id="txtRemarks" cols="90" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="login-form-area mg-t-30 mg-b-15">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="tableManual" class="cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Ecode</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Missing Entries Date</th>
+                                                <th>Last Check Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.Employees != null)
+                                            {
+                                                foreach (var item in ViewBag.Employees)
+                                                {
+                                                    string bindData = item.EmpCode + "|" + item.Missing_date + "|" + item.EmpID;
+                                                    //string missingdate = item.Missing_date.ToString("dd MMM yyyy");
+                                                    <tr>
+                                                        <td>@bindData</td>
+                                                        <td>@item.EmpCode</td>
+                                                        <td>@item.EmpName</td>
+                                                        <td>@item.DepartmentDesc</td>
+                                                        <td>@item.DesignationDesc</td>
+                                                        <td><span><i style="color:palevioletred" class="fa fa-calendar"> @item.Missing_date</i></span></td>
+                                                        <td><span><i style="color:green" class="fa fa-clock-o"> @item.Time_Enter</i></span></td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <div class="button-drop-style-one" style="float:left">
+                                        <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                            Posting Employee(s)
+                                            <i class="adminpro-icon adminpro-avatar"></i>
+                                        </button>
+                                        <button hidden type="button" class="btn btn-custon-four btn-warning primary-btn-cl" id="btnmodal" data-target="#modal" data-toggle="modal">
+                                            Load All Employee
+                                            <i class="adminpro-icon adminpro-users"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>
+</div>
+@Scripts.Render("~/bundles/ManualPostinJs")
+<script>
+    $(document).ready(function () {
+        @if (ViewBag.datemodalCheck)
+                    {
+            <text>
+        $('#btnmodal').click();
+                  </text>
+        }
+                    var ReasonID = 0;
+                    var TypeID = 0;
+                    var table = $('#tableManual').DataTable({
+                        'columnDefs': [
+                            {
+                    'targets': 0,
+                                'checkboxes': {
+                        'selectRow': true
+                    }
+        }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+        });
+
+        //get selected ResonID
+        $("select.Reason").change(function () {
+            ReasonID = $(this).children("option:selected").val();
+        });
+
+        //get selected typeID
+        $("select.typeID").change(function () {
+            TypeID = $(this).children("option:selected").val();
+        });
+
+        // Handle form submission event
+        $('#frm-ManualPosting').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+            //start
+            var time = $("#txttime").val();
+            var Remarks = $("#txtRemarks").val();
+
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            FormSubmitManualPosting(arr, time, Remarks, ReasonID, TypeID);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        function FormSubmitManualPosting(arr, time, Remarks, ReasonID, TypeID) {
+            $.ajax({
+            type: 'POST',
+                url: '/ManualAttandance/Save/',
+                data: {
+                EmpId: arr,
+                    time, time,
+                    Remarks: Remarks,
+                    ReasonID: ReasonID,
+                    TypeID: TypeID,
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/ManualAttandance/Index/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+</script>
+
+
+<script>
+
+$(document).ready(function(){
+    $("#loadEmp").click(function(event){
+       event.preventDefault();
+        window.location.href = "@Url.Action("Index", "ManualAttandance")" + "?date=" + $("#txtDate1").val();
+    });
+})
+</script>
+
+

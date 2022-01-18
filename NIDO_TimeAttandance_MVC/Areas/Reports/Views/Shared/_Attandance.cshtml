@@ -1,0 +1,209 @@
+﻿@{
+    var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+
+    //var list = ( IEnumerable<NIDO_TimeAttandance_MVC.Nstp_MonthlyAttendancePaySlip_Result>)ViewBag.Data;
+    //var list = (List<Nstp_MonthlyAttendancePaySlip_Result>)ViewBag.Data;
+}
+
+@foreach (var item in ViewBag.DataMaster)
+{
+    string NoOfLates = "";
+    string OverTIme = "";
+    string WorkingHrsTime = "";
+    TimeSpan tm, tOverTime, WorkingHrs;
+    <section class="panel">
+        <div class="panel-body">
+            <div class="invoice">
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="col-sm-6 mt-md">
+                            <div class="ib" style="width:30%;height:10%">
+                                @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                <img src="@icon.Report" alt="okler themes" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <h2 class="h4 mt-none mb-sm text-dark text-bold">Attendance Report</h2>
+                            <h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*<div class="bill-to">
+                                Employee Code: @item.EmpCode   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;   Name: @item.EmpName
+                                <br />
+                                Department: @item.DepartmentDesc   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;     Designation: @item.DesignationDesc
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr></tr>
+                            <tr class="text-dark">
+                                <th id="Date" class="text-center text-semibold">Date</th>
+                                <th id="TimeIn" class="text-center text-semibold">Time In</th>
+                                <th id="TimeOut" class="text-center text-semibold">Time Out</th>
+                                <th id="Working" class="text-center text-semibold">Working</th>
+                                <th id="Late" class="text-center text-semibold">Late</th>
+                                <th id="Short" class="text-center text-semibold">Short</th>
+                                <th id="OT" class="text-center text-semibold">OT</th>
+                                <th id="Result" class="text-center text-semibold">Result</th>
+                                @*<th id="Remarks" class="text-center text-semibold">Remarks</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @{ 
+                                 var @newdata = ViewBag.Data;
+                             }
+                                @foreach (var d in newdata)
+                                {
+                                    if (d.EmpId == item.EmpId)
+                                    {
+                                        string Date = d.AttDate.ToString("dd-MM-yyy");
+                                        string TimeIN = "";
+                                        string TimeOUT = "";
+                                        string LateMin = "";
+                                        string TotalWorking = "";
+                                        string Short = "";
+                                        string OT_Min = "";
+
+                                        TimeSpan ts, WorkingTs, ShortTs, OtTS;
+                                        if (d.TimeIn != null)
+                                        {
+                                            TimeIN = d.TimeIn.ToString("hh':'mm");
+
+                                        }
+                                        if (d.TimeOut != null)
+                                        {
+                                            TimeOUT = d.TimeOut.ToString("hh':'mm");
+                                        }
+                                        if (d.LateMin != null && d.LateMin != 0)
+                                        {
+                                            ts = TimeSpan.FromMinutes(d.LateMin);
+                                            LateMin = ts.ToString("hh':'mm");
+                                        }
+                                        if (d.TotalWorking != null && d.TotalWorking != 0)
+                                        {
+                                            WorkingTs = TimeSpan.FromMinutes(d.TotalWorking);
+                                            TotalWorking = WorkingTs.ToString("hh':'mm");
+                                        }
+                                        if (d.EarlyMin != null && d.EarlyMin != 0)
+                                        {
+                                            ShortTs = TimeSpan.FromMinutes(d.EarlyMin);
+                                            Short = ShortTs.ToString("hh':'mm");
+                                        }
+                                        if (d.OT != null && d.OT != 0)
+                                        {
+                                            OtTS = TimeSpan.FromMinutes(d.OT);
+                                            OT_Min = OtTS.ToString("hh':'mm");
+                                        }
+
+                                        <tr>
+                                            @if (d.IsManual)
+                                            {
+                                                <td class="text-center">< @Date</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">@Date</td>
+                                            }
+
+
+                                            <td class="text-center">@TimeIN</td>
+                                            <td class="text-center">@TimeOUT</td>
+                                            <td class="text-center">@TotalWorking</td>
+                                            <td class="text-center">@LateMin</td>
+                                            <td class="text-center">@Short</td>
+                                            <td class="text-center">@OT_Min</td>
+                                            <td class="text-center">
+                                                @if (d.Result == "Sunday" || d.Result == "Holiday")
+                                                {
+                                                    <strong>@d.Result</strong>
+                                                }
+                                                else
+                                                {
+                                                    @d.Result
+                                                }
+
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="invoice-summary">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table h5 text-dark">
+                                <tbody>
+                                    <tr>
+                                        <td class="h3 text-semibold text-dark" colspan="5">Attendance Summary</td>
+                                    </tr>
+                                    <tr>
+                                        @if (item.TotalLates != null && item.TotalLates != 0)
+                                        {
+                                            //tm = TimeSpan.FromMinutes(item.TotalLates);
+                                            //NoOfLates = tm.ToString("hh':'mm");
+                                            tm = TimeSpan.FromMinutes(item.TotalLates);
+                                            NoOfLates = tm.Days * 24 + tm.Hours + ":" + tm.Minutes;
+                                        }
+                                        @if (item.Overtime != null && item.Overtime != 0)
+                                        {
+                                            tOverTime = TimeSpan.FromMinutes(item.Overtime);
+                                            
+                                            OverTIme = tOverTime.Days * 24 + tOverTime.Hours + ":" +tOverTime.Minutes;
+                                        }
+                                        @if (item.WorkingHours != null && item.WorkingHours != 0)
+                                        {
+                                            WorkingHrs = TimeSpan.FromMinutes(item.WorkingHours);
+                                            WorkingHrsTime = WorkingHrs.Days * 24 + WorkingHrs.Hours + ":" + WorkingHrs.Minutes;
+
+
+                                        }
+                                        <td class="text-semibold text-dark" colspan="2">Total Days</td>
+                                        <td class="text-left">@item.Total_Days</td>
+                                        <td class="text-semibold text-dark" colspan="2">Sunday's</td>
+                                        <td class="text-left">@item.Weekends</td>
+                                        <td class="text-semibold text-dark" colspan="2">Presents</td>
+                                        <td class="text-left">@item.Presents</td>
+                                        <td class="text-semibold text-dark" colspan="2">Total Late</td>
+                                        <td class="text-left">@item.Late</td>
+                                        <td class="text-semibold text-dark" colspan="2">Lt. Deduct</td>
+                                        <td class="text-left">@item.late_Deduction</td>
+                                        <td class="text-semibold text-dark" colspan="2">Over Time</td>
+                                        <td class="text-left">@OverTIme</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-semibold text-dark" colspan="2">Work Days</td>
+                                        <td class="text-left">@item.WorkingDays</td>
+                                        <td class="text-semibold text-dark" colspan="2">Holidays</td>
+                                        <td class="text-left">@item.Gazetted</td>
+                                        <td class="text-semibold text-dark" colspan="2">Absents</td>
+
+                                        <td class="text-left">
+                                            @*@list.Where(c=>c.Result == "Absent").Count()*@
+                                            @item.Absent
+                                        </td>
+                                        <td class="text-semibold text-dark" colspan="2">Late Hrs</td>
+                                        <td class="text-left">@NoOfLates</td>
+                                        <td class="text-semibold text-dark" colspan="2">Half Days</td>
+                                        <td class="text-left">@item.HalfDay</td>
+                                        <td class="text-semibold text-dark" colspan="2">Working Hrs</td>
+                                        <td class="text-left">@WorkingHrsTime</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

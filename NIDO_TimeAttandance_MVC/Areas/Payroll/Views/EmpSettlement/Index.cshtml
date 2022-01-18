@@ -1,0 +1,329 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.Reports.Models.ModelMonthlyRepot
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<link href="~/assests/abc/datatables.min.css" rel="stylesheet" />
+
+<div class="row"><br /></div>
+<form id="frm-Settlement">
+  
+    <div class="stockprice-feed-project-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>.</h2>
+
+                                <div class="main-income-phara visitor-cl">
+                                    <p>
+                                        Please Select Employee
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+
+
+                                    <table id="tableReport" class="display cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Ecode</th>
+                                                <th>Name</th>
+                                                <th>Company</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Employee Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Employees)
+                                            {
+                                                <tr>
+                                                    <td>@item.EmpID</td>
+                                                    <td>@item.EmpCode</td>
+                                                    <td>@item.EmpName</td>
+                                                    <td>@item.CompanyName</td>
+                                                    <td>@item.DepartmentDesc</td>
+                                                    <td>@item.DesignationDesc</td>
+                                                    <td>@item.EmployeeType</td>
+                                                </tr>
+                                            }
+
+
+                                        </tbody>
+                                        <br />
+                                        <tfoot>
+
+                                            <tr>
+                                                <th style="visibility:hidden;"></th>
+                                                <th style="visibility:hidden;">Ecode</th>
+                                                <th style="visibility:hidden;">Name</th>
+                                                <th>Company</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Employee Type</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="button-drop-style-one" style="float:left">
+                                    @if (ViewBag.ReportsName != null)
+                                    {
+                                        <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                            Emp Settlement Posting
+                                            <i class="adminpro-icon adminpro-avatar"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                            Generate
+                                            <i class="adminpro-icon adminpro-avatar"></i>
+                                        </button>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+<!-- icheck JS
+    ============================================ -->
+<script src="~/Assests/Home/js/icheck/icheck.min.js"></script>
+<script src="~/Assests/Home/js/icheck/icheck-active.js"></script>
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#tableReport').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']],
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="chosen-select form-control"><option value="">Filter</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            },
+
+        });
+
+        // Handle form submission event
+        $('#frm-Settlement').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+
+            // var ReportID = $("#ReportId").val();
+
+
+            //var DateFrom = $('#startDate').val();
+            //var DateTo = $('#endDate').val();
+            //var BankId = $("#bankId").val();
+            //var start = new Date(DateFrom);
+            //var end = new Date(DateTo);
+
+
+
+
+            var rows_selected = table.column(0).checkboxes.selected();
+
+
+
+            if (rows_selected.length == 0) {
+                SendNotif("Ooopss!", "No User is Selected", 'error');
+                return false;
+            }
+
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+
+                        .val(rowId)
+                );
+            });
+            $(".se-pre-con").fadeIn("slow");
+
+
+
+            FormSubmitEmpSettlement(arr);
+               
+            
+           
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+
+
+    
+
+        function FormSubmitEmpSettlement(arr) {
+            //alert()
+
+          //  window.location = '/Payroll/EmpSettlement/Posting?data=' + arr + '?' + currentMonth ;
+
+            $.ajax({
+                type: 'POST',
+                url: '/Payroll/EmpSettlement/Posting/',
+                data: {
+                    data: arr,
+                   
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/Payroll/EmpSettlement/Index/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+
+
+    });
+
+
+
+
+</script>
+
+<script>
+    $('#ReportId').click(function () {
+
+        $('#ReportId').blur();
+       // $('#modalClcik').click();
+        $('#ReportId').show();
+    });
+</script>
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#Date-label").hide();
+        $("#Date").hide();
+        $('#ReportId option').hide();
+        $(".bankdetails").hide()
+       // $('#modalClcik').click();
+        $("#example tbody").delegate("tr", "click", function (e) {
+            var column2 = $('td', this).attr("id");
+            $(".close").click();
+            $("#ReportId").val(column2);
+
+            let ReportID = $("#ReportId").val();
+            if (ReportID == 3017) {
+                $(".bankdetails").show();
+            }
+            else {
+                $("#bankId").val('');
+                $(".bankdetails").hide();
+
+            }
+            //if (ReportID == 4017) {
+
+
+            //    $("#startDate-label").hide();
+            //    $("#startDate").hide();
+            //    $("#startDate").removeAttr("required")
+            //    $("#endDate-label").hide();
+            //    $("#endDate").hide();
+            //    $("#endDate").removeAttr("required")
+
+
+            //    $("#startDate").val('');
+            //    $("#endDate").val('');
+
+            //}
+            //else {
+            //    $("#startDate-label").show();
+            //    $("#startDate").show();
+            //    $("#startDate").attr("required",true)
+
+            //    $("#endDate-label").show();
+            //    $("#endDate").show();
+            //    $("#endDate").attr("required", true)
+
+
+            //}
+
+
+            //if (column2 == 15) {
+            //    $("#startDate-label").hide();
+
+
+            //    $("#endDate-label").hide();
+            //    $("#endDate").hide();
+            //    $("#endDate").val(" 03 / 30 / 2020")
+            //    $("#Date-label").show();
+            //    $("#Date").hide();
+
+            //}
+        });
+    });
+</script>

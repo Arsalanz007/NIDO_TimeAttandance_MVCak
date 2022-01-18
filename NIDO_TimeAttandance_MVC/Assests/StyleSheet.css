@@ -1,0 +1,61 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.icons {
+    position: fixed;
+    top: 30%;
+    right: 0%;
+    height:20px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .icons a {
+        text-decoration: none;        
+        padding: 5px;
+        font-size: 22px;
+        font-family: Arial,sans-serif;
+        margin: 2px;
+        text-align: left;
+        border-radius: 50px 0px 0px 50px;
+        transform: translate(130px,0px);
+        transition: all 1s;
+    }
+
+        .icons a:hover {
+            transform: translate(50px,0px);
+            color:white;
+        }
+
+        .icons a i {
+            margin-right: 25px;
+            background-color: white;
+            height: 40px;
+            width: 40px;
+            color: black;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            transition: all 0.5s;
+        }
+
+        .icons a:hover i {
+            transform: rotate(360deg);
+        }
+
+        .icons a i.fa-file-pdf-o {
+            color:palevioletred;
+        }
+
+.detail {
+    background-color: green;
+    color: white;
+}
+
+.content {
+    margin-left: 80%;
+    margin-right: 80%;
+}

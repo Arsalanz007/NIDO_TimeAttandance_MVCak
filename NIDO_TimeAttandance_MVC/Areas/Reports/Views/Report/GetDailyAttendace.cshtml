@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "GetDailyAttendace";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printableArea">
+    @Html.Partial(@ViewName)
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

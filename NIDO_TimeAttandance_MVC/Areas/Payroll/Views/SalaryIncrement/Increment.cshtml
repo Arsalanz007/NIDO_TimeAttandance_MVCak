@@ -1,0 +1,307 @@
+﻿
+@model NIDO_TimeAttandance_MVC.Areas.Payroll.Models.SalaryIncrementModel
+
+@{
+    ViewBag.Title = "Increament";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+     var empDetails = ViewBag.EmployeeInfo ;
+}
+
+
+
+<style>
+    img {
+        border-radius: 50%;
+    }
+</style>
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+
+                            <h1><span class="table-project-n">Increment </span></h1>
+
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+
+                        <table class="" style="width:20%">
+                            <tr>
+                                <td> <label>Emp Code :</label></td>
+                                <td> <label>@empDetails.EmpCode</label></td>
+                            </tr>
+                            <tr>
+                                <td> <label>Emp Name :</label></td>
+                                <td> <label>@empDetails.EmpName</label></td>
+                            </tr>
+                        </table>
+
+                     
+
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+
+
+
+                                        <th>Designation</th>
+                                        <th>Department</th>
+                                        <th>Basic Salary</th>
+                                        <th>Increment Amount</th>
+                                        <th>Increment Date</th>
+                                        <th>Increment By</th>
+
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Salarylogs)
+                                    {
+
+                                    <tr>
+
+                                        <td>
+                                            @item.Designation
+
+                                        </td>
+                                        <td>
+                                            @item.Department
+
+                                        </td>
+                                        <td>
+                                            @item.BasicSalary
+                                        </td>
+                                        <td>
+                                            @item.Increment_Amount
+                                        </td>
+                                        <td>
+                                            @item.Increment_DateString
+                                        </td>
+                                        <td>
+                                            @item.Increment_By
+                                        </td>
+                                        <td><button type="button" class="incrementEditBtn  btn btn-custon-four btn-warning warning-btn-cl" data-id="@item.Id">Edit</button></td>
+                                        <td><a type="button" class="incrementDeleteBtn btn btn-custon-four btn-warning warning-btn-cl" onclick="ActionLinkAlert('/Payroll/SalaryIncrement/Delete_Increment',@item.Id)" data-id="@item.Id">Delete</a></td>
+                                    </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("Save_Increment", "SalaryIncrement", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.EmpId)
+
+
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1> Increment</h1>
+                                    <label>Basic Salary : @Model.BasicSalary </label>
+                                    <button type="button" class="pull-right  btn btn-custon-four btn-warning warning-btn-cl resetIncBtn" onclick="ResetForm()">Reset</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Increment Amount</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.Increment_Amount, new { placeholder = "Please Enter Increment", required = "", type = "number", @class = "form-control"})
+                                        <label class="error-message alert alert-danger" style="display:none">This field is required</label> <br />
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Designation</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.DesignationId, ViewBag.Designation as IEnumerable<SelectListItem>, "Please Select Designation", new { @class = "form-control m-input", required = "*", id = "DesignationId" })
+
+                                        <label class="error-message alert alert-danger" style="display:none">This field is required</label> <br />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Designation</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Department as IEnumerable<SelectListItem>, "Please Select Department", new { @class = "form-control m-input", required = "*", id = "DepartmentId" })
+
+                                        <label class="error-message alert alert-danger" style="display:none">This field is required</label> <br />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Increment Date</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 field" id="datepicker">
+                                    <div class="login-input-area">
+                                        <input type="text" id="Increment_Date" name="Increment_Date" autocomplete="off" data-plugin-datepicker required placeholder="Enter Increment Date" class="form-control">
+
+                                        @*  @Html.TextBoxFor(model => model.Increment_Date, new { placeholder = "Please Enter Increment Date", required = "", @class = "form-control", autocomplete = "off" @data-plugin-datepicker })*@
+                                        <label class="error-message alert alert-danger" style="display: none">This field is required </label> <br />
+                                        @*@Html.ValidationMessageFor(model => model.TimeIn, "", new { @class = "text-danger" })*@
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <hr />
+
+
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" class="login-button login-button-lg" id="incrementSubmitBtn">Save Increment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    let incrementDataList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Salarylogs))
+        console.log(incrementDataList);
+
+    $(function () {
+        $('#Increment_Date').datepicker({
+            autoHide: true,
+            zIndex: 2048,
+        });
+    });
+
+
+    $(document).on('click',".incrementEditBtn",function () {
+        debugger
+        let incrementId = $(this).data("id");
+
+        let data = incrementDataList.filter(c => c.Id == incrementId)[0];
+        FillInputFields(data);
+
+    })
+
+  
+
+
+
+    function FillInputFields(data) {
+
+        $.each(data, function (key, value) {
+
+            console.log(key, value);
+
+        })
+
+        $("#incrementSubmitBtn").text("Update Increment");
+
+        $("#Id").val(data.Id);
+        $("#Increment_Amount").val(data.Increment_Amount);
+        $("#DesignationId").val(data.DesignationId);
+        $("#DepartmentId").val(data.DepartmentId);
+        $("#Increment_Date").val(data.Increment_DateString);
+
+
+    }
+
+    function ResetForm() {
+
+        $("#incrementSubmitBtn").text("Save Increment");
+
+
+        $("#Id").val('0');
+        $("#Increment_Amount").val('');
+        $("#DesignationId").val('');
+        $("#DepartmentId").val('');
+        $("#Increment_Date").val('');
+    }
+
+    //$("#Increment_Amount").keyup(function () {
+
+    //    let value = $(this).val();
+
+    //    if (value <= 0) {
+    //      //  SendNotif("Oooops!", 'Please Enter Positive Amount', 'error');
+    //        $("#Increment_Amount").val('');
+    //    }
+    //})
+
+</script>

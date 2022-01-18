@@ -1,0 +1,228 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelScheduleUpdate
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+@{
+    string startDate = "";
+    string Enddate = "";
+    string text = "";
+    long ScheduleUpdateID = 0;
+    if (ViewBag.Employees.Count > 0)
+    {
+        if (ViewBag.Employees[0].Startdate != null)
+        {
+            DateTime start_date = Convert.ToDateTime(ViewBag.Employees[0].Startdate);
+            DateTime End_date = Convert.ToDateTime(ViewBag.Employees[0].Enddate);
+            startDate = start_date.ToString("MM/dd/yyy");
+            Enddate = End_date.ToString("MM/dd/yyy");
+            text = ViewBag.Employees[0].RoasterName;
+            ScheduleUpdateID = ViewBag.Employees[0].ID;
+
+            <script>
+                $(document).ready(function () {
+                    var text1 = $("#RoasterName").val().trim();
+                    $("#scheduleId option").filter(function () {
+                        return this.text == text1;
+                    }).attr('selected', true)
+
+                })
+            </script>
+        }
+    }
+
+}
+<input type="text" value="@text" id="RoasterName" hidden />
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Employee</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <form id="frm-example5" method="POST">
+                            <div class="row">
+                                <div class="form-group data-custon-pick data-custom-mg data_5">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <div class="input-daterange input-group">
+                                            <span class="input-group-addon">Please Select Roaster</span>
+                                            @Html.DropDownListFor(model => model.GeneralSchedulePKId, ViewBag.Roasters as IEnumerable<SelectListItem>, "Please Select Roaster", new { @class = "form-control m-input", id = "scheduleId", autocomplete = "off" })
+                                            <span class="input-group-addon">Date Range</span>
+                                            <input type="text" class="form-control" id="startDate" required value="@startDate" name="start" autocomplete="off" />
+                                            <span class="input-group-addon">to</span>
+                                            <input type="text" class="form-control" id="endDate" value="@Enddate" required name="end" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="table9" class="cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Ecode</th>
+                                                <th>Name</th>
+                                                <th>City</th>
+                                                <th>Company</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Grade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Employees)
+                                            {
+                                                string a = "";
+                                                if (item.EmpId == item.empidExist)
+                                                {
+                                                    a = "color:#0044cc;font-weight:bold";
+                                                }
+
+                                                // var RowID = item.EmpId + "|" + item.EmpName;
+                                                var RowID = item.EmpId;
+                                                <tr style=@a>
+                                                    <td>@RowID</td>
+                                                    <td>@item.EmpCode  </td>
+                                                    <td>@item.EmpName  </td>
+                                                    <td>@item.CityDesc </td>
+                                                    <td>@item.CompanyName  </td>
+                                                    <td>@item.DepartmentDesc </td>
+                                                    <td>@item.DesignationDesc  </td>
+                                                    <td>@item.GradeDesc </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="button-drop-style-one" style="float:left">
+                                    <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                        Save/Map Employee(s)
+                                        <i class="adminpro-icon adminpro-avatar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            @*<p><button>Submit</button></p>*@
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#table9').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+        });
+
+        // Handle form submission event
+        $('#frm-example5').on('submit', function (e) {
+            var form = this;
+            var arr = [];
+            var ScheduleId = $('#scheduleId').val();
+
+            if (ScheduleId == '') {
+                alert("Please select Roaster");
+                return;
+            }
+            var startDate = $('#startDate').val();
+            var endDate = $('#endDate').val();
+            //var ScheduleID = $('#ScheduleUpdateID').val();
+            var ScheduleID ="@ScheduleUpdateID";
+            if (startDate == '') {
+                alert("Please fill out Start date");
+                return;
+            }
+            if (endDate == '') {
+                alert("Please fill out End date");
+                return;
+            }
+            var rows_selected = table.column(0).checkboxes.selected();
+            if (rows_selected.length <=0) {
+                SendNotif("Ooopss!", "Please select atleast one Employee", 'error');
+                return false;
+            }
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            //$(".se-pre-con").fadeIn("fast");
+
+            StartProcess(arr, ScheduleId, startDate, endDate, ScheduleID);
+            e.preventDefault();
+        });
+    });
+</script>
+<script>
+    //CALLING METHOD IN THE CONTROLLER TO DO SOME WORK
+    function StartProcess(Arry, ScheduleId, startDate, endDate, ScheduleID) {
+        $("#spinnerLoader").show();
+        $.ajax({
+            type: 'POST',
+            url: '/ScheduleUpdate/Save/',
+            data: {
+                EmpId: Arry,
+                id: ScheduleId,
+                StartDate: startDate,
+                EndDate: endDate,
+                ScheduleID: ScheduleID,
+            },
+            success: function (msg) {
+                debugger
+                $("#spinnerLoader").hide();
+                if (msg.Status == "Success") {
+                    $('#InfoP').text(msg.Message);
+                    var oldUrl = $('#InfoA').attr("href");
+                    var newUrl = oldUrl.replace("/Home/Index/", "/ScheduleUpdate/ListAll/");
+                    $('#InfoA').attr("href", newUrl);
+                    $('#InfoMsg')[0].click();
+                }
+                else {
+                    $('#DangerP').text(msg.Message);
+                    $('#DangerMsg')[0].click();
+                }
+
+            },
+            Error: function () {
+                debugger
+
+                alert("oops something went wrong");
+                $("#spinnerLoader").hide();
+            },
+        })
+    }
+</script>

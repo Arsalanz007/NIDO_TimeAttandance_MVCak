@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_RealTimeMonitoring.cshtml";
+}
+
+@{
+    var data = DataHelper.getCircular();
+    string circularTex = "  ";
+    if (data != null)
+    {
+        foreach (var item in data)
+        {
+            circularTex = item.CircularText + "  " + circularTex + " ";
+        }
+    }
+}
+
+<style>
+
+    .btn-info,
+    .btn-info:hover,
+    .btn-info:focus {
+        color: #FFF !important;
+        background-color: #00bbff !important;
+        border-color: #00bbff !important;
+    }
+
+    .btn-info {
+        opacity: .8;
+        transition: all 0.1s;
+        -webkit-transition: all 0.1s;
+    }
+
+        .btn-info:hover,
+        .btn-info:focus {
+            opacity: 1;
+        }
+
+    .admin-check-sucess:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        left: 100% !important;
+    }
+
+    .imgNew {
+        border-radius: 50%;
+        height: 100% !important;
+    }
+</style>
+
+<!-- Bootstrap CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">
+<!-- Bootstrap CSS
+        ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/css/font-awesome.min.css">
+<!-- adminpro icon CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/css/adminpro-custon-icon.css">
+<!-- style CSS
+   ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/css/alerts.css">
+<!-- style CSS
+    ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/style.css">
+<link href="~/Assests/Real/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link href='~/Assests/Real/css/rotating-card.css' rel='stylesheet' />
+
+<div class="row" >
+
+    <div class="alert alert-info alert-success-style2 alert-st-bg1" style="border:0px">
+        <span class="admin-check-sucess admin-check-pro-clr1" style="width:12%;font-size:20px"> Announcement</span>
+        <p><marquee style="font-size:20px">@circularTex</marquee></p>
+    </div>
+    @if (ViewBag.Team != null)
+    {
+        <div class="owl-carousel" data-plugin-carousel data-plugin-options='{ "autoPlay": 3000, "items": 6, "itemsDesktop": [1199,4], "itemsDesktopSmall": [979,3], "itemsTablet": [768,2], "itemsMobile": [479,1] }'>
+            @foreach (var item in ViewBag.Team)
+            {
+                string pic = "/Assests/Home/img/message/User_Circle.png";
+                string CoverPic = "/Assests/Real/images/rotating_card_thumb2.png";
+                if (item.EmpImg != null)
+                {
+                    pic = item.EmpImg;
+                }
+                if (item.HolidayType == "A")
+                {
+                    CoverPic = "/Assests/Real/images/Absent.jpg";
+                }
+                else if (item.HolidayType == "H")
+                {
+                    CoverPic = "/Assests/Real/images/Holiday.jpg";
+                }
+                else if (item.HolidayType == "Late")
+                {
+                    CoverPic = "/Assests/Real/images/Late.jpg";
+
+                }
+                else if (item.HolidayType == "P")
+                {
+                    CoverPic = "/Assests/Real/images/Present.jpg";
+                }
+                 
+                <div class="item spaced">
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="front">
+                                <div class="cover">
+                                    <img src="@CoverPic" />
+                                </div>
+                                <div class="user">
+                                    <img class="imgNew" src="@pic" />
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <h3 class="name">@item.EmpName</h3>
+                                        <p class="profession">@item.DesignationDesc</p>
+                                        <p class="profession" style="margin-top:20px">@item.DepartmentName</p>
+                                        <p class="text-center">Today Time In  @item.TimeIn</p>
+                                    </div>
+                                    <div class="footer">
+                                        <i class="fa fa-mail-forward"></i> Auto Rotation
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end front panel -->
+                            <div class="back">
+                                <div class="header">
+                                    <h5 class="motto"> "Monthly Attendance stats"</h5>
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <h4 class="text-center" style="color:#f6f6f6">Job Description</h4>
+                                        <p class="text-center" style="color:#f6f6f6">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many </p>
+                                        <div class="stats-container">
+                                            <div class="stats">
+                                                <h4>@item.TotalWorkingDays</h4>
+                                                <p>
+                                                    Total Days
+                                                </p>
+                                            </div>
+                                            <div class="stats">
+                                                <h4>@item.NoOfPresent</h4>
+                                                <p>
+                                                    Presents
+                                                </p>
+                                            </div>
+                                            <div class="stats">
+                                                <h4>@item.NoOfLates</h4>
+                                                <p>
+                                                    Lates
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="stats-container">
+                                            <div class="stats" style="width:50%">
+                                                <h4>@item.NoOfAbsent</h4>
+                                                <p>
+                                                    Absents
+                                                </p>
+                                            </div>
+                                            <div class="stats" style="width:50%">
+                                                <h4>@item.NoOfHalfDay</h4>
+                                                <p>
+                                                    Half Days
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> <!-- end back panel -->
+                        </div> <!-- end card -->
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+@*<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Monitoring/Index/',
+                Error: function () {
+
+                }
+                
+
+            });
+        }, 15); 
+    });
+
+</script>*@
+
+
+
+
+
+
+
+

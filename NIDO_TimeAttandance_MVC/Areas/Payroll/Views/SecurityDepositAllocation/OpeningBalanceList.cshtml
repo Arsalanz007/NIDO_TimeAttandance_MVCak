@@ -1,0 +1,139 @@
+﻿
+@model  IEnumerable<NIDO_TimeAttandance_MVC.Models.clsEmployeeProfile>
+
+@{
+    ViewBag.Title = "OpeningBalanceList";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<br />
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Employee Opening Balance </span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div class="text-left">
+                                <input class="btn btn-success" type="button" id="target" value=" Update All" />
+                                <a class="btn btn-success"  id="customAmount" href="/Payroll/SecurityDepositAllocation/CustomSecurityDeposit" ><input class="btn btn-success"  type="button"  value="Add Custom Amount"/></a>
+                            </div>
+                            <table id="table" data-toggle="table" data-pagination="true"  data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        @*<th style="display:none;">ID</th>*@
+                                        <th>Emp Code</th>
+                                        <th>Emp Name</th>
+                                        <th>Department </th>
+                                        <th>Designation</th>
+                                        <th>Opening Balance</th>
+                                     
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+
+                                        //int count = 0;
+
+                                        @*<tr class="group-header">
+
+                                                <td colspan="5"> @item.EmpName </td>
+                                            </tr>*@
+                                        //foreach (var item in group)
+                                        //{
+                                        <tr>
+                                            @*<td class="empID">@item.EmpID</td>*@
+                                            <td class="empId" data-id="@item.EmpID">@item.EmpCode</td>
+                                            <td>@item.EmpName</td>
+                                            <td >@item.DepartmentDesc</td>
+                                            <td >@item.DesignationDesc</td>
+                                            <td><input class="form-control opBalance" type="text" name="name" value="@item.OpeningBalance" /> </td>
+                                        </tr>
+                                        //}
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#target").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        var TableData = new Array();
+        $('#table tr').each(function (row, tr) {
+
+            let newValue = $(tr).find('.opBalance').val();
+            if (newValue) {
+                var obj = {};
+
+                obj.EmpId = $(tr).find('.empId').data('id');
+                obj.OpAmount = newValue;
+               
+                TableData.push(obj);
+            }
+
+        });
+        
+
+        $(".se-pre-con").fadeOut("slow");
+        $.ajax({
+
+            type: 'POST',
+            url: '/Payroll/SecurityDepositAllocation/OpeningBalanceSave',
+            data: JSON.stringify({ model: TableData }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (msg) {
+
+                $(".se-pre-con").fadeOut("fast");
+                if (msg.status == "Success") {
+                    SendNotif('Success!', msg.Message, 'success');
+
+                    setTimeout(function () {
+                        window.location.replace(msg.URL);
+                    }, 1000)
+
+
+                }
+                else {
+                    SendNotif('ooopss!', msg.Message, 'error');
+                }
+            },
+            error: function () {
+
+            }
+        })
+
+
+
+    });
+    $(document).on('change', ".opBalance", function () {
+
+        let value = $(this).val();
+        if (value < 0) {
+            $(this).val('');
+            SendNotif('ooopss!', "Please enter postive values", 'error');
+        }
+
+
+    });
+
+</script>

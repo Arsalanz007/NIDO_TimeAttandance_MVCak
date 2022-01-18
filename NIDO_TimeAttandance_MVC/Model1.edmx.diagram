@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b195f5ec8431484e9978a57d6473c863" Name="Diagram1">
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.AllownceMaster" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.AttendanceLogMaster" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.AttendancePooling" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.AttendancePosting" Width="1.5" PointX="7.5" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.CityMaster" Width="1.5" PointX="3" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.CompanyMaster" Width="1.5" PointX="3" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.CountryMaster" Width="1.5" PointX="0.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.DeductionMaster" Width="1.5" PointX="8.25" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.DepartmentMaster" Width="1.5" PointX="3" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.DesignationMaster" Width="1.5" PointX="3" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.DetailPolicy" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmailService" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpEducationDetail" Width="1.5" PointX="7.5" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpExperienceDetail" Width="1.5" PointX="7.5" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpFamilyDetail" Width="1.5" PointX="7.5" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.Employee" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmployeeType" Width="1.5" PointX="3" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpMaster" Width="1.5" PointX="5.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpScheduleDetail" Width="1.5" PointX="9.75" PointY="44.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.EmpScheduleMaster" Width="1.5" PointX="7.5" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.ErrorLogMaster" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.GazettedHoliday" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.GradeMaster" Width="1.5" PointX="3" PointY="49.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.InOutType" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.LeaveApproval" Width="1.5" PointX="10.5" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.LeaveDeduction" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.LeaveMapDetail" Width="1.5" PointX="9.75" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.LeaveMapMaster" Width="1.5" PointX="7.5" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.LeaveSetup" Width="1.5" PointX="11.25" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.MartialStatu" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.MasterPolicy" Width="1.5" PointX="5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.ShiftMaster" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.ShiftScheduleGeneralDetail" Width="1.5" PointX="16.5" PointY="40" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.ShiftScheduleGeneralMaster" Width="1.5" PointX="5.25" PointY="49.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.SysPolicy" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AdvanceDetail" Width="1.5" PointX="9.75" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AdvanceMaster" Width="1.5" PointX="7.5" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AllocatedAllowances" Width="1.5" PointX="10.5" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AllocatedDeductions" Width="1.5" PointX="10.5" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AllocatedEOBI" Width="1.5" PointX="13.5" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AllocatedProvidentFund" Width="1.5" PointX="13.5" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AllowancePosting" Width="1.5" PointX="10.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AssetsMaster" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AutoEmailDetail" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AutoEmailSetting" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_AutoEmailTypes" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Circular" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_DecConCategory" Width="1.5" PointX="9" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_DeductionPosting" Width="1.5" PointX="10.5" PointY="75.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_EOBIMaster" Width="1.5" PointX="11.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_EOBIPosting" Width="1.5" PointX="13.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_IconControl" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_LeaveDeduction" Width="1.5" PointX="13.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_LoanDetail" Width="1.5" PointX="9.75" PointY="66.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_LoanMaster" Width="1.5" PointX="7.5" PointY="66.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_LoanStatusMaster" Width="1.5" PointX="7.5" PointY="70" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Manager" Width="1.5" PointX="13.5" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_ManagerLevel" Width="1.5" PointX="11.25" PointY="61.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Notifications" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Organization_Heirarchy" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_PaymentStatusMaster" Width="1.5" PointX="7.5" PointY="45.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_PendingRequestDetail" Width="1.5" PointX="18" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_PendingRequestMaster" Width="1.5" PointX="15.75" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_ProvidentFundMaster" Width="1.5" PointX="11.25" PointY="56.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_ProvidentFundPosting" Width="1.5" PointX="13.5" PointY="56.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Province" Width="1.5" PointX="3" PointY="40.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Reports" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Request" Width="1.5" PointX="13.5" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Role" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_SalaryPostingMaster" Width="1.5" PointX="7.5" PointY="79.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Setting" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_TaxMaster" Width="1.5" PointX="11.25" PointY="70.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_TaxPosting" Width="1.5" PointX="13.5" PointY="70.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_Template" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_TemplateName" Width="1.5" PointX="2.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tbl_UserRights" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tblMenu" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tblPolicyType" Width="1.5" PointX="2.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tblReason" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.tblUserLoginHistory" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.UserMaster" Width="1.5" PointX="10.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.ValueType" Width="1.5" PointX="9" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.WishChecker" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Nedo_Attendance_NewModel.WishTempalte" Width="1.5" PointX="15.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AllocatedAllowances_AllownceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AllowancePosting_AllownceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_AttendancePosting_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_CityMaster_CountryMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_CityMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_CompanyMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_ShiftMaster_CompanyMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_CountryMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Province_CountryMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AllocatedDeductions_deductionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_DeductionPosting_DeductionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Manager_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_DesignationMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpEducationDetail_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpExperienceDetail_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpFamilyDetail_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_EmployeeType" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_Alloc__EmpId__3BF75C52" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_Alloc__EmpId__64F971E5" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpMaster_GradeMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpScheduleMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_LeaveApproval_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_LeaveMapedMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AdvanceMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AllocatedAllowances_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AllocatedDeductions_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_LoanMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Manager_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Request_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_SalaryPostingMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_UserMaster_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpScheduleDetail_EmpScheduleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpScheduleMaster_EmpScheduleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_EmpScheduleMaster_ShiftScheduleGeneralMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_LeaveApproval_LeaveApproval" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_LeaveMapDetail_LeaveMapedMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_LeaveDeduction_LeaveSetup" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Request_LeaveSetup" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_MasterPolicy_tblPolicyType" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_ShiftScheduleGeneralDetail_ShiftMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_ShiftScheduleGeneralDetail_ShiftScheduleGeneralMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AdvanceDetail_tbl_AdvanceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AdvanceDetail_tbl_PaymentStatusMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_Alloc__EOBII__3CEB808B" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_Alloc__Provi__65ED961E" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_AutoEmailDetail_tbl_AutoEmailTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_EOBIM__Categ__00D69684" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_ProvidentFundMaster_tbl_DecConCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK__tbl_EOBIM__Value__01CABABD" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_EOBIPosting_EOBIMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_LoanDetail_tbl_LoanMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_LoanDetail_tbl_LoanStatusMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Manager_tbl_ManagerLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_PendingRequestDetail_tbl_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_PendingRequestDetail_tbl_PendingRequestMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_PendingRequestMaster_tbl_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_ProvidentFundMaster_ValueTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_ProvidentFundPosting_ProvidentFundMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_UserRights_tbl_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_UserMaster_tbl_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_TaxMaster_ValueTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_TaxPosting_TaxMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_Template_tbl_TemplateName" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tbl_UserRights_tblMenu1" ManuallyRouted="false" />
+        <AssociationConnector Association="Nedo_Attendance_NewModel.FK_tblMenu_tblMenu" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

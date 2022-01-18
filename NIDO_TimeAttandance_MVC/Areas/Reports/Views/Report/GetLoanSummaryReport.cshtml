@@ -1,0 +1,181 @@
+﻿
+
+@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.LoanLedgerModel>
+@using System.Globalization
+@using System;
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models;
+
+@{
+    ViewBag.Title = "SalarySummaryReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    double? totalRemaningLoan = 0;
+
+    double? totalLoan = Model.Sum(c => c.TotalLoan);
+    double? totalPaidLoan = Model.Sum(c => c.TotalLoanPaid);
+    double? overAllRemainingLoan = totalLoan - totalPaidLoan;
+
+
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="panel">
+    <div class="panel-body">
+        <div id="printableArea">
+            @*<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">*@
+            <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+            <style type="text/css">
+                @@media print {
+                    .pagebreak {
+                        page-break-before: always;
+                    }
+                    /* page-break-after works, as well */
+                }
+            </style>
+
+            @{
+                var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+            }
+
+            <div class="invoice">
+
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 mt-md col-xs-6">
+                            <div class="ib" style="width:30%;height:10%">
+                                @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                <img src="@icon.Report" alt="okler themes" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h2 class="h4 mt-none mb-sm text-dark text-bold">Loan Summary Report</h2>
+                            <h4 class="h5 m-none mb-sm text-dark text-bold">@ViewBag.DateRange</h4>
+                            <h4 class="h5 mt-none text-dark text-bold">Currency :  @ViewBag.Currency</h4>
+
+
+                           
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                </div>
+
+
+            </div>
+            <div>
+                <table id="table" class="table table table-bordered">
+
+                    <thead style="        background: #669cff;color: white;font-size: 14px">
+
+                        <tr class="text-dark" style="color: white !important">
+                            <th id="Date" class="text-center text-semibold">Emp. Code</th>
+                            <th id="Name" class="text-center text-semibold">Employee Name</th>
+                            <th id="Designation" class="text-center text-semibold">Designation</th>
+                            <th id="TotalLoan" class="text-center text-semibold">Total Loan</th>
+
+                            <th id="PaidLoan" class="text-center text-semibold">Paid Loan</th>
+
+                            <th id="TimeOut" class="text-center text-semibold">Remaning Loan</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model)
+                        {
+                            {
+                                totalRemaningLoan = item.TotalLoan - item.TotalLoanPaid;
+                            }
+                            <tr>
+                                <td class="text-center">@item.EmpCode</td>
+                                <td class="text-center">@item.EmpName
+
+                                <td class="text-center">@item.DepartmentDesc</td>
+                                <td class="text-center">@String.Format("{0:0.00}", item.TotalLoan)</td>
+                                <td class="text-center">@String.Format("{0:0.00}", item.TotalLoanPaid)</td>
+                                <td class="text-center">@String.Format("{0:0.00}", totalRemaningLoan)</td>
+
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">&nbsp;</td>
+
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td class="text-center"><h3>Total Loan:</h3></td>
+
+
+                            <td class="text-center">@String.Format("{0:0.00}", totalLoan)</td>
+                            <td class="text-center">@String.Format("{0:0.00}", totalPaidLoan)</td>
+                            <td class="text-center">@String.Format("{0:0.00}", overAllRemainingLoan)</td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+
+
+
+
+
+            </div>
+            Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+            <script>
+                function printDiv(divName) {
+                    var printContents = document.getElementById(divName).innerHTML;
+                    //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+                    var originalContents = document.body.innerHTML;
+                    document.body.innerHTML = printContents;
+                    //document.body.innerHTML = html;
+                    window.print();
+                    document.body.innerHTML = originalContents;
+                }
+            </script>
+
+        </div>
+        </div>
+</section>

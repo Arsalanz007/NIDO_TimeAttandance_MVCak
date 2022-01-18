@@ -1,0 +1,100 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@Styles.Render("~/bundles/switch_Css")
+
+
+<section role="main" class="content-body" >
+    <!-- start: page -->
+    <div class="timeline">
+        <div class="tm-body">
+            
+            @if (ViewBag.Track != null)
+            {
+                foreach (var item in ViewBag.Track)
+                {
+                    string dateHeading = "";
+                    string dateHeading2 = "";
+                    string Time_EndDate = "";
+                    string LeaveName = "";
+                    string InOut = "";
+                    string InOutHeading = "";
+                    string RejectedReson = "";
+                    string RejectedTitle = "";
+                    string ActionDate = item.ActionDate;
+                    string Reason = item.Reason;
+                    string RequestType = item.RequestType;
+                    string Pic = "/Assests/Home/img/message/User_Circle.png";
+                    if (item.RequestWhere == "Initiator")
+                    {
+                        if (ViewBag.Track.Count>1)
+                        {
+                            ActionDate = ViewBag.Track[1].ActionDate;
+                            Reason = ViewBag.Track[1].Reason;
+                            RequestType = ViewBag.Track[1].RequestType;
+                        }
+
+
+
+                    }
+                    if (item.RequestType == "Manual Request")
+                    {
+                        dateHeading = "Attendance Date:";
+                        dateHeading2 = "Attendance Time:";
+                        Time_EndDate = Convert.ToDateTime(item.ManualTime.ToString()).ToString("hh:mm");
+                        InOut = item.IN_OUT;
+                        InOutHeading = "Entry Type ";
+                    }
+                    else if (item.RequestType == "Leave Request")
+                    {
+                        dateHeading = "Leave Start Date:";
+                        dateHeading2 = "Leave End Date:";
+                        Time_EndDate = item.Date_To.ToString("dd MMM yyy");
+                        LeaveName = "Leave Name";
+                    }
+                    if (item.RequestWhere == "Rejected")
+                    {
+                        RejectedReson = item.RejectedReason;
+                        RejectedTitle = "This Request has been rejected on this level due to ";
+                    }
+                    if (item.ManagerImg != null)
+                    {
+                        Pic = item.ManagerImg;
+                    }
+
+                    <div class="tm-title">
+                        <h3 class="h5 text-uppercase">@item.ManagerName</h3>
+                    </div>
+                    <ol class="tm-items" >
+                        <li>
+                            <div class="tm-info">
+                                <div class="tm-icon" style="padding:unset;border-color:@item.Color"><img style="border-radius:50%" width="460" height="345" src="@Pic"></div>
+                                @*<div class="tm-icon"><i class="fa fa-star"></i></div>*@
+                                <div class="tm-datetime">
+                                    <div class="tm-datetime-date">@ActionDate</div>
+                                    <div class="tm-datetime-time" style="font-weight:100; font-size:larger;color:@item.Color"><b>@item.RequestWhere</b> </div>
+                                </div>
+                            </div>
+                            <div class="tm-box appear-animation" data-appear-animation="fadeInRight" data-appear-animation-delay="100">
+                                <p>Request Type <span class="text-primary">@RequestType</span></p>
+                                <p>Reason <span class="text-primary">@Reason</span></p>
+                                <p>@dateHeading <span class="text-primary">@item.Date_Start</span></p>
+                                <p>@dateHeading2 <span class="text-primary">@Time_EndDate</span></p>
+                                <p>@LeaveName<span class="text-primary">@item.LeaveName</span></p>
+                                <p>@InOutHeading<span class="text-primary">@InOut</span></p>
+                                <p>@RejectedTitle<span class="text-primary">@RejectedReson</span></p>
+                            </div>
+                        </li>
+                    </ol>
+                }
+            }
+
+
+        </div>
+    </div>
+    <!-- end: page -->
+</section>
+
+@Scripts.Render("~/bundles/Track_js")

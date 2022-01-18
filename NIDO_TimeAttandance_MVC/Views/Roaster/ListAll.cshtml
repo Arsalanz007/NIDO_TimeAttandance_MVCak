@@ -1,0 +1,97 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Models.ModelRoaster>
+
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Roaster</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="frm">
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <thead>
+                                        <tr>
+                                            <th>Serial No</th>
+                                            <th>Roaster Code</th>
+                                            <th>Roaster Name</th>
+                                            <th>
+                                                Action
+                                                <div class="button-drop-style-one" style="float:right">
+                                                    <button type="button" class="btn btn-custon-four btn-success primary-btn-cl" onclick="redirect('/Roaster/Create/')">
+                                                        Add New
+                                                        <i class="adminpro-icon adminpro-avatar"></i>
+                                                    </button>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Index
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Data.ScheduleCode)
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(modelItem => item.Data.ScheduleDesc, new {sd=item.Data.ScheduleDesc, @id =item.Data.PKId, autocomplete = "off", onkeyup = "UpdateName(this);" })
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Create", new { id = item.Data.PKId }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })
+
+                                                    |
+                                                    @*<input type="button" value="Update Name" class="btn btn-custon-four btn-danger danger-btn-cl"  />*@
+
+
+                                                    @Html.ActionLink("Upate Name", "UpdateName", new { id = item.Data.PKId,sd=item.Data.ScheduleDesc }, new {@id="un"+item.Data.PKId, @class = "btn btn-custon-four btn-warning warning-btn-cl" })
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //function  getSD() {
+    //    return $("#item_Data_ScheduleDesc").val();
+    //};
+    //alert("test");
+    function UpdateName(e) {
+      //  alert(e);
+        var id = e.id;
+        var val = e.value;
+        
+        if (val == null) {
+            val = e.sd;
+        }
+        var un = $("#un"+id);
+        
+        //alert(id);
+        //alert(val);
+        un.attr("href","/Roaster/UpdateName/" + id+"?sd=" + val)
+   // code
+};
+</script>

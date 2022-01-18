@@ -1,0 +1,433 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelRoaster
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+}
+
+@Styles.Render("~/bundles/fullcalandarbundle")
+<div class="panel-body">
+    <button type="button" hidden class="btn btn-primary" id="btnmodal" data-target="#modal" data-toggle="modal"></button>
+    <div class="modal fade" id="modal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h1 class="modal-title" id="modalLabel">Please fill out these information</h1>
+                </div>
+                @using (Ajax.BeginForm("SaveRoaster", "Roaster", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }, new { @class = "form-horizontal mb-lg", id = "demo-form", novalidate = "novalidate" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.PKId, new { id = "Pkid" })
+                    <div class="modal-body">
+                        <div class="form-group mt-lg">
+                            <label class="col-sm-3 control-label">Shift Name</label>
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(model => model.ShiftID, ViewBag.Shifts as IEnumerable<SelectListItem>, "Please Select shift", new { @class = "form-control m-input", id = "ddlshift" })
+                            </div>
+                        </div>
+                        <div class="form-group mt-lg">
+                            <label class="col-sm-3 control-label">Roaster Name</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ScheduleDesc, new { @class = "form-control", placeholder = "Please Enter Schedule Name", required = "", id = "RoasterName", autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Roaster Code</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ScheduleCode, new { @class = "form-control", data_mask = "999", placeholder = "Please Enter Schedule Code in 3 Character", required = "", id = "RoasterCode" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Start range</label>
+                            <div class="col-sm-9">
+                                <div class="input-daterange input-group" data-plugin-datepicker>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.Startdate, new { @class = "form-control", type = "text", name = "start", id = "startDate", autocomplete = "off" })
+                                    <span class="input-group-addon">to</span>
+                                    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "text", name = "end", id = "endDate", autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Holiday dates</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" id="txtHolidays" name="txtHolidays" autocomplete="off" data-plugin-datepicker data-plugin-options='{ "multidate": true }' class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Alternate Shift</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" id="txtShiftdays" name="txtShiftdays" autocomplete="off" data-plugin-datepicker data-plugin-options='{ "multidate": true }' class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-body">
+    <button type="button" hidden class="btn btn-primary" id="btnUpdate" data-target="#modalUpdate" data-toggle="modal"></button>
+    <div class="modal fade" id="modalUpdate" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h1 class="modal-title" id="modalLabel">Please give date range</h1>
+                </div>
+                @using (Ajax.BeginForm("Update", "Roaster", new AjaxOptions { HttpMethod = "POST", LoadingElementId = "loader", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccessUpdated", OnComplete = "OnComplete" }, new { @class = "form-horizontal mb-lg", id = "demo-form", novalidate = "novalidate" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.PKId, new { id = "PkidUpdate" })
+                    <div class="modal-body">
+                        <div class="form-group mt-lg">
+                            <label class="col-sm-3 control-label">Shift Name</label>
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(model => model.ShiftID, ViewBag.Shifts as IEnumerable<SelectListItem>, "Please Select shift", new { @class = "form-control m-input", id = "ddlshiftUpdate" })
+                            </div>
+                        </div>
+                        <div class="form-group mt-lg">
+                            <label class="col-sm-3 control-label">Roaster Name</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ScheduleDesc, new { @class = "form-control", placeholder = "Please Enter Schedule Name", required = "", id = "RoasterNameUpdate" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Roaster Code</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ScheduleCode, new { @class = "form-control", data_mask = "999", placeholder = "Please Enter Schedule Code in 3 Character", required = "", id = "RoasterCodeUpdate" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Start range</label>
+                            <div class="col-sm-9">
+                                <div class="input-daterange input-group" data-plugin-datepicker>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.Startdate, new { @class = "form-control", type = "text", name = "start", id = "startDateUpdate", autocomplete = "off" })
+                                    <span class="input-group-addon">to</span>
+                                    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", type = "text", name = "end", id = "endDateUpdate", autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Holiday dates</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" id="txtHolidaysUpdate" name="txtHolidaysUpdate" data-plugin-datepicker data-plugin-options='{ "multidate": true }' class="form-control" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Alternate Shift</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" id="txtShiftdays" name="txtShiftdays" autocomplete="off" data-plugin-datepicker data-plugin-options='{ "multidate": true }' class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-9">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-md-3">
+            <p class="h4 text-light">Shift Names</p>
+            <hr />
+            <div id='external-events'>
+                @foreach (var item in ViewBag.ShiftData)
+                {
+                    <div class="external-event label " style="width:70%; background:@item.ShiftColor;color: white;" data-event-class="fc-event-success">@item.ShiftDesc</div>
+                    <br />
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/Js_fullcalandarbundle")
+
+
+<script>
+    $(function () {
+        $('.abc').datepicker({
+            autoHide: true,
+            zIndex: 2048,
+        });
+    });
+</script>
+<script>
+    (function ($) {
+        'use strict';
+        var initCalendarDragNDrop = function () {
+            $('#external-events div.external-event').each(function () {
+
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+        };
+
+        var calendarGlobal;
+
+        var initCalendar = function () {
+            var events = [];
+            var url = window.location.pathname;
+            var id = 0;
+            if (url.substring(url.lastIndexOf('/') + 1) > 0) {
+                id = url.substring(url.lastIndexOf('/') + 1);
+            }
+            var obj1 = { id: id };
+
+            $.ajax({
+                type: "POST",
+                url: "/Roaster/GetRoasters",
+                data: obj1,
+                success: function (data) {
+                    if (id != 0) {
+                        $("#RoasterName").val(data[0].ScheduleDesc);
+                        $("#RoasterCode").val(data[0].ScheduleCode);
+                        $("#Pkid").val(data[0].PKId);
+                    }
+                    else {
+                        $("#Pkid").val(0);
+                    }
+
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Remarks,
+                            description: v.PKId,
+                            start: moment(v.AttDate),
+                            end: v.AttDate != null ? moment(v.AttDate) : null,
+                            color: v.BarColor,
+                            allDay: true,
+
+                        });
+                    })
+                    GenerateCalander(events);
+                },
+                error: function (error) {
+                    //GenerateCalander(events);
+                }
+
+
+            })
+
+            function GenerateCalander(events) {
+                var $calendar = $('#calendar');
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                calendarGlobal =  $calendar.fullCalendar({
+                    header: {
+                        left: 'title',
+                        right: 'prev,today,next,basicDay,basicWeek,month'
+                    },
+                    timeFormat: '',
+
+                    titleFormat: {
+                        month: 'MMMM YYYY',      // September 2009
+                        week: "MMM d YYYY",      // Sep 13 2009
+                        day: 'dddd, MMM d, YYYY' // Tuesday, Sep 8, 2009
+                    },
+
+                    themeButtonIcons: {
+                        prev: 'fa fa-caret-left',
+                        next: 'fa fa-caret-right',
+                    },
+
+                    editable: false,
+                    droppable: true, // this allows things to be dropped onto the calendar !!!
+                    drop: function (date, allDay) { // this function is called when something is dropped
+                        $("#startDate").val(date.format());
+                        $("#endDate").val(date.format());
+                        var $externalEvent = $(this);
+                        // retrieve the dropped element's stored Event Object
+                        var originalEventObject = $externalEvent.data('eventObject');
+                        // we need to copy it, so that multiple events don't have a reference to the same object
+                        var copiedEventObject = $.extend({}, originalEventObject);
+
+                        // assign it the date that was reported
+                        copiedEventObject.start = date;
+                        copiedEventObject.allDay = allDay;
+                        copiedEventObject.className = $externalEvent.attr('data-event-class');
+
+                        //ddl shift
+                        var text1 = copiedEventObject.title;
+                        $("#ddlshift option").filter(function () {
+                            return this.text == text1;
+                        }).attr('selected', true)
+                        //ddl shift
+                        $('#btnmodal')[0].click();
+                        // render the event on the calendar
+                        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#RemoveAfterDrop').is(':checked')) {
+                            // if so, remove the element from the "Draggable Events" list
+                            $(this).remove();
+                        }
+
+                    },
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view, ) {
+                        $("#startDateUpdate").val(calEvent.start.format());
+                        $("#endDateUpdate").val(calEvent.end.format());
+                        getAllInfo(calEvent.title, calEvent.description);
+
+                    }
+                });
+
+                // FIX INPUTS TO BOOTSTRAP VERSIONS
+                var $calendarButtons = $calendar.find('.fc-header-right > span');
+                $calendarButtons
+                    .filter('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mt-sm mr-md mb-sm ml-sm"></div>')
+                    .parent()
+                    .after('<br class="hidden" />');
+
+                $calendarButtons
+                    .not('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mb-sm mt-sm"></div>');
+
+                $calendarButtons
+                    .attr({ 'class': 'btn btn-sm btn-default' });
+
+            }
+
+           
+            function getAllInfo(eventName, id) {
+                var obj = { id: id };
+                if (eventName == "Holiday") {
+                    SendNotif("Ooops!", "Holiday Occured please click on shift name...!", 'warning');
+
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Roaster/GetRoastersInfo",
+                        data: obj,
+                        success: function (data) {
+
+                            var text1 = data[0].ShiftDesc.trim();
+                            $("#ddlshiftUpdate option").filter(function () {
+                                return this.text == text1;
+                            }).attr('selected', true);
+                            $("#RoasterNameUpdate").val(data[0].ScheduleDesc);
+                            $("#PkidUpdate").val(data[0].PKId);
+                            $("#RoasterCodeUpdate").val(data[0].ScheduleCode);
+                            $('#btnUpdate')[0].click();
+                        },
+                        error: function (error) {
+                            SendNotif("Ooops!", "Something went wrong", 'error');
+                        }
+                    })
+                }
+            }
+
+
+
+        };
+
+        function ClearEvents() {
+            console.log(calendarGlobal)
+        }
+
+        $(function () {
+            initCalendar();
+            initCalendarDragNDrop();
+        });
+
+    }).apply(this, [jQuery]);
+</script>
+
+
+<script>
+    function OnBegin() { }
+    function OnFailure() { }
+    function OnSuccess(msg) {
+        if (msg.Status == "Error") {
+            $('#DangerP').text(msg.Message);
+            $('#DangerMsg')[0].click();
+        }
+        else if (msg.Status == "Success") {
+            debugger
+            $('#InfoP').text(msg.Message);
+            //Change URL
+            $('#modal').fadeOut('fast');
+            var oldUrl = $('#InfoA').attr("href");
+            var newUrl = oldUrl.replace("/Home/Index/", "/Roaster/ListAll/");
+            $('#InfoA').attr("href", newUrl);
+            $('#InfoMsg')[0].click();
+
+        }
+    }
+    function OnSuccessUpdated(msg) {
+        if (msg.Status == "Error") {
+            $('#DangerP').text(msg.Message);
+            $('#DangerMsg')[0].click();
+        }
+        else if (msg.Status == "Success") {
+            $('#InfoP').text(msg.Message);
+            //Change URL
+            $('#modalUpdate').fadeOut('fast');
+            var oldUrl = $('#InfoA').attr("href");
+            var newUrl = oldUrl.replace("/Home/Index/", "/Roaster/ListAll/");
+            $('#InfoA').attr("href", newUrl);
+            $('#InfoMsg')[0].click();
+
+        }
+    }
+</script>

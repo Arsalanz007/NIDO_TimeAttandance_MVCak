@@ -1,0 +1,782 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelEmpProfile
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    div.show-image {
+        position: relative;
+        margin: 5px;
+    }
+
+        div.show-image:hover img {
+            opacity: 0.5;
+        }
+
+        div.show-image:hover input {
+            display: block;
+        }
+
+        div.show-image input {
+            position: absolute;
+            display: none;
+        }
+
+            div.show-image input.update {
+                top: 20%;
+                left: 0;
+            }
+
+
+    .transbox {
+        margin: 10px;
+        border: none;
+        color: white;
+        background-color: black;
+        opacity: 0.6;
+        filter: alpha(opacity=60); /* For IE8 and earlier */
+    }
+</style>
+
+@foreach (var item in ViewBag.BasicInfo)
+{
+    <div class="user-profile-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="user-profile-wrap shadow-reset">
+                        <div class="row">
+                            @using (Ajax.BeginForm("UpdatePic", "UserHome", new AjaxOptions { HttpMethod = "POST", LoadingElementId = "loader", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }, new { @class = "adminpro-form", id = "adminpro-order-form", enctype = "multipart/form-data" }))
+                            {
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="user-profile-img  show-image">
+                                                <img src="@item.EmpImg" id="blah" alt="" />
+                                                <input id="upload" class="update transbox" type="button" value="Change" />
+                                            </div>
+                                            <button id="btnUpdatePic" type="submit" style="margin-left:30px;display:none" class="btn btn-success">Update</button>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="user-profile-content">
+                                                <h2>@item.EmpCode-@item.EmpName</h2>
+                                                <p class="profile-founder">
+                                                    S/o    @item.FatherName &nbsp; <strong>@item.DesignationDesc</strong>
+                                                </p>
+                                                <p class="profile-des"><i class="fa fa-envelope login-user"> &nbsp;</i>@item.EmailAdd <br /><i class="fa fa-phone login-user"> &nbsp;</i>@item.MobileNo</p>
+                                                <p class="profile-des"><i class="fa fa-building login-user"> &nbsp;</i>@item.EmpPermAdd</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @Html.TextBoxFor(model => model.ProfilePhotoImage.File, new { @class = "hide", type = "file", id = "imgInp" })
+                            }
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                <div class="welcome-wrapper shadow-reset res-mg-t mg-b-30">
+                                    <div class="adminpro-message-list">
+                                        <ul class="message-list-menu">
+                                            <li>
+                                                <span class="message-serial message-cl-one"><i class="fa fa-building-o"></i></span> <span class="message-info">Department</span> <span class="message-time">@item.DepartmentDesc</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-two"><i class="fa fa-star"></i></span> <span class="message-info">Grade</span> <span class="message-time">@item.GradeDesc</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-three"><i class="fa fa-calendar"></i></span> <span class="message-info">Appointment</span> <span class="message-time">@item.AppointmentDate</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-four"><i class="fa fa-user-md"></i></span> <span class="message-info">Emp Type</span> <span class="message-time">@item.EmployeeTypeDsc</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                <div class="welcome-wrapper shadow-reset res-mg-t mg-b-30">
+                                    <div class="adminpro-message-list">
+                                        <ul class="message-list-menu">
+                                            <li>
+                                                <span class="message-serial message-cl-one"><i class="fa fa-file-o"></i></span> <span class="message-info">CNIC</span> <span class="message-time">@item.CNICNo</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-two"><i class="fa fa-calendar-o"></i></span> <span class="message-info">Date of Birth</span> <span class="message-time">@item.DOB</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-three"><i class="fa fa-user"></i></span> <span class="message-info">Gender</span> <span class="message-time">@item.Gender</span>
+                                            </li>
+                                            <li>
+                                                <span class="message-serial message-cl-four"><i class="fa fa-flag-checkered"></i></span> <span class="message-info">Religion</span> <span class="message-time">@item.Religion</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-prfile-activity-area mg-b-40 mg-t-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3" style="height:20%">
+                    <div class="sparkline7-list profile-online-mg-t-30 shadow-reset">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Manager</h1>
+                                <div class="sparkline7-outline-icon">
+                                    <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline7-graph">
+                            <div class="user-profile-contact ">
+                                <ul class="profile-contact-menu">
+
+                                    @if (ViewBag.ManagerList != null)
+                                    {
+                                        foreach (var m in ViewBag.ManagerList)
+                                        {
+                                            string EmpImg = "/Assests/Home/img/message/User_Circle.png";
+                                            if (m.EmpImg != null)
+                                            {
+                                                EmpImg = m.EmpImg;
+                                            }
+                                            <li>
+                                                <a>
+                                                    <img src="@EmpImg" alt="" /> <span>@m.EmpName </span> <span class="contact-profile-online-f">@m.DesignationMaster.DesignationDesc</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-9">
+                    <div class="post-user-profile-awrap shadow-reset">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Experience Background</h1>
+                                <div class="sparkline7-outline-icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="table-Experince" data-toggle="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Position</th>
+                                            <th>Company</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>
+
+                                                <input type="button" class="btn btn-custon-four btn-success primary-btn-cl" value="Update" onclick="UpdateExperince(this)" />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.EmployeeHistory != null)
+                                        {
+                                            foreach (var e in ViewBag.EmployeeHistory)
+                                            {
+                                                <tr>
+                                                    <td>@e.Position</td>
+                                                    <td>@e.CompanyName</td>
+                                                    <td>@e.FromDate</td>
+                                                    <td>@e.ToTime</td>
+                                                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="RemoveEmpHistory(this)" /></td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="txtPosition" /></td>
+                                            <td><input type="text" class="form-control" id="txtCompanyName" /></td>
+                                            <td class="form-group data-custon-pick data_1"><input type="text" class="form-control input-group date input-group-addon" id="txtFromTime" /></td>
+                                            <td class="form-group data-custon-pick data_1"><input type="text" class="form-control input-group date input-group-addon" id="txtToTime" /></td>
+                                            <td><input type="button" id="btnAdd1" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-user-profile-awrap post-user-profile-second shadow-reset">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Education Background</h1>
+                                <div class="sparkline7-outline-icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="table-Education" data-toggle="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Degree</th>
+                                            <th>Institute</th>
+                                            <th>GPA/Grade</th>
+                                            <th>Year</th>
+                                            <th>
+                                                <input type="button" class="btn btn-custon-four btn-success primary-btn-cl" value="Update" onclick="UpdateEducation(this)" />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.Education != null)
+                                        {
+                                            foreach (var e in ViewBag.Education)
+                                            {
+                                                <tr>
+                                                    <td>@e.Degree</td>
+                                                    <td>@e.Institute</td>
+                                                    <td>@e.GradeOrGPA</td>
+                                                    <td>@e.CompletionYear</td>
+                                                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="RemoveEducation(this)" /></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="txtDegree" /></td>
+                                            <td><input type="text" class="form-control" id="txtInstitute" /></td>
+                                            <td><input type="text" class="form-control" id="txtGPA" /></td>
+                                            <td><input type="text" class="form-control" id="txtYear" /></td>
+                                            <td><input type="button" id="btnAdd" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-user-profile-awrap post-user-profile-second shadow-reset">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Family Background</h1>
+                                <div class="sparkline7-outline-icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="table-Family" data-toggle="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Relation</th>
+                                            <th>
+                                                <input type="button" class="btn btn-custon-four btn-success primary-btn-cl" value="Update" onclick="UpdateFamily(this)" />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.Family != null)
+                                        {
+                                            foreach (var e in ViewBag.Family)
+                                            {
+                                                <tr>
+                                                    <td>@e.Name</td>
+                                                    <td>@e.Relation</td>
+                                                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="RemoveFamily(this)" /></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="txtName" /></td>
+                                            <td><input type="text" class="form-control" id="txtRelation" /></td>
+                                            <td><input type="button" id="btnAdd2" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-user-profile-awrap post-user-profile-second shadow-reset">
+                        <div class="sparkline7-hd">
+                            <div class="main-spark7-hd">
+                                <h1>Emergency Contact</h1>
+                                <div class="sparkline7-outline-icon">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-profile-post">
+                            @if (ViewBag.Emergency != null)
+                            {
+                                foreach (var emg in ViewBag.Emergency)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="col-md-6">
+                                                Name
+                                                <div class="login-input-area">
+                                                    <input class="form-control" placeholder="Please Enter Name" value="@emg.EmgName" id="txtEmgName" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Email
+                                                <div class="login-input-area">
+                                                    <input class="form-control" placeholder="Please Enter Email" value="@emg.EmgEmailAdd" id="txtEmgEmailAdd" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                Home Tel
+                                                <div class="login-input-area">
+                                                    <input class="form-control" placeholder="Please Enter Home tel" value="@emg.EmgHomeTel" id="txtEmgHomeTel" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Mobile
+                                                <div class="login-input-area">
+                                                    <input class="form-control" placeholder="Please Enter mobile no" value="@emg.EmgMobileNo" id="txtEmgMobileNo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                Office Tel
+                                                <div class="login-input-area">
+                                                    <input class="form-control" placeholder="Please Enter Office tel" value="@emg.EmgOfficeTel" id="txtEmgOfficeTel" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Address
+                                                <div class="login-input-area">
+                                                    <textarea class="form-control" id="txtEmgAdd" cols="43" rows="1">@emg.EmgAdd</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-6">
+                                            Name
+                                            <div class="login-input-area">
+                                                <input class="form-control" placeholder="Please Enter Name" value="" id="txtEmgName" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            Email
+                                            <div class="login-input-area">
+                                                <input class="form-control" placeholder="Please Enter Email" value="" id="txtEmgEmailAdd" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            Home Tel
+                                            <div class="login-input-area">
+                                                <input class="form-control" placeholder="Please Enter Home tel" value="" id="txtEmgHomeTel" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            Mobile
+                                            <div class="login-input-area">
+                                                <input class="form-control" placeholder="Please Enter mobile no" value="" id="txtEmgMobileNo" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            Office Tel
+                                            <div class="login-input-area">
+                                                <input class="form-control" placeholder="Please Enter Office tel" value="" id="txtEmgOfficeTel" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            Address
+                                            <div class="login-input-area">
+                                                <textarea class="form-control" id="txtEmgAdd" cols="43" rows="1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <input type="button" class="btn btn-custon-four btn-success primary-btn-cl" value="Update" onclick="UpdateEmergencyContact(this)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $('#upload').click(function () {
+        $('#imgInp').click();
+
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+    var myfile = "";
+    $('#imgInp').on('change', function () {
+        myfile = $(this).val();
+        var ext = myfile.split('.').pop();
+        if (ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "JPG" || ext == "JPEG") {
+            $("#btnUpdatePic").css("display", "block");
+        }
+        else {
+            SendNotif("Ooops!", "Only images format is allowed", 'error');
+        }
+    });
+
+    function OnBegin() {
+
+    }
+    function OnFailure() {
+
+        alert("failed")
+    }
+    function OnSuccess(msg) {
+        if (msg.Status == "Error") {
+            SendNotif("Ooopss!", "Picture has not been successfully updated", 'error');
+        }
+        else if (msg.Status == "Success") {
+            SendNotif("Ooopss!", "Picture has been successfully updated", 'success');
+            $("#btnUpdatePic").css("display", "none");
+        }
+    }
+</script>
+
+
+
+@Scripts.Render("~/bundles/Js_Necessary")
+<script type="text/javascript">
+    $("#btnAdd1").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtPosition = $("#txtPosition");
+        var txtCompanyName = $("#txtCompanyName");
+        var txtFromTime = $("#txtFromTime");
+        var txtToTime = $("#txtToTime");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#table-Experince > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtPosition.val());
+
+        //Add txtCompanyName cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtCompanyName.val());
+
+
+        //Add txtFromTime cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtFromTime.val());
+
+        //Add txtToTime cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtToTime.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove1 = $("<input  />");
+        btnRemove1.attr("type", "button");
+        btnRemove1.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove1.attr("onclick", "RemoveEmpHistory(this);");
+        btnRemove1.val("Remove");
+        cell.append(btnRemove1);
+
+        //Clear the TextBoxes.
+        txtPosition.val("");
+        txtCompanyName.val("");
+        txtFromTime.val("");
+        txtToTime.val("");
+    });
+
+    function RemoveEmpHistory(button1) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button1).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete" + name)) {
+            //Get the reference of the Table.
+            var table = $("#table-Experince")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>
+
+<script type="text/javascript">
+    $("#btnAdd").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtDegree = $("#txtDegree");
+        var txtInstitute = $("#txtInstitute");
+        var txtGPA = $("#txtGPA");
+        var txtYear = $("#txtYear");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#table-Education > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtDegree.val());
+
+        //Add txtInstitute cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtInstitute.val());
+
+
+        //Add txtGPA cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtGPA.val());
+
+        //Add txtYear cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtYear.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input  />");
+        btnRemove.attr("type", "button");
+        btnRemove.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove.attr("onclick", "RemoveEducation(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtDegree.val("");
+        txtInstitute.val("");
+        txtGPA.val("");
+        txtYear.val("");
+    });
+
+    function RemoveEducation(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#table-Education")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>
+<script>
+    function UpdateExperince(button) {
+        var Experinces = new Array();
+        $("#table-Experince TBODY TR").each(function () {
+            var row = $(this);
+            var Experince = {};
+            Experince.CompanyName = row.find("TD").eq(1).html();
+            Experince.Position = row.find("TD").eq(0).html();
+            Experince.FromTime = row.find("TD").eq(2).html();
+            Experince.ToTime = row.find("TD").eq(3).html();
+            Experinces.push(Experince);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertExperince",
+            data: JSON.stringify(Experinces),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                SendNotif("Congrat!", "Employee History section has been successfully updated", 'success');
+            }, error: function (r) {
+                SendNotif("Ooops!", "Employee History section has not been successfully updated", 'error');
+            }
+        })
+    };
+
+    function UpdateEducation() {
+        var Educations = new Array();
+        $("#table-Education TBODY TR").each(function () {
+            var row = $(this);
+            var Education = {};
+            Education.Degree = row.find("TD").eq(0).html();
+            Education.Institute = row.find("TD").eq(1).html();
+            Education.GradeOrGPA = row.find("TD").eq(2).html();
+            Education.Year = row.find("TD").eq(3).html();
+            Educations.push(Education);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertEducation",
+            data: JSON.stringify(Educations),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                SendNotif("Congrat!", "Employee Education section has been successfully updated", 'success');
+            }, error: function (r) {
+                SendNotif("Ooops!", "Employee Education section has not been successfully updated", 'error');
+            }
+        })
+    }
+
+    function UpdateFamily() {
+
+        var Families = new Array();
+        $("#table-Family TBODY TR").each(function () {
+            var row = $(this);
+            var Family = {};
+            Family.Name = row.find("TD").eq(0).html();
+            Family.Relation = row.find("TD").eq(1).html();
+            Families.push(Family);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertFamily",
+            data: JSON.stringify(Families),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                SendNotif("Congrat!", "Family Background section has been successfully updated", 'success');
+
+            }, error: function (r) {
+                SendNotif("Ooops!", "Family Background section has not been successfully updated", 'error');
+            }
+        })
+    }
+    function UpdateEmergencyContact() {
+        var EmergemcyContact = new Array();
+        var txtEmgName = $('#txtEmgName').val();
+        var txtEmgEmailAdd = $('#txtEmgEmailAdd').val();
+        var txtEmgHomeTel = $('#txtEmgHomeTel').val();
+        var txtEmgMobileNo = $('#txtEmgMobileNo').val();
+        var txtEmgOfficeTel = $('#txtEmgOfficeTel').val();
+        var txtEmgAdd = $('#txtEmgAdd').val();
+        var Emergency = {};
+        Emergency.EmgName = txtEmgName;
+        Emergency.EmgEmailAdd = txtEmgEmailAdd;
+        Emergency.EmgHomeTel = txtEmgHomeTel;
+        Emergency.EmgMobileNo = txtEmgMobileNo;
+        Emergency.EmgOfficeTel = txtEmgOfficeTel;
+        Emergency.EmgAdd = txtEmgAdd;
+        EmergemcyContact.push(Emergency);
+
+        $.ajax({
+            type: "POST",
+            url: "/User/UserHome/UpdateEmergencyContact",
+            data: JSON.stringify(EmergemcyContact),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.Status == "Success") {
+                    SendNotif("Congrat!", "Emergency Contact section has been successfully updated", 'success');
+                }
+                else {
+                    SendNotif("Ooops!", "Emergency Contact section has not been successfully updated", 'error');
+                }
+            }
+        })
+    }
+</script>
+
+
+<script type="text/javascript">
+    $("#btnAdd2").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtName = $("#txtName");
+        var txtRelation = $("#txtRelation");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#table-Family > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtName.val());
+
+        //Add txtRelation cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtRelation.val());
+
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove2 = $("<input  />");
+        btnRemove2.attr("type", "button");
+        btnRemove2.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove2.attr("onclick", "RemoveFamily(this);");
+        btnRemove2.val("Remove");
+        cell.append(btnRemove2);
+
+        //Clear the TextBoxes.
+        txtName.val("");
+        txtRelation.val("");
+    });
+    function RemoveFamily(button2) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button2).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#table-Family")[0];
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>
+
+

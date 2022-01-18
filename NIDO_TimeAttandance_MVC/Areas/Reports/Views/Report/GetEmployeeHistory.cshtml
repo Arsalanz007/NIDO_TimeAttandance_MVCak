@@ -1,0 +1,137 @@
+﻿
+@using System.Data
+@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.EmployeeHistoryModel>
+@{
+    ViewBag.Title = "GetEmployeeHistory";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printableArea">
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+        DataTable dt = ViewBag.data;
+    }
+
+
+    <section class="panel">
+        <div class="panel-body">
+            <div class="invoice">
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <h2 class="h4 mt-none mb-sm text-dark text-center text-bold"></h2>
+                                @*<h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>*@
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mt-md">
+                                <div class="text-center" style="width:30%;height:10%">
+
+                                    <img src="@icon.Report" alt="okler themes" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th align="center">Emp Code</th>
+                                <th align="center">Emp Name</th>
+                                <th align="center">Department</th>
+                                <th align="center">Designation</th>
+                                <th align="center">Joining Date</th>
+                                <th align="center">Trail Start</th>
+                                <th align="center">Trail End</th>
+                                <th align="center">Appointed Start</th>
+                                <th align="center">Appointed End</th>
+                                <th align="center">Confirm Date</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.empCode</td>
+                                <td>@item.empName</td>
+                                <td>@item.department</td>
+                                <td>@item.designation</td>
+                                <td>@item.joiningDate</td>
+                                <td>@(item.trailStartDate.HasValue ? item.trailStartDate.Value.ToString("dd/MM/yyyy") : null)</td>
+                                <td>@(item.trailEndDate.HasValue ? item.trailEndDate.Value.ToString("dd/MM/yyyy") : null)</td>
+                                <td>@(@item.appointedStartDate.HasValue ? item.appointedStartDate.Value.ToString("dd/MM/yyyy") : null)</td>
+                                <td>@(@item.appointedEndDate.HasValue ? item.appointedEndDate.Value.ToString("dd/MM/yyyy") : null)</td>
+                                <td>@(@item.confirmDate.HasValue ? item.confirmDate.Value.ToString("dd/MM/yyyy") : null)</td>
+                            </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                    <style>
+                        .table >tr >th
+                        {
+                            text-align: center
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+
+

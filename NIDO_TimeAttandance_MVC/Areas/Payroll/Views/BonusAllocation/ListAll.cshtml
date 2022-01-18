@@ -1,0 +1,97 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.AllocatedBonusModel>
+
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+
+                            <h1><span class="table-project-n">Bonus Allocation</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th>Serial No</th>
+                                        <th>Emp. Code</th>
+                                        <th>Emp. Name</th>
+                                        <th>Company </th>
+                                        <th>Department</th>
+                                        <th>Designation</th>
+                                        <th>Emp. Type</th>
+                                        <th>Bonus</th>
+                                        <th>Month</th>
+                                        <th>
+                                            Action
+                                            <div class="button-drop-style-one" style="float:right">
+                                                <button type="button" class="btn btn-custon-four btn-success primary-btn-cl" onclick="redirect('/Payroll/BonusAllocation/Select')">
+                                                    Allocate Bonus
+                                                    <i class="adminpro-icon adminpro-avatar"></i>
+                                                </button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Index
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.EmpCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.EmpName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Company)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Department)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Designation)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.EmployeeType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.BonusName)
+                                            </td>
+                                            <td>
+                                                @{ string month = Convert.ToDateTime(item.Data.AllocatedMonth.Value).ToString("MMM/yyyy");}
+                                                @Html.DisplayFor(modelItem => month)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Data.AllowanceId }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })|*@
+                                                <input type="button" value="Delete" class="btn btn-custon-four btn-danger danger-btn-cl" onclick="ActionLinkAlert('/Payroll/BonusAllocation/Delete',@item.Data.AllocatedBonusId)" />
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿
+
+@model IEnumerable<NIDO_TimeAttandance_MVC.EmpFamilyDetail>
+
+<table id="tblDOB">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Relation</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.FamilyDetails != null)
+        {
+            foreach (var item in ViewBag.FamilyDetails)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Relation</td>
+                    <td><input type="button" class="btn btn-custon-four btn-danger primary-btn-cl" value="Remove" onclick="Remove2(this)" /></td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><input type="text" class="form-control" id="txtName" /></td>
+            <td><input type="text" class="form-control" id="txtRelation" /></td>
+            <td><input type="button" id="btnAdd2" value="Add" class="btn btn-custon-four btn-success primary-btn-cl" /></td>
+        </tr>
+    </tfoot>
+</table>
+<script type="text/javascript">
+    $("#btnAdd2").click(function () {
+        //Reference the Name and Country TextBoxes.
+        var txtName = $("#txtName");
+        var txtRelation = $("#txtRelation");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblDOB > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Degree cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(txtName.val());
+
+        //Add txtRelation cell.
+        cell = $(row.insertCell(-1));
+        cell.html(txtRelation.val());
+
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove2 = $("<input  />");
+        btnRemove2.attr("type", "button");
+        btnRemove2.addClass("btn btn-custon-four btn-danger primary-btn-cl");
+        btnRemove2.attr("onclick", "Remove2(this);");
+        btnRemove2.val("Remove");
+        cell.append(btnRemove2);
+
+        //Clear the TextBoxes.
+        txtName.val("");
+        txtRelation.val("");
+    });
+    function Remove2(button2) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button2).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblDOB")[0];
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+</script>
+
+

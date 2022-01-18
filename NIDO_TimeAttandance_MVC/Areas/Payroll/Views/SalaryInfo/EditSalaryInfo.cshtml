@@ -1,0 +1,222 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelEmpProfile
+
+@{
+    ViewBag.Title = "EditSalaryInfo";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+    <div class="user-prfile-activity-area mg-b-40 mg-t-30">
+        <div class="container-fluid">
+            <div class="row">
+                @using (Ajax.BeginForm("SaveSalaryInfo", "SalaryInfo", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }, new { enctype = "multipart/form-data" }))
+                {
+                    string Path = "/Assests/Home/img/User_Circle.png";
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.EmpId, new { id = "EmpID" })
+                    DataHelper.EmpimgUrl = @Model.EmpImg;
+                    <div class="col-lg-3" id="UserPhoto">
+                        <div class="user-profile-about shadow-reset">
+                            <div class="login-input-head">
+                                @if (Model.EmpImg != null)
+                                {
+                                    Path = Model.EmpImg;
+                                }
+                                <img id="blah" src="@Path" width="700" height="700" alt="/Assests/Home/img/User_Circle.png" />
+                            </div>
+                            <br />
+                            @*<div class="login-input-head">
+                                <div class="btn-group images-cropper-pro">
+                                    <label title="Upload image file" for="imgInp" class="btn btn-primary img-cropper-cp">
+                                        
+                                        @Html.TextBoxFor(model => model.ProfilePhotoImage.File, new { @class = "hide", type = "file", id = "imgInp" })Upload Employee Image
+                                    </label>
+                                </div>
+                            </div>*@
+                            <div class="row">
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9" id="layout">
+                        <div class="tab-content">
+                            <div id="BasicInformation" class="tab-pane in active animated flipInX custon-tab-style1">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="login-bg">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Employee Code <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.EmpCode, new { placeholder = "Please Enter Employee Code", id = "empCode" })
+                                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Employee Name <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.EmpName, new { placeholder = "Please Enter Employee Name", id = "EmpName" })
+                                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Father Name
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.FatherName, new { placeholder = "Please Enter Father Name" })
+                                                        <i class="fa fa-group login-user" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Department <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Department as IEnumerable<SelectListItem>, "Please Select Department", new { @class = "form-control m-input", id = "departmentID" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Company <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.DropDownListFor(model => model.CompanyId, ViewBag.Company as IEnumerable<SelectListItem>, "Please Select Company", new { @class = "form-control m-input", id = "CompanyID" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Desgination <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.DropDownListFor(model => model.DesignationId, ViewBag.Designation as IEnumerable<SelectListItem>, "Please Select Designation", new { @class = "form-control m-input", id = "DesignationID" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Employee Type <spna style="color:red">*</spna>
+                                                    <div class="login-input-area">
+                                                        @Html.DropDownListFor(model => model.EmployeeTypeID, ViewBag.AllEmployeeType as IEnumerable<SelectListItem>, "Please Select Employee Type", new { @class = "form-control " })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Grade
+                                                    <div class="login-input-area">
+                                                        @Html.DropDownListFor(model => model.GradeId, ViewBag.Grade as IEnumerable<SelectListItem>, "Please Select Grade", new { @class = "form-control m-input", id = "GradeID" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Basic Salary
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.BasicSallary, new { placeholder = "Please Enter Basic Salary" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Daily Wage
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.DailyWage, new { placeholder = "Please Enter Daily Wage" })
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Bank
+                                                    <div class="login-input-area" style="margin-top: 10px;">
+
+                                                        @Html.DropDownListFor(model => model.BankId, ViewBag.BankAccounts as IEnumerable<SelectListItem>, "Please Select Value Type", new { @class = "form-control m-input", id = "BankId" })
+                                                        @Html.ValidationMessageFor(model => model.BankId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Bank Account No.
+                                                    <div class="login-input-area">
+                                                        @Html.TextBoxFor(model => model.BankAccountNo, new { placeholder = "Please Account No" })
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    Is Leave Deduct
+                                                    <div class="login-input-area" style="margin-top: 10px;">
+
+                                                        @Html.CheckBoxFor(model => model.IsLeaveDeduct.Value)
+                                                        @Html.ValidationMessageFor(model => model.IsLeaveDeduct, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" align="right">
+                                        <div class="login-button-pro">
+                                            <button type="submit" class="login-button login-button-lg"> Update</button>
+                                            <a href="/Payroll/SalaryInfo/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                           
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+
+
+
+    $(document).ready(function () {
+
+        let bankId = @(Model.BankId.HasValue ? Model.BankId : 0);
+
+
+        if (bankId > 0) {
+
+            $("[name=BankAccountNo]").removeAttr('disabled')
+        }
+        else {
+            $("[name=BankAccountNo]").val('');
+
+            $("[name=BankAccountNo]").attr('disabled', true);
+        }
+
+        $("#BankId").change(function () {
+
+            let bankId = $(this).val();
+            if (bankId > 0) {
+
+                $("[name=BankAccountNo]").removeAttr('disabled')
+
+            }
+            else {
+                $("[name=BankAccountNo]").attr('disabled', true);
+
+            }
+            $("[name=BankAccountNo]").val('');
+
+        })
+
+
+    })
+
+</script>

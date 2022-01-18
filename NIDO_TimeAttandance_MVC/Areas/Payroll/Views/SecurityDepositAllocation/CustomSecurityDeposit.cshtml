@@ -1,0 +1,305 @@
+﻿@model NIDO_TimeAttandance_MVC.tbl_SecurityDepositPosting
+
+@{
+    ViewBag.Title = "CustomSecurityDeposit";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!--<h2>CustomSecurityDeposit</h2>-->
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()*@
+
+<!--<div class="form-horizontal">
+    <h4>tbl_SecurityDepositPosting</h4>
+    <hr />-->
+@*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmpId, "EmpId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("EmpId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EmpId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+<!--<div class="form-group">-->
+@*@Html.LabelFor(model => model.MonthNo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+<!--<div class="col-md-10">-->
+@*@Html.EditorFor(model => model.MonthNo, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.MonthNo, "", new { @class = "text-danger" })*@
+<!--<select id="month" name="MonthNo" ><option selected  disabled>Start Month</option></select>
+
+    </div>
+</div>
+
+<div class="form-group">-->
+@*@Html.LabelFor(model => model.YearNo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+<!--<div class="col-md-10">-->
+@*@Html.EditorFor(model => model.YearNo, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.YearNo, "", new { @class = "text-danger" })*@
+<!--<select id="year" name="YearNo" ><option selected disabled>Start Year</option></select>
+    </div>
+</div>-->
+@*<div class="form-group">
+        @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.SecurityDepositId, "SecurityDepositId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("SecurityDepositId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SecurityDepositId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.SecurityDepositAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SecurityDepositAmount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SecurityDepositAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+<!--<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}-->
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-graph">
+                        <form id="frm-Leave" method="POST">
+                            <hr />
+                            <div class="form-group data-custon-pick data-custom-mg data_5">
+                                <div class=" input-group" >
+                                    <div class=" input-group">
+                                        <span class="input-group-addon">Month</span>
+                                        <select class="form-control" id="month" required name="month" autocomplete="off"></select>
+                                        <span class="input-group-addon">Year</span>
+                                        <select class="form-control" id="year" required name="year" autocomplete="off"></select>
+                                        <span class="input-group-addon">Amount</span>
+                                        <input type="text" id="amount" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="login-form-area mg-t-30 mg-b-15">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="tableLeave" class="cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Ecode</th>
+                                                <th>Name</th>
+                                                <th>Company</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Employee Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Employees)
+                                            {
+                                                <tr>
+                                                    <td>@item.EmpID</td>
+                                                    <td>@item.EmpCode</td>
+                                                    <td>@item.EmpName</td>
+                                                    <td>@item.CompanyName</td>
+                                                    <td>@item.DepartmentDesc</td>
+                                                    <td>@item.DesignationDesc</td>
+                                                    <td>@item.EmployeeType</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="button-drop-style-one" style="float:left">
+                                        <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">
+                                            Posting Employee(s)
+                                            <i class="adminpro-icon adminpro-avatar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        let qntYears = 10;
+        let selectYear = $("#year");
+        let selectMonth = $("#month");
+        let selectDay = $("#day");
+        let currentYear = new Date().getFullYear();
+
+        for (var y = 0; y < qntYears; y++) {
+            console.log(y);
+            let date = new Date(currentYear);
+            let yearElem = document.createElement("option");
+            yearElem.value = currentYear
+            yearElem.textContent = currentYear;
+            selectYear.append(yearElem);
+            currentYear--;
+        }
+
+        for (var m = 0; m < 12; m++) {
+            let month = monthNames[m];
+            let monthElem = document.createElement("option");
+            monthElem.value = m;
+            monthElem.textContent = month;
+            selectMonth.append(monthElem);
+        }
+
+        var d = new Date();
+        var month = d.getMonth();
+        var year = d.getFullYear();
+        var day = d.getDate();
+
+        selectYear.val(year);
+        selectYear.on("change", AdjustDays);
+        selectMonth.val(month);
+        selectMonth.on("change", AdjustDays);
+
+        AdjustDays();
+        selectDay.val(day)
+
+        function AdjustDays() {
+            var year = selectYear.val();
+            var month = parseInt(selectMonth.val()) + 1;
+            selectDay.empty();
+
+            //get the last day, so the number of days in that month
+            var days = new Date(year, month, 0).getDate();
+
+            //lets create the days of that month
+            for (var d = 1; d <= days; d++) {
+                var dayElem = document.createElement("option");
+                dayElem.value = d;
+                dayElem.textContent = d;
+                selectDay.append(dayElem);
+            }
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var table = $('#tableLeave').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+
+
+        });
+
+        // Handle form submission event
+        $('#frm-Leave').on('submit', function (e) {
+            e.preventDefault();
+            var form = this;
+            var month = $('#month').val();
+            var year = $('#year').val();
+            var Amount = $('#amount').val();
+            let arr = [];
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            $(".se-pre-con").fadeIn("fast");
+            FormSubmit(arr, month, year, Amount);
+            // Prevent actual form submission
+           
+        });
+
+        function FormSubmit(arr, month, year, amount) {
+            var model = {
+                EmpId: arr,
+                MonthNo: month,
+                YearNo: year,
+                Amount: amount
+            };
+
+            var json = JSON.stringify({ model: model });
+            $.ajax({
+                type: 'POST',
+                url: '/Payroll/SecurityDepositAllocation/CustomSecurityDeposit/',
+                
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ model: model }),
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/Posting/Index/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+
+ 
+</script>

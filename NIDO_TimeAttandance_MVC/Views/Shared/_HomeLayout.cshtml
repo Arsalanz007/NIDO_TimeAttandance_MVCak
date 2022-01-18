@@ -1,0 +1,1218 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    @{
+        var superAdmin = bool.Parse(Session["SuperAdmin"].ToString());
+
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+        ViewBag.Navs = Navigation.GetNavigation();
+        // PakOman_NedoEntities db = new PakOman_NedoEntities();
+        if (superAdmin)
+
+        {
+            //   var data12 = db.SysPolicies.FirstOrDefault();
+            ViewBag.dataPolicy = Session["Policies"];
+            //  var autoEmail = db.tbl_AutoEmailSetting.FirstOrDefault();
+            ViewBag.AutoEmail = Session["AutoEmail"];
+        }
+
+    }
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Nedo | Attandance System</title>
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="public">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon  ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="@icon.Title">
+    <link href="~/Assests/Home/font-css.css" rel="stylesheet" />
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+            ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/font-awesome.min.css">
+    <!-- modals CSS
+      ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/modals.css">
+    <!-- adminpro icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/adminpro-custon-icon.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/meanmenu.min.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/jquery.mCustomScrollbar.min.css">
+    <!-- jvectormap CSS
+           ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/jvectormap/jquery-jvectormap-2.0.3.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/animate.css">
+    <!-- summernote CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/summernote.css">
+
+    <!-- notifications CSS
+           ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/Lobibox.min.css">
+    <link rel="stylesheet" href="~/Assests/Home/css/notifications.css">
+
+    <link rel="stylesheet" href="~/Assests/Home/css/buttons.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="~/Assests/Home/css/data-table/bootstrap-editable.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/normalize.css">
+    <!-- tabs CSS
+       ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/tabs.css">
+    <!-- datapicker CSS
+       ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/datapicker/datepicker3.css">
+    <link rel="stylesheet" href="~/Assests/Home/css/colorpicker/colorpicker.css">
+
+
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/form.css">
+
+    <!-- style CSS
+       ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/alerts.css">
+    <!-- dropzone CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/dropzone.css">
+    <!-- charts CSS
+        ============================================ -->
+
+    <link rel="stylesheet" href="~/Assests/Home/css/charts.css">
+    <link rel="stylesheet" href="~/Assests/Home/css/c3.min.css">
+
+    <!-- chosen CSS
+    ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/chosen/bootstrap-chosen.css">
+
+
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Assests/Home/css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="~/Assests/Home/loaderjquery.min.js"></script>
+    @*<script src="~/Assests/Home/loadermodernizr.js"></script>*@
+    <script src="~/Assests/Home/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="~/Assests/abc/jquery.min.js"></script>
+    <!-- modal JS
+      ============================================ -->
+    <script src="~/Assests/Home/js/modal-active.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <style>
+        .Noti-Title-Text {
+            display: block;
+            width: 250px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .Noti-Detail-Text {
+            display: block;
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .header-user-menu {
+            margin-left: -100px;
+        }
+
+        .dropdown-menu {
+            width: 215px !important;
+            text-align: center;
+        }
+        .left-menu-dropdown{
+            max-height:400px;
+            overflow-y:auto;
+        }
+    </style>
+
+    <style>
+        /* Absolute Center Spinner */
+        .loading {
+            position: fixed;
+        
+            height: 2em;
+            width: 2em;
+            overflow: show;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+            /* Transparent Overlay */
+            .loading:before {
+                content: '';
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
+                background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+            }
+
+            /* :not(:required) hides these rules from IE9 and below */
+            .loading:not(:required) {
+                /* hide "loading..." text */
+                font: 0/0 a;
+                color: transparent;
+                text-shadow: none;
+                background-color: transparent;
+                border: 0;
+            }
+
+                .loading:not(:required):after {
+                    content: '';
+                    display: block;
+                    font-size: 20px;
+                    width: 1em;
+                    height: 1em;
+                    margin-top: -0.5em;
+                    -webkit-animation: spinner 150ms infinite linear;
+                    -moz-animation: spinner 150ms infinite linear;
+                    -ms-animation: spinner 150ms infinite linear;
+                    -o-animation: spinner 150ms infinite linear;
+                    animation: spinner 150ms infinite linear;
+                    border-radius: 0.5em;
+                    -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+                    box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+                }
+
+        /* Animation */
+
+        @@-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @@-moz-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @@-o-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+        });
+    </script>
+
+</head>
+<body class="materialdesign">
+    <div id="spinnerLoader" style="display:none;" class="loading"> <div style="color:white;">Loading</div>Loading&#8230;</div>
+    <input hidden id="SessionLogo" value="@icon.Report" />
+    <div class="se-pre-con"></div>
+    <div class="wrapper-pro">
+        <div class="left-sidebar-pro">
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    @{
+                        string Username = Session["UserName"].ToString() != null ? Session["UserName"].ToString() : "NEDO";
+                        string EmpImg = "/Assests/Home/img/message/User_Circle.png";
+                        if (Session["EmpImg"] != null)
+                        {
+                            EmpImg = Session["EmpImg"].ToString();
+                        }
+                    }
+                    <a href="#">
+                        <img src="@icon.Dashboard" alt="" style="border-radius:0px; width:150px;" />
+                    </a>
+                    <hr />
+                </div>
+                <div class="left-custom-menu-adp-wrap" >
+                    @if (ViewBag.Navs != null)
+                    {
+                        <ul class="nav navbar-nav left-sidebar-menu-pro" >
+                            @{
+                                var dataView = ((IEnumerable<tblMenu>)ViewBag.Navs).Select(c => new SelectListItem
+                                {
+                                    Value = c.ID.ToString(),
+                                    Text = c.Caption,
+                                });
+                            }
+                            @foreach (var d in ViewBag.Navs)
+                            {
+                                <li class="nav-item">
+                                    @if (d.ParentID == null)
+                                    {
+                                        if (d.Caption == "Home")
+                                        {
+                                            <a href="/Home/Index" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-home" style="color:#0088cc"></i>&nbsp;&nbsp;&nbsp; <span class="mini-dn">Home</span> </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="@d.Icon" style="color:#0088cc"></i>&nbsp;&nbsp;&nbsp; <span class="mini-dn">@d.Caption</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                        }
+                                    }
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX" >
+                                        @if (d.ParentID == null)
+                                        {
+                                            foreach (var child in d.tblMenu1)
+                                            {
+                                                if (child.IsActive == true)
+                                                {
+                                                    var IfExist = dataView.Where(x => x.Value == child.ID.ToString()).FirstOrDefault();
+                                                    if (IfExist != null)
+                                                    {
+                                                        string url = "";
+                                                        if (child.AreaName != null)
+                                                        {
+                                                            url = "/" + child.AreaName + "/" + child.ControllerName + "/" + child.MethodName + "/";
+                                                        }
+                                                        else
+                                                        {
+                                                            url = "/" + child.ControllerName + "/" + child.MethodName + "/";
+                                                        }
+                                                        <a href="@url" class="dropdown-item">@child.Caption</a>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </nav>
+        </div>
+        @{
+            var data = DataHelper.getCircular();
+            string circularTex = "  ";
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    circularTex = item.CircularText + "  " + circularTex + " ";
+                }
+
+
+
+
+            }
+        }
+        <!-- Header top area start-->
+        <div class="content-inner-all">
+            <div class="header-top-area">
+                <div class="fixed-header-top">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-1 ">
+                                <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                    <i class="fa fa-bars "></i>
+                                </button>
+                                <div class="admin-logo logo-wrap-pro">
+                                    <a href="#">
+                                        <img src="~/Assests/Home/img/logo/2.png" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-2" style="padding-right:2%;">
+                                <ul class="nav navbar-nav mai-top-nav">
+                                    <li class="nav-item" style="padding:17px">
+                                        <div class="col-lg-2">
+                                            <div class="breadcome-heading">
+                                                <form role="search" class="">
+                                                    <input id="txtTrackingID" type="text" style="color:white" placeholder="Enter your request Tracking ID" class="form-control col-md-12" autocomplete="off">
+                                                    <a id="Tracking"><i class="fa fa-search"></i></a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul>
+                                    <li style="margin-left:7%; padding:17px;">
+                                        <marquee style="color:white; padding-left:50px;">
+                                            @circularTex
+                                        </marquee>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="header-right-info">
+                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                        <li class="nav-item">
+                                            <a href="#" class="noti" id="bellAnchor"><i class="fa fa-bell-o" aria-hidden="true"></i><span id="indicator"><span class="count">&nbsp;</span></span></a>
+                                            <button hidden href="#" id="dropdownFlap" data-toggle="dropdown" role="button" aria-expanded="false" class="noti nav-link dropdown-toggle"></button>
+                                            <div role="menu" class="notification-author dropdown-menu animated flipInX ">
+                                                <div class="notification-single-top">
+                                                    <h1>Notifications</h1>
+                                                </div>
+                                                <ul id="notiContent" class="notification-menu"></ul>
+                                                <div class="notification-view">
+                                                    <a href="/Home/GetAllNotifications/">View All Notification</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                <div class="sidebar-header">
+                                                    <img style="height:35px;width:35px" src="@EmpImg" alt="" />
+                                                    <span class="admin-name">@Username</span>
+                                                    <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
+                                                </div>
+                                            </a>
+                                            <ul role="menu" style="margin-right:5%;" class="dropdown-header-top author-log dropdown-menu animated flipInX @(!superAdmin ? "header-user-menu" : "") ">
+                                                <li>
+                                                    <a data-target="#modalCP" data-toggle="modal"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Change Password</a>
+                                                </li>
+                                                <li>
+                                                    <a href="~/Error/LockScreen/"><span class="adminpro-icon adminpro-minus-sign-in-a-circle author-log-ic"></span>Lock Screen</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Login/Logout/"><span class="adminpro-icon adminpro-minus-sign-in-a-circle author-log-ic"></span>Log Out</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        @if (superAdmin && ViewBag.dataPolicy != null && ViewBag.AutoEmail != null)
+                                        {
+                                            <li class="nav-item nav-setting-open">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-wrench"></i></a>
+                                                <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated flipInX" style="width:400px !important ; text-align:left;">
+                                                    <ul class="nav nav-tabs custon-set-tab">
+                                                        <li class="active">
+                                                            <a data-toggle="tab" href="#Settings">Settings</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="tab-content" style="background-color:#1f2c79">
+                                                        <div id="Settings" class="tab-pane fade  in active">
+                                                            <div class="setting-panel-area">
+                                                                <div class="note-heading-indicate">
+                                                                    <h2><i class="fa fa-gears"></i> Settings Panel</h2>
+                                                                </div>
+
+                                                                <ul class="setting-panel-list">
+                                                                    @if (ViewBag.dataPolicy != null)
+                                                                    {
+                                                                        string Sandchecked = "";
+                                                                        string Fifochecked = "";
+
+
+                                                                        if ((ViewBag.dataPolicy).InOutTypeOrFifoBasedAttend == true)
+                                                                        {
+                                                                            Fifochecked = "checked";
+                                                                        }
+                                                                        if ((ViewBag.dataPolicy).IsSandwichAllowed == true)
+                                                                        {
+
+                                                                            Sandchecked = "checked";
+                                                                        }
+
+                                                                        <li>
+                                                                            <div class="checkbox-setting-pro">
+                                                                                <div class="checkbox-title-pro">
+                                                                                    <h2>Sandwich Policy</h2>
+                                                                                    <div class="ts-custom-check">
+                                                                                        <div class="onoffswitch">
+                                                                                            <input type="checkbox" name="collapsemenu" @Sandchecked class="onoffswitch-checkbox" onclick="UpdatePolicy(1);" id="Sandwich">
+                                                                                            <label class="onoffswitch-label" for="Sandwich">
+                                                                                                <span class="onoffswitch-inner"></span>
+                                                                                                <span class="onoffswitch-switch"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="checkbox-setting-pro">
+                                                                                <div class="checkbox-title-pro">
+                                                                                    <h2>Fifo Attend</h2>
+                                                                                    <div class="ts-custom-check">
+                                                                                        <div class="onoffswitch">
+                                                                                            <input type="checkbox" name="collapsemenu" @Fifochecked class="onoffswitch-checkbox" onclick="UpdatePolicy(2)" id="Fifo">
+                                                                                            <label class="onoffswitch-label" for="Fifo">
+                                                                                                <span class="onoffswitch-inner"></span>
+                                                                                                <span class="onoffswitch-switch"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (ViewBag.AutoEmail != null)
+                                                                    {
+                                                                        string AutoEmail = "";
+
+                                                                        if ((ViewBag.AutoEmail).AutoEmailState == true)
+                                                                        {
+
+                                                                            AutoEmail = "checked";
+                                                                        }
+                                                                        <li>
+                                                                            <div class="checkbox-setting-pro">
+                                                                                <div class="checkbox-title-pro">
+                                                                                    <h2>Auto Email</h2>
+                                                                                    <div class="ts-custom-check">
+                                                                                        <div class="onoffswitch">
+                                                                                            <input type="checkbox" name="collapsemenu" @AutoEmail class="onoffswitch-checkbox" onclick="UpdateAutoEmail();" id="AutoEmail">
+                                                                                            <label class="onoffswitch-label" for="AutoEmail">
+                                                                                                <span class="onoffswitch-inner"></span>
+                                                                                                <span class="onoffswitch-switch"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header top area end-->
+            <!-- Mobile Menu start -->
+            <div class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="mobile-menu" >
+                                <nav id="dropdown">
+
+                                    @if (ViewBag.Navs != null)
+                                    {
+                                        <ul class="mobile-menu-nav" >
+                                            @{
+                                                var dataView = ((IEnumerable<tblMenu>)ViewBag.Navs).Select(c => new SelectListItem
+                                                {
+                                                    Value = c.ID.ToString(),
+                                                    Text = c.Caption,
+                                                });
+                                            }
+                                            @foreach (var d in ViewBag.Navs)
+                                            {
+
+                                                <li>
+                                                    @if (d.ParentID == null)
+                                                    {
+                                                        <a data-toggle="collapse" data-target="#Charts" href="#">@d.Caption <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                                    }
+                                                    @if (d.ParentID == null)
+                                                    {
+                                                        <ul class="collapse dropdown-header-top" >
+                                                            @foreach (var child in d.tblMenu1)
+                                                            {
+                                                                var IfExist = dataView.Where(x => x.Value == child.ID.ToString()).FirstOrDefault();
+                                                                if (IfExist != null)
+                                                                {
+                                                                    string url = "";
+                                                                    if (child.AreaName != null)
+                                                                    {
+                                                                        url = "/" + child.AreaName + "/" + child.ControllerName + "/" + child.MethodName + "/";
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        url = "/" + child.ControllerName + "/" + child.MethodName + "/";
+                                                                    }
+                                                                    <li>
+                                                                        <a href="@url">@child.Caption</a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    }
+                                                </li>
+                                            }
+                                            }
+                                        </ul>
+                                    }
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Msg Modals -->
+            <div class="col-lg-6">
+                <div class="modal-bootstrap shadow-reset" style="display:none">
+                    <div class="modal-area-button">
+                        <a class="Primary mg-b-10" href="#" data-toggle="modal" data-target="#PrimaryModalblbgpro" id="InfoMsg" style="display:none">Primary</a>
+                        <a class="Warning Warning-color mg-b-10" href="#" data-toggle="modal" data-target="#WarningModalblbgpro" id="WarningMsg" style="display:none">Warning</a>
+                        <a class="Danger danger-color" href="#" data-toggle="modal" data-target="#DangerModalblbgpro" id="DangerMsg" style="display:none">Danger</a>
+
+                    </div>
+                </div>
+                <div id="PrimaryModalblbgpro" class="modal modal-adminpro-general default-popup-PrimaryModal PrimaryModal-bgcolor fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                            <div class="modal-body">
+                                <i class="fa fa-check modal-check-pro"></i>
+                                <h2>Success!</h2>
+                                <p id="InfoP"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a id="InfoA" href="/Home/Index/">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="WarningModalblbgpro" class="modal modal-adminpro-general Customwidth-popup-WarningModal PrimaryModal-bgcolor fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                            <div class="modal-body">
+                                <span class="adminpro-icon adminpro-warning-danger modal-check-pro information-icon-pro"></span>
+                                <h2>Warning!</h2>
+                                <p id="WarningP"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a data-dismiss="modal" href="#">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DangerModalblbgpro" class="modal modal-adminpro-general FullColor-popup-DangerModal PrimaryModal-bgcolor fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-close-area modal-close-df">
+                                <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                            </div>
+                            <div class="modal-body">
+                                <span class="adminpro-icon adminpro-danger-error modal-check-pro information-icon-pro"></span>
+                                <h2>Something went Wrong!</h2>
+                                <p id="DangerP"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a data-dismiss="modal" href="#">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*PROGRESS BAR MODAL*@
+            <div class="modal fade in" id="mod-progress" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <div class="i-circle warning"><i class="fa fa-info"></i></div>
+                                <div id="result" style="font-size: 1.1em; padding-bottom: 5px">
+                                    <p id="progressBarParagraph"></p>
+                                </div>
+                                <div style="width: 30%; margin: 0 auto; display:none;">
+                                    <div id="progressbar" style="width: 300px; height: 15px"></div>
+                                    <br />
+                                </div>
+                                <div id="ProgressStripe" class="progress progress-striped active" style="position:relative; top:10px; width:100%;">
+                                    <div id="ProgressMessage" class="progress-bar progress-bar-info" style="width: 100%; border:none;"></div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            @RenderBody()
+
+        </div>
+    </div>
+    <!-- Footer Start-->
+    <div class="footer-copyright-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-copy-right">
+                        <p>Copyright &#169; @DateTime.Now.Year . All rights reserved. Design & Developed by <a href="https://www.nedogroup.com/">NEDO CORPORATION</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End-->
+    <!-- Change Password Popup-->
+    <div class="modal fade" id="modalCP" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h4 class="modal-title" id="modalLabel">Please Enter New Password</h4>
+                </div>
+                <form method="post" id="frm-ChangePassword">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="login-input-head">
+                                        <p>New Password</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        <input type="password" placeholder="Please Enter New password" name="txtPassword" required id="txtPassword" />
+                                        <i class="fa fa-key login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="login-input-head">
+                                        <p>Confirm Password</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        <input type="password" placeholder="Please confirm password" id="txtConfirmPassword" required onchange="checkPassword()" />
+                                        <i class="fa fa-key login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        function checkPassword() {
+            var Password = $('#txtPassword').val();
+            var ConfirmPassword = $('#txtConfirmPassword').val();
+
+            if (Password != ConfirmPassword) {
+                SendNotif("Password Mis match!", "Password must match", 'error');
+                $('#txtPassword').val('');
+                $('#txtConfirmPassword').val('');
+            }
+        }
+
+    </script>
+
+    <!--Track Request by Tracking ID search option -->
+    <script>
+        $('#Tracking').click(function () {
+            var TrackingId = $('#txtTrackingID').val();
+            // check rights
+            $.ajax({
+                type: 'POST',
+                url: '/Home/CheckRightforTrack/',
+                data: { ID: TrackingId },
+                success: function (msg) {
+                    if (msg.Status == "Success") {
+                        window.location = '/TrackRequest/Index?id=' + TrackingId;
+                    }
+                    else {
+                        SendNotif("Ooopss!", msg.Message, 'error');
+                    }
+                },
+                error: function () {
+                    SendNotif("Ooopss!", "Failed", 'error');
+                },
+            })
+        })
+
+    </script>
+
+
+    <script>
+        $("#frm-ChangePassword").submit(function () {
+            var txtPassword = $('#txtPassword').val();
+            $.ajax({
+                type: 'POST',
+                url: '/Login/ChangePassword/',
+                data: { txtPassword: txtPassword },
+            })
+
+        });
+    </script>
+    <script>
+
+        function UpdatePolicy(id) {
+            $.ajax({
+                type: 'POST',
+                url: '/SystemPolicy/UpdatePolicy',
+                data: { id: id },
+                success: function (resp) {
+                    if (resp.status == "success") {
+                        SendNotif("Congrat!", resp.msg, 'success');
+                    }
+                    else {
+                        SendNotif("Ooopss!", "Failed", 'error');
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+        function UpdateAutoEmail() {
+            $.ajax({
+                type: 'POST',
+                url: '/MailServices/UpdateAutoEmail',
+
+                success: function (resp) {
+                    if (resp.status == "success") {
+                        SendNotif("Congrat!", resp.msg, 'success');
+                    }
+                    else {
+                        SendNotif("Ooopss!", resp.msg, 'error');
+
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+    </script>
+
+
+
+
+    <script src="~/Assests/pdfmake-0.1.62-pdfmake.js"></script>
+    <script src="~/Assests/vfs_fonts.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/bootstrap.min.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/jquery.meanmenu.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/jquery.sticky.js"></script>
+    <!-- notification JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/Lobibox.js"></script>
+    <script src="~/Assests/Home/js/notification-active.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/jquery.scrollUp.min.js"></script>
+
+
+    <!-- counterup JS
+            ============================================ -->
+    <script src="~/Assests/Home/js/counterup/jquery.counterup.min.js"></script>
+    <script src="~/Assests/Home/js/counterup/waypoints.min.js"></script>
+    <!-- map JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/data-table/bootstrap-table.js"></script>
+    <script src="~/Assests/Home/js/data-table/tableExport.js"></script>
+    <script src="~/Assests/Home/js/data-table/data-table-active.js"></script>
+    <script src="~/Assests/Home/js/data-table/bootstrap-table-editable.js"></script>
+    <script src="~/Assests/Home/js/data-table/bootstrap-editable.js"></script>
+    <script src="~/Assests/Home/js/data-table/bootstrap-table-resizable.js"></script>
+    <script src="~/Assests/Home/js/data-table/colResizable-1.5.source.js"></script>
+    <script src="~/Assests/Home/js/data-table/bootstrap-table-export.js"></script>
+
+
+
+    <!--  dropzone JS
+
+            ============================================ -->
+    <script src="~/Assests/Home/js/dropzone.js"></script>
+    <!-- multiple email JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/multiple-email/multiple-email-active.js"></script>
+    <!-- summernote JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/summernote.min.js"></script>
+    <script src="~/Assests/Home/js/summernote-active.js"></script>
+
+    <!-- colorpicker JS
+       ============================================ -->
+    <script src="~/Assests/Home/js/colorpicker/jquery.spectrum.min.js"></script>
+    <script src="~/Assests/Home/js/colorpicker/color-picker-active.js"></script>
+    <!-- datapicker JS
+       ============================================ -->
+    <script src="~/Assests/Home/js/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Assests/Home/js/datapicker/datepicker-active.js"></script>
+    <!-- chosen JS
+    ============================================ -->
+    <script src="~/Assests/Home/js/chosen/chosen.jquery.js"></script>
+    <script src="~/Assests/Home/js/chosen/chosen-active.js"></script>
+    <!-- input-mask JS
+       ============================================ -->
+    <script src="~/Assests/Home/js/input-mask/jasny-bootstrap.min.js"></script>
+
+    <!-- rounded-counter JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/rounded-counter/jquery.countdown.min.js"></script>
+    <script src="~/Assests/Home/js/rounded-counter/jquery.knob.js"></script>
+    <script src="~/Assests/Home/js/rounded-counter/jquery.appear.js"></script>
+    <script src="~/Assests/Home/js/rounded-counter/knob-active.js"></script>
+
+    <!-- c3 JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/c3-charts/d3.min.js"></script>
+    <script src="~/Assests/Home/js/c3-charts/c3.min.js"></script>
+    <script src="~/Assests/Home/js/c3-charts/c3-active.js"></script>
+
+
+    <!-- Charts JS
+            ============================================ -->
+    <script src="~/Assests/Home/js/charts/Chart.js"></script>
+    <script src="~/Assests/Home/js/charts/bar-chart.js"></script>
+
+    <!-- counterup JS
+    ============================================ -->
+    <script src="~/Assests/Home/js/counterup/jquery.counterup.min.js"></script>
+    <script src="~/Assests/Home/js/counterup/waypoints.min.js"></script>
+    <script src="~/Assests/Home/js/counterup/counterup-active.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="~/Assests/Home/js/main.js"></script>
+
+    @* Progress bar of SignalR *@
+    <script src="~/Scripts/Helper.js" type="text/javascript"></script>
+
+    @* add jquery code for get notification & setup signal r*@
+    <script>
+        $(function () {
+            // click on notification icon
+            $('a.noti').click(function (e) {
+
+                $('#dropdownFlap').click();
+                e.stopPropagation();
+                $('.noti-content').show();
+                updateNotification();
+            })
+            //hide notification
+            $('html').click(function () {
+                $('.noti-content').hide();
+            })
+            //update notifiaction
+            function updateNotification() {
+                $('#noticontent').empty();
+                $('#noticontent').append($('<li>loading...</li>'));
+                $.ajax({
+                    type: 'GET',
+                    url: '/home/GetNotificationContacts',
+                    success: function (response) {
+
+
+                        if (response.length == 0) {
+                            $('#noticontent').append($('<li>no data available</li>'));
+                        }
+                        $('#mCSB_1_container').empty();
+                        $.each(response, function (index, value) {
+                            var color = "";
+                            var RequestBy = "";
+
+                            if (value.IsAdminRequest == true) {
+                                color = "Red";
+                                RequestBy = "Admin";
+
+                            }
+
+                            //$('#mCSB_1_container').empty();
+                            $('#mCSB_1_container').append($('<li class="readClcik" id=' + value.ID + ' ><a href="' + value.NotificationLink + '"><div class="notification-icon"> <img src="' + value.EmpImg + '" style="border-radius:50%" /></div><div class="notification-content"><span class="notification-date" style="color:' + color + '">' + RequestBy + '</span><h2 class="Noti-Title-Text">' + value.NotificationTitle + '</h2><p class="Noti-Detail-Text">' + value.NotificationDetail + '</p></div>  </a> </li>'));
+                            //$('#notiContent').append($('<li><a href="#"><div class="notification-icon"> <span class="adminpro-icon adminpro-checked-pro"></span></div><div class="notification-content"><span class="notification-date">16 Sept</span><h2>' + value.NotificationTitle + '</h2> <p>' + value.NotificationDetail + '</p></div> </a></li>'));
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+            //update notification count
+            function updateNotificationCount() {
+                $("#indicator").addClass("indicator-nt");
+                $("#bellAnchor").css('color', 'red');
+
+
+            
+            }
+        });
+    </script>
+    <!--set Counter value if exist -->
+    <script>
+        $(document).ready(function () {
+
+
+            $('#noticontent').empty();
+            $('#noticontent').append($('<li>loading...</li>'));
+
+            $.ajax({
+                type: 'GET',
+                url: '/home/GetNotificationContacts',
+                success: function (response) {
+                    var count = Object.keys(response).length;
+                    if (count > 0) {
+
+                        $("#indicator").addClass("indicator-nt");
+                        $("#bellAnchor").css('color', 'red');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        })
+    </script>
+    <!--set isSeen True -->
+    <script>
+        $(document).on("click", "li.readClcik", function () {
+            var NotificationID = $(this).attr('id');
+            $.ajax({
+                type: 'POST',
+                url: '/home/IsSeenTrue',
+                data: { id: NotificationID },
+                async: true,
+                success: function (response) {
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+
+        //$('.materialdesign').on("contextmenu", function (e) {
+        //    alert('right click disabled');
+        //    return false;
+        //});
+    </script>
+
+    <!--toaster Noticiation method-->
+    <script>
+        function SendNotif(title, text, type) {
+            Lobibox.notify(type, {
+                width: 500,
+                title: title,
+                position: 'top right',
+                msg: text
+            });
+        }
+
+
+        function convertDate(str) {
+            var date = new Date(str),
+                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                day = ("0" + date.getDate()).slice(-2);
+            return [mnth, day, date.getFullYear()].join("/");
+
+        }
+    </script>
+    <script>
+        function ActionLinkAlert(URL, data) {
+            $.ajax({
+                type: 'POST',
+                data: { id: data },
+                url: URL,
+                success: function (response) {
+                    if (response.Status == "Success") {
+
+                        SendNotif('Congrats!', response.Message, 'success');
+                        location.reload(true);
+                    }
+                    else {
+                        SendNotif('Ooops!', response.Message, 'error');
+                    }
+                }, error: function (error) {
+
+                }
+            })
+        }
+    </script>
+
+
+
+    <!--Check Duplicate Employee Code-->
+    <script>
+        $('#empCode').change(function () {
+            var UsrCode = $('#empCode').val();
+            var EmpId = $('#EmpID').val();
+            $.ajax({
+                type: 'POST',
+                url: '/EmployeeProfile/CheckUserName',
+                data: {
+                    UsrCode: UsrCode,
+                    EmpId: EmpId,
+                },
+                success: function (msg) {
+                    if (msg.Status == "AlreadyExist") {
+                        SendNotif('ooopss!', "Employee Code must unique , this Code already exist", 'warning');
+                        $('#empCode').val("");
+                    }
+                    else {
+                        SendNotif('Congrat!', "Employee Code accepted", 'success');
+                    }
+                },
+                error: function () {
+
+                }
+            })
+
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            if (@DataHelper.IsAnyNoticiation.ToString().ToLower()== true) {
+                @{
+                    DataHelper.IsAnyNoticiation=false;
+                }
+                SendNotif("Restrictions Alert", '@DataHelper.MessageForNotication', 'info');
+            }
+        });
+    </script>
+
+    <script>
+        function redirect(URL) {
+            window.location.href = URL;
+        };
+        function OnFailureAjax() {
+            SendNotif("Oooops!", 'Failed', 'error');
+        };
+        function OnBeginAjax() { };
+        function OnSuccessAjax(msg) {
+            if (msg.Status == "Error") {
+                $('#DangerP').text(msg.Message);
+                $('#DangerMsg')[0].click();
+                OnAjaxError(msg.Message);
+            }
+            else if (msg.Status == "Success") {
+             
+                $('#InfoP').text(msg.Message);
+                var oldUrl = $('#InfoA').attr("href");
+                var newUrl = oldUrl.replace("/Home/Index/", msg.URL);
+                $('#InfoA').attr("href", newUrl);
+                $('#InfoMsg')[0].click();
+            }
+        };
+        function OnSuccessAjaxAutoEmail(msg) {
+
+            if (msg.Status == "Error") {
+                $('#DangerP').text(msg.Message);
+                $('#DangerMsg')[0].click();
+                OnAjaxError(msg.Message);
+            }
+            else if (msg.Status == "Success") {
+                $('#InfoP').text(msg.Message);
+                // var oldUrl = $('#InfoA').attr("href");
+                // var newUrl = oldUrl.replace("/Home/Index/", msg.URL);
+                $('#InfoA').attr("href", "/MailServices/ListAll");
+                $('#InfoMsg')[0].click();
+            }
+        };
+
+    </script>
+</body>
+</html>
+

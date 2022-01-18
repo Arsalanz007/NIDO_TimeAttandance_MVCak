@@ -1,0 +1,67 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.Logo
+@{
+    ViewBag.Title = "LogoControl";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="row">
+    <div>
+        @using (Ajax.BeginForm("Save", "Configuration", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-lg-3">
+                <div class="user-profile-about shadow-reset">
+                    @Html.CheckBoxFor(m => m.Dashboard) Dashboard
+                    @Html.CheckBoxFor(m => m.Login)     Login
+                    @Html.CheckBoxFor(m => m.Report)    report
+                    @Html.CheckBoxFor(m => m.TitleBar) Title
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="user-profile-about shadow-reset">
+                    <div class="login-input-head">
+                        <img id="blah" src="~/Assests/Home/img/User_Circle.png" style="border-radius:50%" width="500" height="500" alt="~/Assests/Home/img/User_Circle.png" />
+                    </div>
+                    <br />
+                    <div class="login-input-head">
+                        <div class="btn-group images-cropper-pro">
+                            <label title="Upload image file" for="imgInp" class="btn btn-primary img-cropper-cp">
+                                @Html.TextBoxFor(m => m.URL, new { @class = "hide", type = "file", id = "imgInp" })Upload Employee Image
+                            </label>
+                            <button type="submit" class="login-button login-button-lg">Finish & Save</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+
+        <div class="col-lg-6"></div>
+
+    </div>
+</div>
+<script>
+
+    var myfile = "";
+    $('#imgInp').on('change', function () {
+      
+        myfile = $(this).val();
+        var ext = myfile.split('.').pop();
+
+        if (ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "JPG" || ext == "JPEG") {
+            var oldUrl = $('#blah').attr("href");
+            var newUrl = oldUrl.replace(oldUrl, "~/Assests/Home/img/message/1.jpg");
+            $('#blah').attr("href", newUrl);
+        }
+        else {
+
+            var oldUrl = $('#blah').attr("href");
+            var newUrl = oldUrl.replace(oldUrl, "~/Assests/Home/img/message/1.jpg");
+            $('#blah').attr("href", newUrl);
+
+        }
+    });
+</script>

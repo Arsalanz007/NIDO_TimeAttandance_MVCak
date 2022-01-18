@@ -1,0 +1,423 @@
+﻿
+@using System.Globalization
+@using System;
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models;
+@{
+    ViewBag.Title = "GeneratePaySlip";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    double totalEarning = 0;
+    double totalDeduction = 0;
+
+
+}
+
+
+
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="printableArea">
+    @*<link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">*@
+    <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+    </style>
+
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+    }
+
+    @foreach (var item in ViewBag.DataMaster)
+    {
+
+
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="invoice">
+
+                    <div class="bill-info">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-4 mt-md">
+                                <div class="ib" style="width:30%;height:10%">
+                                    @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                    <img src="@icon.Report" alt="okler themes" />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <h2 class="h4 mt-none mb-sm text-dark text-bold">Full And Final Settlement Report</h2>
+
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+
+                                        <tr>
+                                            <th> Emp. Code :</th>
+                                            <td> @item.EmpCode</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <th>   Designation :</th>
+                                            <td> @item.Designation</td>
+                                        </tr>
+                                        <tr>
+                                            <th>   Department :</th>
+                                            <td> @item.Department</td>
+                                        </tr>
+                                        <tr>
+                                            <th>   Appoinment Date :</th>
+                                            <td> @(Convert.ToDateTime(item.AppointmentDate).ToShortDateString())</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>   Grade :</th>
+                                            <td> @item.Grade</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Currency</th>
+                                            <td>@ViewBag.Currency</td>
+                                        </tr>
+
+                                        @*<tr>
+                                    <th>Basic Salary :</th>
+                                    <td>
+                                        @if (item.EmployeeTypeId == 8)
+                                        {
+                                            item.BasicSalary = item.PerDaySalary * item.TotalDays;
+                                        }
+                                        @item.BasicSalary
+
+                                    </td>
+                                </tr>*@
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="bill-to">
+                                    <table class="table-no-bordered">
+                                        <tr>
+                                            <th> Employee Name :</th>
+                                            <td>@item.EmpName</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Company :</th>
+                                            <td>@item.Company</td>
+                                        </tr>
+                                        <tr>
+                                            <th> CNIC No :</th>
+                                            <td>@item.CNICNo</td>
+                                        </tr>
+                                        <tr>
+                                            <th> Leaving  Date :</th>
+                                            <td> @item.EndDate.ToShortDateString()</td>
+                                        </tr>
+                                        <tr>
+                                            <th>   EmployeeType:</th>
+                                            <td> @item.EmployeeType</td>
+                                        </tr>
+                                        @*<tr>
+                                    <th> Year :</th>
+                                    <td> @item.YearNo</td>
+                                </tr>
+                                <tr>
+                                    <th> Per Day Amount :</th>
+                                    <td> @item.PerDaySalary  </td>
+                                </tr>
+                                <tr>
+                                    <th> Per Hour Amount :</th>
+                                    <td> @item.PerHourSalary  </td>
+                                </tr>*@
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                @{
+                    totalEarning = item.LastMonthSalary + item.ProvidentFund + item.EOBI;
+                    totalDeduction = item.Advance + item.PFWithdrawl + item.Loan;
+
+
+
+                    string NoOfLates = "";
+                    string OverTIme = "";
+                    string WorkingHrsTime = "";
+                    TimeSpan tm, tOverTime, WorkingHrs;
+                    item.BasicSalary = (Int32)(item.BasicSalary == null ? 0 : item.BasicSalary);
+                    item.PerDaySalary = (Int32)(item.PerDaySalary == null ? 0 : item.PerDaySalary);
+                    item.PerHourSalary = (Int32)(item.PerHourSalary == null ? 0 : item.PerHourSalary);
+                }
+               
+                <section class="panel">
+                    <div class="panel-body">
+
+
+                        @{
+                            double? TotalEarning = 0;
+
+                            //item.PaySlip_OTAmount = (Int32)(item.PaySlip_OTAmount == null ? 0 : item.PaySlip_OTAmount);
+                            //item.PaySlip_LeaveAmount = (Int32)(item.PaySlip_LeaveAmount == null ? 0 : item.PaySlip_LeaveAmount);
+                            //item.PaySlip_HolidayOTAmount = (Int32)(item.PaySlip_HolidayOTAmount == null ? 0 : item.PaySlip_HolidayOTAmount);
+
+                            //item.PaySlip_AbsentAmount = (Int32)(item.PaySlip_AbsentAmount == null ? 0 : item.PaySlip_AbsentAmount);
+                            //item.PaySlip_HalfDayAmount = (Int32)(item.PaySlip_HalfDayAmount == null ? 0 : item.PaySlip_HalfDayAmount);
+                            //item.PaySlip_LateAmount = (Int32)(item.PaySlip_LateAmount == null ? 0 : item.PaySlip_LateAmount);
+                            //item.PaySlip_LoanAmount = (Int32)(item.PaySlip_LoanAmount == null ? 0 : item.PaySlip_LoanAmount);
+                            //item.PaySlip_AdvanceAmount = (Int32)(item.PaySlip_AdvanceAmount == null ? 0 : item.PaySlip_AdvanceAmount);
+
+                            //item.TotalOT = item.TotalOT == null ? 0 : item.TotalOT;
+                            item.PaySlip_TotalAbsent = item.PaySlip_TotalAbsent == null ? 0 : item.PaySlip_TotalAbsent;
+                            item.PaySlip_TotalLeave = item.PaySlip_TotalLeave == null ? 0 : item.PaySlip_TotalLeave;
+                            item.PaySlip_TotalLate = item.PaySlip_TotalLate == null ? 0 : item.PaySlip_TotalLate;
+                            item.PaySlip_TotalHalfDay = item.PaySlip_TotalHalfDay == null ? 0 : item.PaySlip_TotalHalfDay;
+                            IList<PaySlipAllowanceModel> pam = item.PaySlip_Allowances;
+                            IList<PaySlipDeductionModel> pdm = item.PaySlip_Deductions;
+                            IList<PaySlipEOBIModel> peoid = item.PaySlip_EOBI;
+                            IList<PaySlipProvidentFundModel> ppf = item.PaySlip_ProvidentFund;
+
+
+
+                            //   TotalEarning = item.PaySlip_OTAmount + item.PaySlip_LeaveAmount + item.PaySlip_HolidayOTAmount + pam.Sum(x => x.AllowanceAmount);
+                            //   double? TotalDeduction = 0;
+                            //    TotalDeduction = item.PaySlip_AbsentAmount + item.PaySlip_HalfDayAmount + item.PaySlip_LateAmount + item.PaySlip_LoanAmount + pdm.Sum(x => x.DeductionAmount) + peoid.Sum(c => c.EOBIAmount) + ppf.Sum(c => c.ProvidentFundAmount);
+                            //   double? OverAlltotal = item.BasicSalary + (TotalEarning - TotalDeduction);
+                        }
+
+
+
+                    </div>
+
+                </section>
+
+
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr></tr>
+                            <tr class="text-dark">
+                                <th id="Date" class="text-center text-semibold">Earnings</th>
+                                <th id="TimeOut" class="text-center text-semibold">Amount</th>
+                                <th id="Working" class="text-center text-semibold">Deduction</th>
+                                <th id="Short" class="text-center text-semibold">Amount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">Last Month Salary</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">@item.LastMonthSalary</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">Advance</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">@item.Advance  </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">Provident Fund</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">@item.ProvidentFund</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">Provident Fund Withdrawal </td>
+                                <td style="border-right: 1px solid #dddddd;border-left: none;border-bottom: none;border-top: none;" class="text-center">
+                                    @item.PFWithdrawl
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">EOBI</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">@item.EOBI</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">Loan</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">@item.Loan</td>
+
+                            </tr>
+
+
+
+
+
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;border-bottom:none;border-top:none;" class="text-center">&nbsp;</td>
+
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #dddddd;border-right:none;" class="text-center">Total Earnings</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;" class="text-center">@totalEarning</td>
+                                <td style="border-left:1px solid #dddddd;border-right:none;" class="text-center">Total Deduction</td>
+                                <td style="border-right:1px solid #dddddd;border-left:none;" class="text-center">@totalDeduction</td>
+                            </tr>
+
+
+
+                        </tbody>
+
+                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-center" colspan="2">&nbsp;</td>
+                                    <td class="text-center"><h5>Payable Amount</h5></td>
+                                    <td class="text-center"><h5> @item.NetAmount  </h5></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <div class="invoice-summary">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table h5 text-dark">
+                                <tbody>
+                                    <tr>
+                                        <td class="h3 text-semibold text-dark text-center" colspan="5">Monthly Summary</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="text-semibold text-dark text-center">Total Over Time</td>
+
+                                        <td class="text-semibold text-dark text-center">Total Absent</td>
+
+                                        <td class="text-semibold text-dark text-center">Total Leave</td>
+
+                                        <td class="text-semibold text-dark text-center">Total Late</td>
+
+                                        <td class="text-semibold text-dark text-center">Total HalfDay</td>
+
+
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left text-center">@item.PaySlip_TotalOT</td>
+                                        <td class="text-left text-center">@item.PaySlip_TotalAbsent</td>
+                                        <td class="text-left text-center">@item.PaySlip_TotalLeave</td>
+                                        <td class="text-left text-center">@item.PaySlip_TotalLate</td>
+                                        <td class="text-left text-center">@item.PaySlip_TotalHalfDay</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="invoice-summary">
+                    <div class="row">
+                        @*<div class="col-sm-12">
+                    <table class="table h5 text-dark">
+                        <tbody>
+                            <tr>
+                                <td class="h3 text-semibold text-dark text-center" colspan="5">Monthly Summary</td>
+                            </tr>
+                            <tr>
+
+                                <td class="text-semibold text-dark text-center">Total Over Time</td>
+
+                                <td class="text-semibold text-dark text-center">Total Absent</td>
+
+                                <td class="text-semibold text-dark text-center">Total Leave</td>
+
+                                <td class="text-semibold text-dark text-center">Total Late</td>
+
+                                <td class="text-semibold text-dark text-center">Total HalfDay</td>
+
+
+
+                            </tr>
+                            <tr>
+                                <td class="text-left text-center">@item.TotalOT</td>
+                                <td class="text-left text-center">@item.TotalAbsent</td>
+                                <td class="text-left text-center">@item.TotalLeave</td>
+                                <td class="text-left text-center">@item.TotalLate</td>
+                                <td class="text-left text-center">@item.TotalHalfDay</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>*@
+                        Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <div class="pagebreak"></div>
+    }
+
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        //document.body.innerHTML = html;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+

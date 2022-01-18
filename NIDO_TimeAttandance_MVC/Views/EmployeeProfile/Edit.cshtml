@@ -1,0 +1,954 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelEmpProfile
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    img {
+        border-radius: 50%;
+    }
+</style>
+<br />
+<div class="user-profile-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="admintab-wrap mg-b-40">
+                        <ul class="nav nav-tabs custom-menu-wrap custon-tab-menu-style1">
+                            <li class="active">
+                                <a style="text-size-adjust:auto" data-toggle="tab" id="basicAnchor" href="#BasicInformation"><span class="adminpro-icon adminpro-avatar tab-custon-ic"></span>Basic</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab"  id="additionalInfoTab" href="#AdditionalInfo"><span class="adminpro-icon adminpro-airplay tab-custon-ic"></span>Additional Info</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab"  id="inCaseofEmergencyTab" href="#InCaseofEmergency"><span class="adminpro-icon adminpro-alarm-clock tab-custon-ic"></span>Emergency</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" id="educationAnchor" href="#EduBackground"><span class="adminpro-icon adminpro-graduation-school-hat tab-custon-ic"></span>Education</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" id="experienceAnchor" href="#Experience"><span class="adminpro-icon adminpro-plus-add-button-in tab-custon-ic"></span>Experience</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" id="familyAnchor" href="#FamilyInfo"><span class="adminpro-icon adminpro-home-admin tab-custon-ic"></span>Family</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="user-prfile-activity-area mg-b-40 mg-t-30">
+    <div class="container-fluid">
+        <div class="row">
+            @using (Ajax.BeginForm("Update", "EmployeeProfile", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }, new { enctype = "multipart/form-data" }))
+            {
+                string Path = "/Assests/Home/img/User_Circle.png";
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.EmpId, new { id = "EmpID" })
+                DataHelper.EmpimgUrl = @Model.EmpImg;
+                <div class="col-lg-3" id="UserPhoto">
+                    <div class="user-profile-about shadow-reset">
+                        <div class="login-input-head">
+                            @if (Model.EmpImg != null)
+                            {
+                                Path = Model.EmpImg;
+                            }
+                            <img id="blah" src="@Path" width="700" height="700" alt="/Assests/Home/img/User_Circle.png" />
+                        </div>
+                        <br />
+                        <div class="login-input-head">
+                            <div class="btn-group images-cropper-pro">
+                                <label title="Upload image file" for="imgInp" class="btn btn-primary img-cropper-cp">
+                                    @*<input type="file" accept="image/*" name="file" id="imgInp" class="hide">*@
+                                    @Html.TextBoxFor(model => model.ProfilePhotoImage.File, new { @class = "hide", type = "file", id = "imgInp" })Upload Employee Image
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9" id="layout">
+                    <div class="tab-content">
+                        <div id="BasicInformation" class="tab-pane in active animated flipInX custon-tab-style1">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="login-bg">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Employee Code <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.EmpCode, new { placeholder = "Please Enter Employee Code", id = "empCode" })
+                                                    <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                Employee Name <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.EmpName, new { placeholder = "Please Enter Employee Name", id = "EmpName" })
+                                                    <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Father Name
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.FatherName, new { placeholder = "Please Enter Father Name" })
+                                                    <i class="fa fa-group login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Department <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Department as IEnumerable<SelectListItem>, "Please Select Department", new { @class = "form-control m-input", id = "departmentID" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Email
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.EmailAdd, new { placeholder = "Please Enter Email Address", id = "Email" })
+                                                    <i class="fa fa-envelope login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                CNIC
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.CNICNo, new { data_mask = "99999-9999999-9", placeholder = "Please Enter CNIC No" })
+                                                    <i class="fa fa-circle-o-notch login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Company <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.CompanyId, ViewBag.Company as IEnumerable<SelectListItem>, "Please Select Company", new { @class = "form-control m-input", id = "CompanyID" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Desgination <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.DesignationId, ViewBag.Designation as IEnumerable<SelectListItem>, "Please Select Designation", new { @class = "form-control m-input", id = "DesignationID" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Employee Type <spna style="color:red">*</spna>
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.EmployeeTypeID, ViewBag.AllEmployeeType as IEnumerable<SelectListItem>, "Please Select Employee Type", new { @class = "form-control " })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                City
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.CityId, ViewBag.City as IEnumerable<SelectListItem>, "Please Select City", new { @class = "form-control m-input", id = "CityID" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Grade
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.GradeId, ViewBag.Grade as IEnumerable<SelectListItem>, "Please Select Grade", new { @class = "form-control m-input", id = "GradeID" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                Employee Status
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.EmployeeStatusId, ViewBag.EmployeeStatus as IEnumerable<SelectListItem>, "Please Select Employee Status", new { @class = "form-control m-input", id = "EmployeeStatusID" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row trailPeriod" style="display:none">
+                                            <div>
+                                                <div class="form-group data-custon-pick data_1 col-md-6">
+                                                    Trail Priod Start <span style="color:red">*</span>
+                                                    <div class="input-group date">
+                                                        @Html.TextBoxFor(model => model.TrailStartDate, new { @class = "form-control", placeholder = "Please Enter Start Date Of Trail", @readonly = "readonly", id = "trailStartDate" })
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group data-custon-pick data_1 col-md-6">
+                                                    Trail Priod End <span style="color:red">*</span>
+                                                    <div class="input-group date">
+                                                        @Html.TextBoxFor(model => model.TrailEndDate, new { @class = "form-control", placeholder = "Please Enter End Date Of Trail", @readonly = "readonly", id = "trailEndDate" })
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row appointedPeriod" style="display:none">
+                                            <div>
+                                                <div class="form-group data-custon-pick data_1 col-md-6">
+                                                    Appointed Priod Start <span style="color:red">*</span>
+                                                    <div class="input-group date">
+                                                        @Html.TextBoxFor(model => model.AppointedStartDate, new { @class = "form-control", placeholder = "Please Enter Start Date Of Appointed", @readonly = "readonly", id = "appointedStartDate" })
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group data-custon-pick data_1 col-md-6">
+                                                    Appointed Priod End <span style="color:red">*</span>
+                                                    <div class="input-group date">
+                                                        @Html.TextBoxFor(model => model.AppointedEndDate, new { @class = "form-control", placeholder = "Please Enter End Date Of Appointed", @readonly = "readonly", id = "appointedEndDate" })
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                IMEI
+                                                <div class="login-input-area">
+                                                    @Html.TextBoxFor(model => model.IMEI, new { placeholder = "", id = "", @class = "form-control", @disabled = "disabled" })
+                                                </div>
+                                                <button type="button" class="btn btn-danger" id="resetImei">Reset IMEI</button>
+                                            </div>
+
+                                            <div class="form-group data-custon-pick data_1 col-md-6 confirmDateDiv">
+                                                Confirm Date <spna style="color:red">*</spna>
+                                                <div class="input-group date">
+                                                    @Html.TextBoxFor(model => model.ConfirmationDate, new { placeholder = "", id = "confirmDate", @class = "form-control" })
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <a data-toggle="tab" href="#AdditionalInfo" class="login-button login-button-lg" id="next">Next</a>
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="AdditionalInfo" class="tab-pane animated flipInX custon-tab-style1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Home Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.HomeTel, new { placeholder = "Please Enter Home Tel" })
+                                            <i class="fa fa-phone login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Religion
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Religion, new { placeholder = "Please Enter Religion" })
+                                            <i class="fa fa-ban login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Nationality
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Nationality, new { placeholder = "Please Enter Nationality" })
+                                            <i class="fa fa-flag login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Blood Group
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.BloodGroup, new { placeholder = "Please Enter Blood Group" })
+                                            <i class="fa fa-group login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group data-custon-pick data_1 col-md-6">
+                                        Appointment Date
+                                        <div class="input-group date">
+                                            @Html.TextBoxFor(model => model.AppointmentDate, new { @class = "form-control", placeholder = "Please Enter Appointment date", @readonly = "readonly" })
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Mother tounge
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.MotherTounge, new { placeholder = "Please Enter mother tounge" })
+                                            <i class="fa fa-language login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group data-custon-pick data_1 col-md-6">
+                                        Date of Birth
+                                        <div class="input-group date">
+                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", placeholder = "Please Enter Date of birth",@readonly = "readonly" })
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Martial Status
+                                        <div class="login-input-area">
+                                            @Html.DropDownListFor(model => model.MartialStatusId, ViewBag.MartialStatus as IEnumerable<SelectListItem>, "Please Select Martial Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Temp Address
+                                        <div class="login-textarea-area">
+                                            @Html.TextAreaFor(model => model.EmpTempAdd, new { placeholder = "Please Enter temp address", cols = "43", rows = "3" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Permanent Address
+                                        <div class="login-textarea-area">
+                                            @Html.TextAreaFor(model => model.EmpPermAdd, new { placeholder = "Please Enter Permanent address", cols = "43", rows = "3" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="Exit">
+                                <div class="col-md-12">
+                                    <div class="form-group data-custon-pick data_1 col-md-6">
+                                        Date of Exit
+                                        <div class="input-group date">
+                                            @Html.TextBoxFor(model => model.DOE, new { @class = "form-control", placeholder = "Please Enter Date of Exit", @readonly = "readonly" })
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Exit Remarks
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.ExitRemarks, new { placeholder = "Please Enter Exit remarks" })
+                                            <i class="fa fa-exchange login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <hr />
+                                    <fieldset>
+                                        <legend> &nbsp; &nbsp; Select all these neccessary info by check</legend>
+                                        <div class="col-md-2">
+                                            Is OT Alow
+                                            <div class="login-input-area">
+                                                @Html.CheckBoxFor(model => model.IsOTAllow)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            Late Allow
+                                            <div class="login-input-area">
+                                                @Html.CheckBoxFor(model => model.LateAllow)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            Halfday Allow
+                                            <div class="login-input-area">
+                                                @Html.CheckBoxFor(model => model.HalfdayAllow)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            In-Active
+                                            <div class="login-input-area">
+                                                @Html.CheckBoxFor(model => model.ActiveInActive, new { id = "IsActive" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            Gender
+                                            <div class="login-input-area">
+                                                <label>
+                                                    @Html.RadioButtonFor(model => model.Gender, "Male", new { @checked = true, name = "radio-inline" }) Male:
+                                                </label>
+                                                <label>
+                                                    @Html.RadioButtonFor(model => model.Gender, "Female", new { name = "radio-inline" }) Female:
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <a data-toggle="tab" href="#InCaseofEmergency" class="login-button login-button-lg" id="next">Next</a>
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="InCaseofEmergency" class="tab-pane animated flipInX custon-tab-style1">
+                            <div class="row">
+                                <h3 style="text-align:center">Please provide refrences information</h3>
+                                <h4 style="text-align:center">Refrence One</h4>
+                                <hr />
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Refrence Name
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref1Name, new { placeholder = "Please Enter refrence Name" })
+                                            <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Refrence Email
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref1EmailAdd, new { placeholder = "Please Enter Email" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Home Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref1HomeTel, new { placeholder = "Please Enter Home tel" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Mobile
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.MobileNo, new { placeholder = "Please Enter mobile no" })
+                                            <i class="fa fa-mobile login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Office Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref1OfficeTel, new { placeholder = "Please Enter Office tel" })                                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Address
+                                        <div class="login-input-area">
+                                            @Html.TextAreaFor(model => model.Ref1Add, new { placeholder = "Please Enter address", cols = "43", rows = "2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <br />
+                                <h3 style="text-align:center">Refrence two</h3>
+                                <hr />
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Refrence Name
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref2Name, new { placeholder = "Please Enter refrence Name" })
+                                            <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Refrence Email
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref2EmailAdd, new { placeholder = "Please Enter Email" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Home Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref2HomeTel, new { placeholder = "Please Enter Home tel" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Mobile
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref2MobileNo, new { placeholder = "Please Enter mobile no" })
+                                            <i class="fa fa-mobile login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Office Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.Ref2OfficeTel, new { placeholder = "Please Enter Office tel" })                                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Address
+                                        <div class="login-input-area">
+                                            @Html.TextAreaFor(model => model.Ref2Add, new { placeholder = "Please Enter address", cols = "43", rows = "2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <br />
+                                <h3 style="text-align:center">Please provide information for Emergency case</h3>
+                                <hr />
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Name
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.EmgName, new { placeholder = "Please Enter  Name" })
+                                            <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Email
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.EmgEmailAdd, new { placeholder = "Please Enter Email" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Home Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.EmgHomeTel, new { placeholder = "Please Enter Home tel" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Mobile
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.EmgMobileNo, new { placeholder = "Please Enter mobile no" })
+                                            <i class="fa fa-mobile login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Office Tel
+                                        <div class="login-input-area">
+                                            @Html.TextBoxFor(model => model.EmgOfficeTel, new { placeholder = "Please Enter Office tel" })                                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                                            <i class="fa fa-phone-square login-user" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Address
+                                        <div class="login-input-area">
+                                            @Html.TextAreaFor(model => model.EmgAdd, new { placeholder = "Please Enter address", cols = "43", rows = "2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <a data-toggle="tab" href="#EduBackground" class="login-button login-button-lg" id="next">Next</a>
+                                        @*<a data-toggle="tab" href="#Security" class="login-button login-button-lg" id="next">Next</a>*@
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @*<div id="Security" class="tab-pane animated flipInX custon-tab-style1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            User ID
+                                            <div class="login-input-area">
+                                                @Html.TextBoxFor(model => model.UserId, new { placeholder = "Please Enter User iD" })
+                                                <i class="fa fa-lock login-user" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            User Password
+                                            <div class="login-input-area">
+                                                @Html.PasswordFor(model => model.Password, new { placeholder = "Please Enter Password" })
+                                                <i class="fa fa-lock login-user" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            Allow Access
+                                            <div class="login-input-area">
+                                                @Html.CheckBoxFor(model => model.IsAllowAccess)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" align="right">
+                                        <div class="login-button-pro">
+                                            <a data-toggle="tab" href="#EduBackground" class="login-button login-button-lg" id="next">Next</a>
+                                            <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>*@
+                        <div id="EduBackground" class="tab-pane animated flipInX custon-tab-style1">
+                            <div id="form_container_user">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <a data-toggle="tab" href="#Experience" class="login-button login-button-lg" id="next">Next</a>
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="Experince" class="tab-pane animated flipInX custon-tab-style1">
+                            <div id="form_container_user1">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" align="right">
+                                    <div class="login-button-pro">
+                                        <a data-toggle="tab" href="#FamilyInfo" class="login-button login-button-lg" id="next">Next</a>
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="FamilyInfo" class="tab-pane animated flipInX custon-tab-style1">
+                            <div id="form_container_user2">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8">
+                                    <div class="login-button-pro">
+                                        <button type="submit" class="login-button login-button-lg">Finish & Update</button>
+                                        <a href="/EmployeeProfile/ListAll/" class="login-button login-button-lg">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+     $(function () {
+        $("#experienceAnchor").click(function () {
+
+            if (NextTab()) {
+
+            $("#UserPhoto").fadeOut('fast');
+            $("#layout").addClass('col-lg-12').removeClass("col-lg-9");
+            }
+        });
+        $("#educationAnchor").click(function () {
+            if (NextTab()) {
+                $("#UserPhoto").fadeOut('fast');
+                $("#layout").addClass('col-lg-12').removeClass("col-lg-9");
+            }
+        });
+        $("#familyAnchor").click(function () {
+            if (NextTab()) {
+                $("#UserPhoto").fadeOut('fast');
+                $("#layout").addClass('col-lg-12').removeClass("col-lg-9");
+            }
+        });
+
+
+        $("#basicAnchor").click(function () {
+            $("#UserPhoto").fadeIn('fast');
+            $("#layout").addClass('col-lg-9').removeClass("col-lg-12");
+        });
+        $("#additionalInfoTab").click(function () {
+            $("#UserPhoto").fadeIn('fast');
+            $("#layout").addClass('col-lg-9').removeClass("col-lg-12");
+        });
+        $("#inCaseofEmergencyTab").click(function () {
+            $("#UserPhoto").fadeIn('fast');
+            $("#layout").addClass('col-lg-9').removeClass("col-lg-12");
+        });
+
+        $("#form_container_user1").load("/EmployeeProfile/loaduserform?pageID=" + 2 + "&Empid=" + 0)
+        $("#form_container_user").load("/EmployeeProfile/loaduserform?pageID=" + 1 + "&Empid=" + 0)
+        $("#form_container_user2").load("/EmployeeProfile/loaduserform?pageID=" + 3 + "&Empid=" + 0)
+    })
+
+
+</script>
+<script>
+    $('#next').click(function () {
+        var sEmail = $('#Email').val();
+        if (!NextTab()) {
+            SendNotif('Ooopss!', "Please Fill neccessary filled", 'error');
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+
+    $(".nav-tabs>li>a").click(function (event) {
+        if (!NextTab()) {
+            SendNotif('Ooopss!', "Please Fill neccessary filled", 'error');
+
+            event.stopPropagation();
+            return false;
+
+        }
+    })
+
+    function NextTab() {
+        if ($.trim($('#empCode').val()) == '' || $.trim($('#EmpName').val()) == '' || $('#departmentID :selected').index() <= 0 || $('#CompanyID :selected').index() <= 0 || $('#DesignationID :selected').index() <= 0) {
+
+            return false;
+        }
+        if ($("#EmployeeStatusID").val() != 1) {
+            return true;
+        }
+        if (!($("#EmployeeStatusID").val() == 1 && $("#trailStartDate").val() && $("#trailEndDate").val())) {
+          
+            return false;
+        }
+       
+        return true;
+    }
+</script>
+
+<script>
+    var myfile = "";
+    $('#imgInp').on('change', function () {
+        myfile = $(this).val();
+        var ext = myfile.split('.').pop();
+        if (ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "JPG" || ext == "JPEG") { }
+        else {
+            $('#DangerP').text("Only images format is allowed");
+            $('#DangerMsg')[0].click();
+            var oldUrl = $('#blah').attr("href");
+            var newUrl = oldUrl.replace(oldUrl, "~/Assests/Home/img/message/1.jpg");
+            $('#blah').attr("href", newUrl);
+        }
+    });
+
+    $(function () {
+        $("#adminpro-order-form").on("submit", function () {
+            if (ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "JPEG") {
+                return true;
+            } else {
+                $('#DangerP').text("Only images format is allowed");
+                $('#DangerMsg')[0].click();
+                return false;
+            }
+        })
+    })
+
+</script>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+
+    $(document).ready(function () {
+
+        $('#Exit').fadeOut('slow');
+        $("#EmployeeStatusID").change();
+        $('#IsActive').change(function () {
+            if (this.checked)
+                $('#Exit').fadeIn('slow');
+            else
+                $('#Exit').fadeOut('slow');
+
+        });
+    });
+</script>
+
+<script>
+    function Experince() {
+        var Experinces = new Array();
+        $("#tblExperince TBODY TR").each(function () {
+            var row = $(this);
+            var Experince = {};
+            Experince.CompanyName = row.find("TD").eq(0).html();
+            Experince.Position = row.find("TD").eq(1).html();
+            Experince.FromTime = row.find("TD").eq(2).html();
+            Experince.ToTime = row.find("TD").eq(3).html();
+            Experinces.push(Experince);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertExperince",
+            data: JSON.stringify(Experinces),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                return;
+            }
+        })
+    }
+    function Education() {
+        var Educations = new Array();
+        $("#tblEducation TBODY TR").each(function () {
+            var row = $(this);
+            var Education = {};
+            Education.Degree = row.find("TD").eq(0).html();
+            Education.Institute = row.find("TD").eq(1).html();
+            Education.GradeOrGPA = row.find("TD").eq(2).html();
+            Education.Year = row.find("TD").eq(3).html();
+            Educations.push(Education);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertEducation",
+            data: JSON.stringify(Educations),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                return r;
+            }
+        })
+    }
+    function Family() {
+
+        var Families = new Array();
+        $("#tblDOB TBODY TR").each(function () {
+            var row = $(this);
+            var Family = {};
+            Family.Name = row.find("TD").eq(0).html();
+            Family.Relation = row.find("TD").eq(1).html();
+            Families.push(Family);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/InsertFamily",
+            data: JSON.stringify(Families),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                return r;
+            }
+        })
+    }
+    
+    $("#EmployeeStatusID").change(function () {
+
+        if ($(this).val() == "1") {
+            $(".trailPeriod").fadeIn(600);
+            $(".confirmDateDiv").fadeOut(600);
+
+        }
+        else if ($(this).val() == "3")
+        {
+            $(".trailPeriod").fadeOut(600);
+            $(".confirmDateDiv").fadeIn(600);
+
+        }
+        else {
+            $(".trailPeriod").fadeOut(600);
+            $(".confirmDateDiv").fadeOut(600);
+
+        }
+        
+        if ($(this).val() == "2") {
+            $(".appointedPeriod").fadeIn(600);
+            $(".confirmDateDiv").fadeOut(600);
+        }
+        else {
+            $(".appointedPeriod").fadeOut(600);
+            //$(".confirmDateDiv").fadeOut(600);
+        }
+    })
+
+    $("#resetImei").click(function () {
+
+        let empId = @Model.EmpId;
+
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeProfile/ResetImei?empId=" + empId,
+          
+           
+            success: function (r) {
+
+                if (r == "True") {
+                    $("[name=IMEI]").val('');
+                    SendNotif("Congrats!", "IMEI reset successfully", "success");
+                }
+                else {
+
+                    SendNotif('Ooopss!', "Please Fill neccessary filled", 'error');
+                }
+
+            }
+        })
+
+    })
+</script>
+
+

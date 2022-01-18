@@ -1,0 +1,129 @@
+﻿
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+<form method="post" id="frm-leaveAprovalPop">
+    @if (ViewBag.LeaveApprovalDetails != null)
+    {
+        string DepartmentName = ViewBag.LeaveApprovalDetails[0].DepartmentDesc;
+        <div class="modal-content" style="width:100%">
+            <div class="modal-header" align="center">
+                <h4 class="modal-title" id="modalLabel">@DepartmentName Department</h4>
+            </div>
+            <div class="modal-body">
+                <div class="sparkline13-graph">
+                    <div class="datatable-dashv1-list custom-datatable-overright">
+                        <table id="table" class="cell-border compact stripe order-column">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    @*<th data-field="Department" data-editable="true">Department</th>*@
+                                    <th>Leave Date</th>
+                                    <th>Leave Dsc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var de in ViewBag.LeaveApprovalDetails)
+                                {
+                                    DepartmentName = de.DepartmentDesc;
+                                    string leaveDate = de.AttDate.ToString("dd-MMM-yyy");
+                                    string Parameter = de.EmpID + "|" + de.AttDate;
+
+                                    <tr>
+                                        <td>@Parameter</td>
+                                        <td>@de.EmpCode</td>
+                                        <td>@de.EmpName</td>
+                                        <td>@de.DesignationDesc</td>
+                                        @*<td>@de.DepartmentDesc</td>*@
+                                        <td>@leaveDate</td>
+                                        <td>@de.LeaveDsc</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="button" id="btnclose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    }
+</form>
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#table').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+        });
+
+        // Handle form submission event
+        $('#frm-leaveAprovalPop').on('submit', function (e) {            
+            var form = this;
+            var arr = new Array();            
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });            
+            FormLeavePoP(arr);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        function FormLeavePoP(arr) {
+            $.ajax({
+                type: 'POST',
+                url: '/LeaveApproval/Delete/',
+                data: {
+                    EmpId: arr,                    
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $('#btnclose').click();
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/LeaveApproval/ListAll/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+</script>

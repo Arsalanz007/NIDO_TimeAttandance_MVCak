@@ -1,0 +1,71 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelLogin
+@{
+    ViewBag.Title = "LockScreen";
+    Layout = "~/Views/Shared/_LockScreen.cshtml";
+
+   string UserName= Session["UserNameLo"].ToString() != null ? Session["UserNameLo"].ToString() : "NEDO";
+   string EmpImg= Session["EmpimgLock"].ToString() != null ? Session["EmpimgLock"].ToString() : "NEDO";
+   string EmpName= Session["EmpNameLo"].ToString() != null ? Session["EmpNameLo"].ToString() : "NEDO";
+}
+
+@using (Ajax.BeginForm("Unlock", "Error", new AjaxOptions { HttpMethod = "POST", LoadingElementId = "loader", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }))
+{
+
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="panel-body">        
+        <div class="current-user text-center">
+            <img src="@EmpImg" alt="John Doe" class="img-circle user-image" />
+            <h2 class="user-name text-dark m-none">@EmpName</h2>
+            <input type="text" class="user-email m-none" hidden="hidden" value="@UserName" readonly="readonly" name="UserName" />
+          
+        </div>
+            <div class="form-group mb-lg">
+                <div class="input-group input-group-icon">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control input-lg", placeholder = "Enter your valid password", required = "*" })                  
+                    <span class="input-group-addon">
+                        <span class="icon icon-lg">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <p class="mt-xs mb-none">
+                        @*<a href="#">Not John Doe?</a>*@
+                    </p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button type="submit" class="btn btn-primary">Unlock</button>
+                </div>
+            </div>
+      
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    function OnFailure() {
+        alert("Faliure ")
+    }
+
+    function OnBegin() {
+        //alert("OnBegin ");
+    }
+    function OnComplete() {
+       // alert("OnComplete ");
+    }
+    function OnSuccess(msg) {
+        if (msg.Status == "Error") {
+            SendNotif('Ooopss!', "Invalid credentials..", 'error');
+        }
+        else if (msg.Status == "Success") {
+            SendNotif('Congrts!', "Login Successful.", 'success');
+            window.location.href = msg.URL;
+        }
+    }
+</script>

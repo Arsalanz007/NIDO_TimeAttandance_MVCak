@@ -1,0 +1,107 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelLogin
+
+@{
+    ViewBag.Title = "Login";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+}
+
+<!doctype html>
+<html lang="en">
+<body>
+    <div class="center-sign ">
+        <div class="panel panel-sign">
+            <div class="panel-body">
+                <a href="https://www.nedogroup.com/">
+                    @*<img src="~/Uploads/Logo/NedoLogo.jpg" height="60" alt="Porto Admin" style="align-items:center" />*@
+                    <img src="@icon.Login" height="60" alt="Porto Admin" style="align-items:center" />
+                </a>
+                <br />
+                <br />
+                <br />
+                @using (Ajax.BeginForm("validate", "Login", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess" }))
+
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group mb-lg">
+                        <label>User Name</label>
+                        <div class="input-group input-group-icon">
+                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control input-lg", id = "txtUsername", placeholder = "Enter your valid username", required = "*" })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <div class="clearfix">
+                            <label class="pull-left">Password</label>
+                            @*<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>*@
+                        </div>
+                        <div class="input-group input-group-icon">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control input-lg", placeholder = "Enter your valid password", required = "*" })
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*<div class="col-sm-8">
+                                <div class="checkbox-custom checkbox-default">
+                                    <input id="RememberMe" name="rememberme" type="checkbox" />
+                                    <label for="RememberMe">Remember Me</label>
+                                </div>
+                            </div>*@
+                        <div class="col-sm-12 text-right">
+                            <button id="lg_submit_btn" type="submit" class="btn btn-primary hidden-xs">Login</button>
+                            <!--<button type="submit" class="btn btn-primary btn-block btn-lg  mt-lg">Sign In</button>-->
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="text-center">
+                    <label>Karachi | Lahore | Islamabad</label>
+                </div>
+                <div class="text-center">
+                    <label>UAN 111 - 633 - 675 (NEDOPK)</label>
+                </div>
+                <div class="text-center">
+                    <span class="glyphicon glyphicon-earphone" />&nbsp;<label>0092-21-34311595-6</label>
+                </div>
+                <div class="text-center">
+                    <span class="glyphicon glyphicon-envelope" />&nbsp;<    >info@nedogroup.com</label>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-muted mt-md mb-md">&copy; Copyright @DateTime.Now.Year. All rights reserved. Design & Developed by <br /><a href="https://www.nedogroup.com/">NEDO CORPORATION</a>.</p>
+    </div>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    <script>
+        function OnFailure() {
+            SendNoti('Ooops!', 'Some thing went wrong try again.., ', 'error');
+        }
+        function OnBegin() {
+            $(".se-pre-con").fadeIn("slow");
+        }
+        function OnSuccess(msg) {
+            $(".se-pre-con").fadeOut("slow");
+            if (msg.Status == "Error") {
+                SendNoti('Ooops!', msg.Message, 'error');
+            }
+            else if (msg.Status == "Success") {
+                SendNoti('Congrats!', msg.Message, 'success');
+                window.location.href = msg.URL;
+            }
+        }
+    </script>
+</body>
+</html>

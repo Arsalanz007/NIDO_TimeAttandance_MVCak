@@ -1,0 +1,72 @@
+﻿@model  IEnumerable<NIDO_TimeAttandance_MVC.Areas.User.Models.ModelLeaveHistory>
+
+@{ int i = 0;}
+
+@foreach (var grp in Model.GroupBy(x => x.remarks))
+{
+
+    string ColpaseClass = "";
+    if (i == 0)
+    {
+        ColpaseClass = "in";
+    }
+    <div class="panel panel-default">
+        <div class="panel-heading accordion-head">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    @grp.Key
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse2" class="panel-collapse panel-ic collapse  @ColpaseClass">
+            <div class="panel-body admin-panel-content animated bounce">
+                <div class="datatable-dashv1-list custom-datatable-overright">
+                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                        <thead>
+                            <tr>
+                                <th>Leave Name</th>
+                                <th>Deduct Day</th>
+                                <th>Total Days</th>
+                                <th>Month</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in grp)
+                            {
+                                string MonthName = new DateTime(2015, item.Month, 1).ToString("MMMM");
+                                <tr>
+                                    <td>
+                                        @item.LeaveName
+                                    </td>
+                                    <td>
+                                        @item.DeductDay
+                                    </td>
+                                    <td>
+                                        @item.TotalDays
+                                    </td>
+                                    <td>
+                                        @MonthName
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    i++;
+}
+
+
+<!-- map JS
+       ============================================ -->
+<script src="~/Assests/Home/js/data-table/bootstrap-table.js"></script>
+<script src="~/Assests/Home/js/data-table/tableExport.js"></script>
+<script src="~/Assests/Home/js/data-table/data-table-active.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="~/Assests/Home/js/data-table/colResizable-1.5.source.js"></script>
+<script src="~/Assests/Home/js/data-table/bootstrap-table-export.js"></script>

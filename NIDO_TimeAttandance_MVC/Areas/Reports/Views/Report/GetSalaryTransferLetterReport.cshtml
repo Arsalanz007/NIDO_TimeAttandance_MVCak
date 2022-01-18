@@ -1,0 +1,233 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.SalaryTransferLetterModel>
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models
+@{
+    ViewBag.Title = "GetSalaryTransferLetterReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var bankDetails = (IList<BankModel>)ViewBag.BankDetail;
+
+    var empBank = new BankModel();
+
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="printableArea">
+
+    <link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+    </style>
+
+    @foreach (var model in Model.GroupBy(c => c.BankId))
+    {
+
+
+        if (model.Key != null)
+        {
+            empBank = bankDetails.Where(c => c.BankId == model.Key).FirstOrDefault();
+
+        }
+        else
+        {
+            empBank = new BankModel();
+        }
+
+
+
+
+
+        <section class="panel">
+            <div class="panel-body">
+                <div id="">
+
+
+                    @{
+                        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+                    }
+                    <div class="invoice">
+
+                        <div class="bill-info">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 mt-md col-xs-6" >
+                                    <div class="ib" style="width:30%;height:10%">
+
+                                        <img src="@icon.Report" alt="okler themes" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="text-align:right">
+                                    <h2 class="h4 mt-none mb-sm text-dark text-bold">Transfer Letter</h2>
+                                    <h4 class="h5 m-none text-dark text-bold">@dateRange[0] , @dateRange[1]</h4>
+
+
+                               
+
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="invoice">
+
+                        <div class="bill-info">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 mt-md col-xs-12">
+                                    <div class="ib" style="width:30%;height:10%">
+
+                                        <p>
+                                            To, <br />
+                                            The Manager, <br />
+                                            @empBank.Bank_Name <br />
+                                            @empBank.Address, <br />
+                                            @empBank.CityName <br />
+                                        
+                                        </p>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+
+
+                            <strong>
+                                Subject: Credit in the following accounts.
+                            </strong><br />
+
+                            <br />
+                            <strong>
+                                This is requested to please debit Chq # ___________________________________  of @ViewBag.Currency ___________________________________  into the
+                                following accounts
+                            </strong>
+                        </div>
+
+
+                    </div>
+                    <div>
+                        <table id="table" class="table table table-bordered">
+
+                            <thead style="background: #669cff;color: white;font-size: 14px">
+
+                                <tr class="text-dark" style="color: white !important">
+                                    <th id="" class="text-center text-semibold">SNO</th>
+                                    <th id="Name" class="text-center text-semibold">Employee Name</th>
+                                    <th id="CNIC" class="text-center text-semibold">CNIC</th>
+                                    <th id="AccNo" class="text-center text-semibold">Account Number</th>
+
+                                    <th id="Amt" class="text-center text-semibold">Amount</th>
+
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in model)
+                                {
+
+                                    <tr>
+                                        <td class="text-center">@item.EmpCode</td>
+                                        <td class="text-center">@item.EmpName
+
+                                        <td class="text-center">@item.CNIC</td>
+                                        <td class="text-center">@item.Acc_No</td>
+                                        <td class="text-center">@String.Format("{0:0.00}", item.Amount)</td>
+
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                            @*<tfoot>*@
+
+
+                            <tr style="border:2px solid">
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+
+                                <td class="text-center"><strong>Total :</strong></td>
+
+
+                                <td class="text-center">@String.Format("{0:0.00}", model.Sum(c => c.Amount))</td>
+
+                            </tr>
+                            @*</tfoot>*@
+
+                        </table>
+
+
+
+
+
+
+                    </div>
+                    Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+                    <script>
+                        function printDiv(divName) {
+                            var printContents = document.getElementById(divName).innerHTML;
+                            //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+                            //document.body.innerHTML = html;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </section>
+        <div class="pagebreak"></div>
+    }
+</div>
+

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Reports.Models.ModelMonthlyRepot>
+@{
+    ViewBag.Title = "trackMe";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Skin CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+
+
+<section role="main" class="content-body">
+    <!-- start: page -->
+    <div class="timeline">
+        <div class="tm-body">
+            @foreach (var item in Model)
+            {
+                string path = "/Assests/images/IN.jpg";
+                string status = "IN";
+                string statusSyn = "Arrival";
+                string color = "green";
+                if (item.InOutType != 1)
+                {
+                    path = "/Assests/images/exit.jpg";
+                    status = "OUT";
+                    statusSyn = "Departure";
+                    color = "red";
+                }
+
+                <div class="tm-title">
+                    <h3 class="h5 text-uppercase">@item.MachineName</h3>
+                </div>
+                <ol class="tm-items">
+                    <li>
+                        <div class="tm-info">
+                            <div class="tm-icon" style="padding:unset;border:2px solid #0088cc">
+                                <img style="border-radius:50%;height: 44px;margin: 3px;margin-top:3px; width: 44px;" width="100px" height="-63px" src="@path">
+                            </div>
+                            <div class="tm-datetime">
+                                <div class="tm-datetime-date" style="color:green">@item.checkTime.Date.ToString("dd MMM yyyy")</div>
+                                <div class="tm-datetime-time" style="font-weight:100; font-size:larger;color:red"><b>@item.checkTime.TimeOfDay</b> </div>
+                            </div>
+                        </div>
+                      
+                        <div class="tm-box appear-animation" style="width:25%" data-appear-animation="fadeInRight" data-appear-animation-delay="100">
+
+                            <div class="tm-datetime-time" style="font-weight:normal; font-size:larger;color:#5958ca"><b>Transaction Status</b> </div>
+                            <div class="tm-datetime-time" style="font-size:larger;color:@color;">@statusSyn (@status) </div>
+                        </div>
+                    </li>
+                </ol>
+            }
+        </div>
+    </div>
+    <!-- end: page -->
+</section>
+<script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+<!-- Specific Page Vendor -->
+<script src="~/Assests/Dashboard/assets/vendor/jquery-appear/jquery.appear.js"></script>
+<!-- Theme Base, Components and Settings -->
+<script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+<!-- Theme Initialization Files -->
+<script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+
+
+

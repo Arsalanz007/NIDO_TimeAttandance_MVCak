@@ -1,0 +1,135 @@
+﻿
+@model NIDO_TimeAttandance_MVC.Areas.Payroll.Models.BankModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("SaveBank", "Bank", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>Create Bank</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Bank Name</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" id="kids">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.Bank_Name, new { placeholder = "Please Enter Bank Name", required = "" })
+                                        @Html.ValidationMessageFor(model => model.Bank_Name, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Branch Code</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" id="kids">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.Branch_Code, new { placeholder = "Please Enter Branch Code", required = "" })
+                                        @Html.ValidationMessageFor(model => model.Branch_Code, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Account Type</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" id="kids">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.Account_TypeId, ViewBag.AccountType as IEnumerable<SelectListItem>, "Please Select Account Type", new { @class = "form-control m-input", required = "*", id = "Account_TypeId" })
+                                        @Html.ValidationMessageFor(model => model.Account_TypeId, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>City</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" id="kids">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.CityId, ViewBag.City as IEnumerable<SelectListItem>, "Please Select City", new { @class = "form-control m-input", required = "*", id = "CityId" })
+                                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Address</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.TextAreaFor(model => model.Address, new { placeholder = "Please Enter Allowance Value", required = "", rows = 6, @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" class="login-button login-button-lg">Save EOBI</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+
+    </div>
+</div>
+

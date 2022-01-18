@@ -1,0 +1,234 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.User.Models.ModelAttendance
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+<link href="~/Assests/StyleSheet.css" rel="stylesheet" />
+
+<div class="icons">
+    <a href="/Reports/Report/Reporting/1" class="detail"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Detail</a>
+</div>
+<div class="panel-body">
+    <div class="row">
+        @if(ViewBag.DataMaster != null)
+        {
+            foreach (var item in ViewBag.DataMaster)
+        {
+            string PresentPer = String.Format("{0:0.}", ((decimal.Parse(item.Presents.ToString()) / decimal.Parse(item.WorkingDays.ToString())) * 100));
+            string latePer = String.Format("{0:0.}", ((decimal.Parse(item.late.ToString()) / decimal.Parse(item.WorkingDays.ToString())) * 100));
+            string AbsentPer = String.Format("{0:0.}", ((decimal.Parse(item.Absent.ToString()) / decimal.Parse(item.WorkingDays.ToString())) * 100));
+            string HalfDayPer = String.Format("{0:0.}", ((decimal.Parse(item.HalfDay.ToString()) / decimal.Parse(item.WorkingDays.ToString())) * 100));
+            string late_DeductionPer = String.Format("{0:0.}", ((decimal.Parse(item.late_Deduction.ToString()) / decimal.Parse(item.WorkingDays.ToString())) * 100));
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                   
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.Total_Days</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline1"></span>
+                            </div>
+                        </div>
+                        <div class="income-range">
+                            <p>Total Calander Days</p>
+                            <span class="income-percentange">100% <i class="fa fa-bolt"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                    
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.Presents</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline6"></span>
+                            </div>
+                        </div>
+                        <div class="income-range order-cl">
+                            <p>Total Presents</p>
+                            <span class="income-percentange" style="color:#008000">@PresentPer% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                   
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.Absent</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline2"></span>
+                            </div>
+                        </div>
+                        <div class="income-range visitor-cl">
+                            <p>Total Absent</p>
+                            <span class="income-percentange" style="color:#ffa500">@AbsentPer% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+         
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.late</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline5"></span>
+                            </div>
+                        </div>
+                        <div class="income-range low-value-cl">
+                            <p>Total Late</p>
+                            <span class="income-percentange" style="color:#ff0000">@latePer% <i class="fa fa-level-down"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                    
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.HalfDay</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline5"></span>
+                            </div>
+                        </div>
+                        <div class="income-range low-value-cl">
+                            <p>Total Half Day</p>
+                            <span class="income-percentange" style="color:black">@HalfDayPer% <i class="fa fa-level-down"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">                   
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">@item.late_Deduction</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline5"></span>
+                            </div>
+                        </div>
+                        <div class="income-range low-value-cl">
+                            <p>Total Late Deduction</p>
+                            <span class="income-percentange" style="color:#333">@late_DeductionPer% <i class="fa fa-level-down"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+        }
+
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-md-11">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Assests/Dashboard/assets/vendor/fullcalendar/lib/moment.min.js"></script>
+<script src="~/Assests/Dashboard/assets/vendor/fullcalendar/fullcalendar.js"></script>
+<script>
+    (function ($) {
+        'use strict';
+        var initCalendar = function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Attendance/GetUserAttendance",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.A_Status,
+                            description: v.EmpId,
+                            start: moment(v.AttDate),
+                            end: v.AttDate != null ? moment(v.AttDate) : null,
+                            color: v.BarColor,
+                            allDay: true,
+                        });
+                    })
+
+                    GenerateCalander(events);
+                },
+                error: function (error) {
+                }
+            })
+
+            function GenerateCalander(events) {
+                var $calendar = $('#calendar');
+                $calendar.fullCalendar({
+                    header: {
+                        left: 'title',
+                        right: 'prev,today,next,basicDay,basicWeek,month'
+                    },
+                    timeFormat: '',
+                    titleFormat: {
+                        month: 'MMMM YYYY',      // September 2009
+                        week: "MMM d YYYY",      // Sep 13 2009
+                        day: 'dddd, MMM d, YYYY' // Tuesday, Sep 8, 2009
+                    },
+                    themeButtonIcons: {
+                        prev: 'fa fa-caret-left',
+                        next: 'fa fa-caret-right',
+                    },
+                    events: events
+                });
+
+                // FIX INPUTS TO BOOTSTRAP VERSIONS
+                var $calendarButtons = $calendar.find('.fc-header-right > span');
+                $calendarButtons
+                    .filter('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mt-sm mr-md mb-sm ml-sm"></div>')
+                    .parent()
+                    .after('<br class="hidden" />');
+
+                $calendarButtons
+                    .not('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mb-sm mt-sm"></div>');
+
+                $calendarButtons
+                    .attr({ 'class': 'btn btn-sm btn-default' });
+
+            }
+        };
+
+        $(function () {
+            initCalendar();
+        });
+
+    }).apply(this, [jQuery]);
+</script>

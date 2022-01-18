@@ -1,0 +1,673 @@
+﻿@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models
+@using System.Data
+@model DataSet
+
+@{
+    /**/
+
+    ViewBag.Title = "Reporting";
+    //Layout = null;
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    var lates = (List<LateDeductViewModel>)ViewBag.lates;
+    var leaves = (List<LeaveModel>)ViewBag.leaves;
+    var attendanceData = (List<Nstp_MonthlyAttendancePaySlip_Result>)ViewBag.Data;
+    var lateAbsent = 0;
+    var absent = "Absent";
+    var overAll = "";
+    double overAllTotal = 0;
+    double latededuct = 0.0;
+    int absentCount = 0;
+    //var latesGroup = lates.GroupBy(c => c.empId).ToList();
+}
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="printableArea">
+    <link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">
+    @*<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />*@
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+
+        tr, td, th {
+            font-size: 12px;
+        }
+
+        .printableArea {
+            font-size: 12px;
+        }
+    </style>
+
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+    }
+
+    @foreach (DataRow item in Model.Tables[0].Rows)
+    {
+        var empId = (long)item["EmpId"];
+        var empLates = lates.Where(c => c.empId == empId).ToList();
+        var lateDeductTotal = 0.0;
+        //string NoOfLates = "";
+        //string OverTIme = "";
+        //string WorkingHrsTime = "";
+        //TimeSpan tm, tOverTime, WorkingHrs;
+        //item.BasicSalary = (Int32)(item.BasicSalary == null ? 0 : item.BasicSalary);
+        //item.PerDaySalary = (Int32)(item.PerDaySalary == null ? 0 : item.PerDaySalary);
+        //item.PerHourSalary = (Int32)(item.PerHourSalary == null ? 0 : item.PerHourSalary);
+
+        string NoOfLates = "";
+        string OverTIme = "";
+        string WorkingHrsTime = "";
+        lateAbsent = 0;
+        TimeSpan tm, tOverTime, WorkingHrs;
+        <section class="panel">
+            <div class="panel-body">
+                <div class="invoice">
+
+
+                    <div class="bill-info">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6 mt-md">
+                                <div class="ib" style="width:30%;height:10%">
+                                    @*<img src="~/Assests/Home/img/logo/NewLogo.png" />*@
+                                    <img src="@icon.Report" alt="okler themes" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <h2 class="h4 mt-none mb-sm text-dark text-bold">Attendance Report</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="bill-to">
+                                    Employee Code: @item["EmpCode"]   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;   Name: @item["EmpName"]
+                                    <br />
+                                    Department: @item["DepartmentDesc"]    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;     Designation:  @item["DesignationDesc"]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr></tr>
+                                <tr class="text-dark">
+                                    <th id="Date" class="text-center text-semibold">Date</th>
+                                    <th id="TimeIn" class="text-center text-semibold">Clock In</th>
+                                    <th id="TimeOut" class="text-center text-semibold">Clock Out</th>
+                                    @*<th id="Working" class="text-center text-semibold">Working</th>*@
+                                    <th id="Late" class="text-center text-semibold">Late</th>
+                                    @*<th id="Short" class="text-center text-semibold">Short</th>*@
+                                    @*<th id="OT" class="text-center text-semibold">OT</th>*@
+                                    <th id="Result" class="text-center text-semibold">Result</th>
+                                    @*<th id="Remarks" class="text-center text-semibold">Remarks</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var d in attendanceData.Where(c => c.EmpId == empId).ToList())
+                                {
+
+                                    if (d.EmpId == empId)
+                                    {
+                                        var isAbsentCalculated = false;
+                                        if (d.Result == null)
+                                        {
+
+                                        }
+
+                                   //     else if (((lateAbsent < 2 && (d.Result != null && d.Result.Contains("Late") || (d.Result.Contains("Not Found")))) || (lateAbsent == 2 && (d.Result.Contains("Not Found") || d.LateMin > 0)) || ((d.LateMin > 0) && !d.Result.Contains("Absent") )) && !d.Result.Contains("%") && !d.Result.Contains(">") && !d.Result.Contains("Half Day"))
+                                         else if (((lateAbsent < 2 && (d.Result != null && d.Result.Contains("Late") || (d.Result.Contains("Not Found")))) || (lateAbsent == 2 && (d.Result.Contains("Not Found") )) || ((d.LateMin > 0) && !d.Result.Contains("Absent") && !d.Result.Contains("On-Leave"))) && !d.Result.Contains("%") && !d.Result.Contains(">") && !d.Result.Contains("Half Day"))
+                                     
+                                        {
+                                            lateAbsent++;
+                                            isAbsentCalculated = true;
+                                        }
+                                        if (isAbsentCalculated == false && lateAbsent == 2 && d.Result.Contains("Late"))
+                                        {
+                                            lateAbsent++;
+                                        }
+                                        if (lateAbsent == 2 && ((d.Result.Contains("%") && d.LateMin > 0)))
+                                        {
+                                            lateAbsent++;
+                                        }
+
+                                        string Date = d.AttDate.Value.ToString("dd-MM-yyy");
+                                        string TimeIN = "";
+                                        string TimeOUT = "";
+                                        string LateMin = "";
+                                        string TotalWorking = "";
+                                        string Short = "";
+                                        string OT_Min = "";
+                                        TimeSpan ts, WorkingTs, ShortTs, OtTS;
+                                        if (d.TimeIn != null)
+                                        {
+                                            TimeIN = d.TimeIn.Value.ToString("hh':'mm");
+
+                                        }
+                                        if (d.TimeOut != null)
+                                        {
+
+                                            TimeOUT = d.TimeOut.Value.ToString("hh':'mm");
+                                        }
+                                        if (d.LateMin != null && d.LateMin != 0)
+                                        {
+                                            ts = TimeSpan.FromMinutes(d.LateMin.Value);
+                                            LateMin = ts.ToString("hh':'mm");
+                                        }
+                                        if (d.TotalWorking != null && d.TotalWorking != 0)
+                                        {
+                                            WorkingTs = TimeSpan.FromMinutes(d.TotalWorking.Value);
+                                            TotalWorking = WorkingTs.ToString("hh':'mm");
+                                        }
+                                        if (d.EarlyMin != null && d.EarlyMin != 0)
+                                        {
+                                            ShortTs = TimeSpan.FromMinutes(d.EarlyMin.Value);
+                                            Short = ShortTs.ToString("hh':'mm");
+                                        }
+                                        if (d.OT != null && d.OT != 0)
+                                        {
+                                            OtTS = TimeSpan.FromMinutes(d.OT.Value);
+                                            OT_Min = OtTS.ToString("hh':'mm");
+                                        }
+                                        <tr>
+                                            @if (d.IsManual)
+                                            {
+                                                <td class="text-center"> *@Date</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">@Date</td>
+                                            }
+
+
+                                            <td class="text-center">@TimeIN</td>
+                                            <td class="text-center">@TimeOUT</td>
+                                            @*<td class="text-center">@TotalWorking</td>*@
+                                            <td class="text-center">@LateMin</td>
+                                            @*<td class="text-center">@Short</td>*@
+                                            @*<td class="text-center">@OT_Min</td>*@
+
+                                            <td class="text-center">
+                                                @if (d.Result == "Sunday" || d.Result == "Holiday")
+                                                {
+                                                    <strong>@d.Result</strong>
+                                                }
+                                                else
+                                                {
+
+                                                    if (lateAbsent == 3)
+                                                    {
+                                                        if (d.Result.Contains("%"))
+                                                        {
+                                                            foreach (var row in empLates)
+                                                            {
+                                                                if (d.Result.Contains(row.deduct.ToString()))
+                                                                {
+                                                                    var perday = (double)item["PerDaySalary"];
+                                                                    var s = row.deduct / row.count;
+                                                                    row.count = row.count - 1;
+                                                                    //row.deduct = row.count * s;
+                                                                    latededuct += (Math.Round((perday * (row.deduct / 100))));
+                                                                    //empLates.Remove(row);
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        lateAbsent = 0;
+                                                        @absent;
+                                                        absentCount++;
+                                                    }
+                                                    else
+                                                    {
+                                                        @d.Result;
+
+                                                    }
+                                                    @* @lateAbsent.ToString()*@
+                                                    @*@d.Result*@
+
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+
+                @*@{
+                        double? TotalEarning = 0;
+
+                        item.OTAmount = (Int32)(item.OTAmount == null ? 0 : item.OTAmount);
+                        item.LeaveAmount = (Int32)(item.LeaveAmount == null ? 0 : item.LeaveAmount);
+                        item.HolidayOTAmount = (Int32)(item.HolidayOTAmount == null ? 0 : item.HolidayOTAmount);
+
+                        item.AbsentAmount = (Int32)(item.AbsentAmount == null ? 0 : item.AbsentAmount);
+                        item.HalfDayAmount = (Int32)(item.HalfDayAmount == null ? 0 : item.HalfDayAmount);
+                        item.LateAmount = (Int32)(item.LateAmount == null ? 0 : item.LateAmount);
+                        item.LoanAmount = (Int32)(item.LoanAmount == null ? 0 : item.LoanAmount);
+                        item.AdvanceAmount = (Int32)(item.AdvanceAmount == null ? 0 : item.AdvanceAmount);
+
+                        //item.TotalOT = item.TotalOT == null ? 0 : item.TotalOT;
+                        item.TotalAbsent = item.TotalAbsent == null ? 0 : item.TotalAbsent;
+                        item.TotalLeave = item.TotalLeave == null ? 0 : item.TotalLeave;
+                        item.TotalLate = item.TotalLate == null ? 0 : item.TotalLate;
+                        item.TotalHalfDay = item.TotalHalfDay == null ? 0 : item.TotalHalfDay;
+                        IList<PaySlipAllowanceModel> pam = item.Allowances;
+                        IList<PaySlipDeductionModel> pdm = item.Deductions;
+                        IList<PaySlipEOBIModel> peoid = item.EOBI;
+                        IList<PaySlipProvidentFundModel> ppf = item.ProvidentFund;
+                        IList<PaySlipBonusModel> pbm = item.Bonuses;
+
+
+
+                        TotalEarning = item.OTAmount + item.LeaveAmount + item.HolidayOTAmount + pam.Sum(x => x.AllowanceAmount) + pbm.Sum(x => x.BonusAmount);
+                        double? TotalDeduction = 0;
+                        TotalDeduction = item.AbsentAmount + item.HalfDayAmount + item.LateAmount + item.LoanAmount + pdm.Sum(x => x.DeductionAmount) + peoid.Sum(c => c.EOBIAmount) + ppf.Sum(c => c.ProvidentFundAmount) + item.IncomeTaxAmount;
+                        double? OverAlltotal = item.BasicSalary + (TotalEarning - TotalDeduction);
+                    }*@
+                <div class="table-responsive">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="col-sm-12 col-xs-12 text-center">
+                            <span class="h3 text-semibold text-dark ">Balances & Salary Detail</span>
+                            <table class="table h5 text-dark" style="width:50%">
+                                <tbody>
+                                    <tr>
+                                        <td>Security Deposit Balance</td>
+                                        @*<td>@String.Format("{0:0.00}", securityDepositTotal - (item.PaySlip.SecurityDeposit ?? 0))</td>*@
+                                        <td>@item["SecurityDepositPaidAmount"]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Loan Balance (Previous Month)</td>
+                                        @*<td>@(item.PaySlip.TotalLoanAmount - item.PaySlip.LoanAmountPaid)</td>*@
+                                        <td>@item["LoanBalance"]</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                            <table class="table h5 text-dark" style="width:50%">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Total Salary</strong></td>
+                                        <td>@item["BasicSalary"]</td>
+                                        @*<td>@item.PaySlip.BasicSalary</td>*@
+                                    </tr>
+                                    <tr>
+                                        <td><strong>No of Days for the Month </strong></td>
+                                        @*<td>@item.Attendance.Total_Days</td>*@
+                                        <td>@item["TotalDays"]</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-sm-6 col-xs-6">
+                            @*<div class="col-xs-6 ">
+                                <strong class="pull-right">Less:Deductions</strong>
+                            </div>
+                            <div class="col-xs-6 ">
+                                <strong class="pull-right">Rs</strong>   =
+                            </div>*@
+                            <table class="table h5 text-dark" style="border:2px solid ; text-align:center">
+                                <tbody>
+                                    <tr>
+                                        <td>Security Deposit</td>
+                                        <td width="100"></td>
+                                        @*<td width="130">@String.Format("{0:0.00}", item.PaySlip.SecurityDeposit)</td>*@
+                                        <td>@item["SecurityDepositAmount"]</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Advance Salary</td>
+                                        <td></td>
+                                        @*<td>@String.Format("{0:0.00}", item.PaySlip.AdvanceAmount)</td>*@
+                                        <td>@item["AdvanceAmount"]</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Absent</td>
+                                        @*<td>@item.PaySlip.TotalAbsent</td>*@   
+                                        
+                                        <td>@item["TotalAbsent"]</td>
+                                        @*<td>@String.Format("{0:0.00}", item.PaySlip.AbsentAmount)</td>*@
+                                        <td>@item["AbsentAmount"]</td>
+
+                                    </tr>
+
+
+
+
+                                    @foreach (var value in empLates)
+                                    {
+
+                                        //if (a.Count == 0)
+                                        //{
+                                        var perday = (double)item["PerDaySalary"];
+                                        <tr>
+                                            <td>@value.deduct %</td>   
+                                            @{
+                                                var countPer = value.count;
+                                                 var deductPer=Math.Round(perday * (value.deduct / 100));
+                                            }
+
+                                            @*@if (absentCount != 0)
+                                            {
+                                                countPer = countPer - absentCount;
+                                                deductPer = deductPer * countPer;
+                                                <td>@countPer </td>
+                                                <td>@deductPer</td>
+                                                absentCount = 0;
+                                            }
+                                            else*@
+                                            
+
+                                                <td>@countPer</td>
+                                                <td>@(deductPer*countPer) </td>
+                                            
+                                    
+                                            @{
+                                                // lateDeductTotal += Math.Round((perday * (value.deduct / 100) * value.count));
+                                                lateDeductTotal += deductPer * countPer;
+                                            }
+                                        </tr>
+                                        // }
+
+
+
+                                        @*if (late.Count == 0)
+                                            {
+                                                <tr>
+                                                    <td>@value.Amount</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                            }*@
+                                        @*else
+                                            {
+                                                var lateAmount = late.FirstOrDefault().Amount / 100;
+                                                <tr>
+                                                    <td>@value.Amount</td>
+                                                    <td>@late.Count</td>
+                                                    <td>@String.Format("{0:0.00}", (item.PaySlip.PerDaySalary * lateAmount * late.Count))</td>
+
+                                                </tr>
+                                            }*@
+
+                                    }
+                                    @*<tr>
+                                            <td>25%</td>
+                                            <td>@item.PaySlip.late25.Count</td>
+                                            <td>@String.Format("{0:0.00}", late25)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>50%</td>
+                                            <td>@item.PaySlip.late50.Count</td>
+                                            <td>@String.Format("{0:0.00}", late50)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>75%</td>
+                                            <td>@item.PaySlip.late75.Count</td>
+                                            <td>@String.Format("{0:0.00}", late75)</td>
+                                        </tr>*@
+                                    <tr>
+                                        <td>Income Tax Deduction </td>
+                                        <td></td>
+                                        @*<td>@String.Format("{0:0.00}", item.PaySlip.Taxes.Sum(c => c.TaxAmount))</td>*@
+                                        <td>@item["IncomeTaxAmount"]</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Other Deduction </td>
+                                        <td></td>
+                                        @*<td>@String.Format("{0:0.00}", item.PaySlip.Deductions.Sum(c => c.DeductionAmount))</td>*@
+                                        <td>@item["DeductionAmount"]</td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Loan </td>
+                                        <td></td>
+                                        @*<td>@String.Format("{0:0.00}", item.PaySlip.LoanAmount)</td>*@
+                                        <td>@item["LoanAmount"]</td>
+
+
+                                    </tr>
+ <tr>
+                                        <td>
+                                            10% Amount
+                                        </td>
+    <td></td>
+                                        <td>@item["TenPercentAmount"]</td>
+                                    </tr>
+                                    <tr style="border:2px solid">
+                                        <td colspan="2" class="text-center" style="border:2px solid"> <strong>Total Deduction </strong></td>
+                                        @*<td>@String.Format("{0:0.00}", totalDeduction)</td>*@
+                                        <td>
+                                            @( Convert.ToDouble(item["TotalDeductions"]) +lateDeductTotal)
+                                            @{
+                                                latededuct = 0;
+                                                //lateDeductTotal = 0;
+                                            }
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <table class="table h5 text-dark text-center" style="border:2px solid ">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Leave Type</strong></td>
+                                        <td><strong>Availed</strong></td>
+                                        <td><strong>Balance</strong></td>
+                                    </tr>
+                                    @{
+                                        var empLeaves = leaves.Where(c => c.EmpId == empId).ToList();
+                                    }
+                                    @{
+                                        var casul = empLeaves.Where(x => x.LeaveDesc.Contains("Casual")).FirstOrDefault();
+                                        var sick = empLeaves.Where(x => x.LeaveDesc.Contains("Sick")).FirstOrDefault();
+                                        var anual = empLeaves.Where(x => x.LeaveDesc.Contains("Annual")).FirstOrDefault();
+                                    }
+                                    <tr>
+                                        <td>@casul.LeaveDesc</td>
+                                        <td>@casul.ApproveLeave</td>
+                                        <td>@casul.LeaveAllowed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@sick.LeaveDesc</td>
+                                        <td>@sick.ApproveLeave</td>
+                                        <td>@sick.LeaveAllowed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@anual.LeaveDesc</td>
+                                        <td>@anual.ApproveLeave</td>
+                                        <td>@anual.LeaveAllowed</td>
+                                    </tr>
+
+                                    @*@foreach (var value in empLeaves)
+                                        {
+                                            <tr>
+                                                <td>@value.LeaveDesc</td>
+                                                <td>@value.ApproveLeave</td>
+                                                <td>@value.LeaveAllowed</td>
+                                            </tr>
+                                        }*@
+
+                                    <tr style="border:2px solid">
+                                        <td class="text-center"><strong>Total </strong></td>
+                                        <td style="border:2px solid"> <strong>@empLeaves.Sum(c => c.ApproveLeave)</strong> </td>
+                                        <td style="border:2px solid"> <strong>@empLeaves.Sum(c => c.LeaveAllowed)</strong></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <table class="table h5 text-dark" style="border:2px solid ; text-align:center">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Leave Adjusted Amount</strong></td>
+                                        <td>
+                                            <strong>
+                                                @{ var perdaysal = Convert.ToDouble(item["BasicSalary"]) / Convert.ToInt32(item["TotalDays"].ToString().Trim());
+                                                    var totLeave = empLeaves.Sum(x => x.ApproveLeave);
+                                                    var TotLeaveAmount = perdaysal * totLeave;
+                                                    TotLeaveAmount = Math.Round(TotLeaveAmount);
+                                                }
+                                                @TotLeaveAmount
+                                            </strong>
+                                        </td>
+
+                                        @*<td><strong>@item["LeaveAdjustmentAmount"]</strong></td>*@
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            EOBI Deduction
+                                        </td>
+                                        @*<td>@(item.PaySlip.EOBI.Sum(c=>c.EOBIAmount) ?? 0 )</td>*@
+                                        <td>@item["EOBIAmount"]</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Arrears 
+                                        </td>
+                                        <td>@item["Arrears"]</td>
+                                    </tr>
+
+
+
+
+                                    <tr style="border:2px solid">
+                                        @{
+
+                                            var leaveAmount = 0.0;
+                                            var eobiAmount = 0.0;
+                                            if (item["LeaveAdjustmentAmount"] != DBNull.Value)
+                                            {
+                                                leaveAmount = Convert.ToDouble(item["LeaveAdjustmentAmount"]);
+                                            }
+                                            if (item["EOBIAmount"] != DBNull.Value)
+                                            {
+                                                eobiAmount = Convert.ToDouble(item["EOBIAmount"]);
+                                            }
+
+                                            var leobiTotal = TotLeaveAmount - eobiAmount+ Convert.ToDouble(@item["Arrears"]);
+                                            //  var leobiTotal = leaveAmount - eobiAmount;
+                                        }
+                                        <td class="text-center"><strong>Total </strong></td>
+                                        @*<td style="border:2px solid"> <strong>@(item.PaySlip.EOBI.Sum(c=>c.EOBIAmount) ?? 0 )</strong> </td>*@
+                                        <td>@Math.Round(Math.Abs(@leobiTotal))&nbsp;</td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <table class="table h5 text-dark" style="border:2px solid ; text-align:center">
+                                <tbody>
+                                    <tr>
+
+                                        <th>Net Salary Payable</th>
+                                        @*<th>@String.Format("{0:0.00}", OverAlltotal) </th>*@
+                                        @{
+                                            overAll = item["OverAlltotal"].ToString().Split('.')[0];
+                                            overAllTotal = double.Parse(overAll) + TotLeaveAmount - lateDeductTotal+ Convert.ToDouble(@item["Arrears"]) -Convert.ToDouble(@item["TenPercentAmount"]);
+                                        }
+                                        <td>  @overAllTotal</td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <strong style="border-top: 1px solid">Prepared By </strong><br />
+                        (Accountant)
+
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <strong style="border-top: 1px solid">Checked By </strong><br />
+                        (Sr. Accountant)
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <strong style="border-top: 1px solid">Approved By </strong><br />
+                        (Managing Director)
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <strong style="border-top: 1px solid">Employee Signature </strong><br />
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+        <div class="pagebreak"></div>
+    }
+
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        //document.body.innerHTML = html;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

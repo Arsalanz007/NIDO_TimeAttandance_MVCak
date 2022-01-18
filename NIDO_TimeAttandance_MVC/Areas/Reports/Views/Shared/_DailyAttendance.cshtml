@@ -1,0 +1,210 @@
+﻿@{
+    var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+}
+
+@{
+    int TotalEmployee = 0;
+    int TotalOnTime = 0;
+    int TotalLateAttendance = 0;
+    int TotalOnTImeOut = 0;
+    int TotalEarlyLeaving = 0;
+    int TotalOverTime = 0;
+    int TotalHalfDays = 0;
+    int TotalOnLeaves = 0;
+    int TotalAbsent = 0;
+}
+
+<section class="panel">
+    <div class="panel-body">
+        <div class="invoice">
+            <div class="bill-info">
+                <div class="row">
+                    <div class="col-sm-6 mt-md">
+                        <div class="ib" style="width:30%;height:10%">
+                            <img src="@icon.Report" alt="okler themes" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 ">
+                        <h2 class="h4 mt-none mb-sm text-dark text-bold">Daily Attendance Report</h2>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bill-to">
+                            <h4 class="h5 m-none text-dark text-bold">Daily Attendance Report</h4>
+                            <br />
+                            <h4 class="h5 m-none text-dark text-bold">Date: @ViewBag.DateRange</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-center text-semibold">Time</th>
+                            <th class="text-center text-semibold">HR:MIN</th>
+                            <th class="text-center text-semibold">Time</th>
+                            <th class="text-center text-semibold">HR:MIN</th>
+                            <th class="text-center text-semibold">HR:MIN</th>
+                            <th colspan="3" class="text-center text-semibold">Comments</th>
+                        </tr>
+
+                        <tr class="text-dark">
+                            <th id="Date" class="text-center text-semibold">Code</th>
+                            <th id="TimeIn" class="text-center text-semibold">EmpName</th>
+                            <th id="TimeOut" class="text-center text-semibold">Designation</th>
+                            <th id="Working" class="text-center text-semibold">Department</th>
+                            <th id="Late" class="text-center text-semibold">Time In</th>
+                            <th id="Short" class="text-center text-semibold">Late By</th>
+                            <th id="OT" class="text-center text-semibold">Time Out</th>
+                            <th id="Result" class="text-center text-semibold">Early Out</th>
+                            <th id="Result" class="text-center text-semibold">Over TIme</th>
+                            <th id="Result" class="text-center text-semibold">Half Day</th>
+                            <th id="Result" class="text-center text-semibold">Leaves</th>
+                            <th id="Result" class="text-center text-semibold">Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in ViewBag.DataMaster)
+                        {
+                            TotalEmployee++;
+                            string TimeIN = "";
+                            string TimeOUT = "";
+                            string LateMin = "";
+                            string Short = "";
+                            string OT_Min = "";
+                            string HalfDay = "";
+                            string Leave = "";
+                            string Absent = "";
+                            TimeSpan ts, ShortTs, OtTS;
+                            if (item.TimeIn != null)
+                            {
+                                TimeIN = item.TimeIn.ToString("hh':'mm");
+
+                            }
+                            if (item.TimeOut != null)
+                            {
+
+                                TimeOUT = item.TimeOut.ToString("hh':'mm");
+                            }
+                            if (item.LateMin != null && item.LateMin != 0)
+                            {
+                                ts = TimeSpan.FromMinutes(item.LateMin);
+                                LateMin = ts.ToString("hh':'mm");
+                                TotalLateAttendance++;
+                            }
+
+                            if (item.EarlyMin != null && item.EarlyMin != 0)
+                            {
+                                ShortTs = TimeSpan.FromMinutes(item.EarlyMin);
+                                Short = ShortTs.ToString("hh':'mm");
+                                TotalEarlyLeaving++;
+                            }
+                            if (item.OT != null && item.OT != 0)
+                            {
+                                TotalOverTime++;
+
+                                OtTS = TimeSpan.FromMinutes(item.OT);
+                                OT_Min = OtTS.ToString("hh':'mm");
+                            }
+                            if (item.HalfDay != 0)
+                            {
+                                TotalHalfDays++;
+                                HalfDay = "HalfDay";
+                            }
+                            if (item.isOnLeave)
+                            {
+                                TotalOnLeaves++;
+                                Leave = "Leave";
+                            }
+                            if (item.NoOfAbsent)
+                            {
+                                TotalAbsent++;
+                                Absent = "Absent";
+                            }
+                            if (HalfDay == "" && LateMin == "")
+                            {
+                                TotalOnTime++;
+                            }
+                            if (Short == "" && item.TimeOut != null)
+                            {
+                                TotalOnTImeOut++;
+                            }
+                            <tr>
+                                <td class="text-center">@item.EmpCode</td>
+                                <td class="text-center">@item.EmpName</td>
+                                <td class="text-center">@item.Designation</td>
+                                <td class="text-center">@item.DepartmentDesc</td>
+                                <td class="text-center">@TimeIN</td>
+                                <td class="text-center">@LateMin</td>
+                                <td class="text-center">@TimeOUT</td>
+                                <td class="text-center">@Short</td>
+                                <td class="text-center">@OT_Min</td>
+                                <td class="text-center">@HalfDay</td>
+                                <td class="text-center">@Leave</td>
+                                <td class="text-center">@Absent</td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                    
+                </table>
+            </div>
+            <div class="invoice-summary">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table h5 text-dark">
+                            <thead>
+                                <tr>
+                                    <th class="h3 text-semibold text-dark text-center" colspan="9">Daily Summary (EVENTS IN NUMBERS)</th>
+
+
+                                </tr>
+                                <tr class="text-dark">
+                                    <th id="Date" class="text-center text-semibold">Total Employees</th>
+                                    <th id="TimeIn" class="text-center text-semibold">Total on tIme</th>
+                                    <th id="TimeOut" class="text-center text-semibold">Total Late Attendance</th>
+                                    <th id="Working" class="text-center text-semibold">Total on timeout</th>
+                                    <th id="Late" class="text-center text-semibold">Total early leaving</th>
+                                    <th id="Short" class="text-center text-semibold">Total overtime</th>
+                                    <th id="OT" class="text-center text-semibold">Total halfDay</th>
+                                    <th id="Result" class="text-center text-semibold">Total on leaves</th>
+                                    <th id="Result" class="text-center text-semibold">Total absent</th>
+
+                                    @*<th id="Remarks" class="text-center text-semibold">Remarks</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-center">@TotalEmployee</td>
+                                    <td class="text-center">@TotalOnTime</td>
+                                    <td class="text-center">@TotalLateAttendance</td>
+                                    <td class="text-center">@TotalOnTImeOut</td>
+                                    <td class="text-center">@TotalEarlyLeaving</td>
+                                    <td class="text-center">@TotalOverTime</td>
+                                    <td class="text-center">@TotalHalfDays</td>
+                                    <td class="text-center">@TotalOnLeaves</td>
+                                    <td class="text-center">@TotalAbsent</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    Print Date  @DateTime.Now.ToString("dd-MMM-yyy")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,109 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Basic -->
+    <meta charset="UTF-8">
+
+    <title>Nedo | Attandance System</title>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Cache-control" content="public">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Assests/images/favicon.ico">
+   
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/magnific-popup/magnific-popup.css" />
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/pnotify/pnotify.custom.css" />
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/skins/default.css" />
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme-custom.css">
+    <!-- Head Libs -->
+    <script src="~/Assests/Dashboard/assets/vendor/modernizr/modernizr.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/jquery/jquery.js"></script>
+    <style>
+
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: center;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background: url('/Assests/Login/images/loaderFinal.gif') center no-repeat #fff;
+        }
+
+        .se-pre-con1 {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background: url('../Login/images/throbber_12.gif') center no-repeat #fff;
+        }
+    </style>
+    <script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+        });
+    </script>
+
+</head>
+<body>
+    <div class="se-pre-con"></div>
+    <section class="body-sign">
+        @RenderBody()
+    </section>
+    <script src="~/Assests/Dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/Assests/Dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+    <!-- Specific Page Vendor -->
+    <script src="~/Assests/Dashboard/assets/vendor/pnotify/pnotify.custom.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+    <!-- Theme Custom -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.custom.js"></script>
+
+
+    <!-- Theme Initialization Files -->
+    <script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+    <!-- Examples -->
+    <script src="~/Assests/Dashboard/assets/javascripts/ui-elements/examples.notifications.js"></script>
+
+
+    <!--toaster Noticiation method-->
+    <script>
+        function SendNoti(title, text, type) {
+            new PNotify({
+                title: title,
+                text: text,
+                type: type
+            });
+        }
+    </script>
+</body>
+</html>

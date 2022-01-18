@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- Static Table Start -->
+<form id="frm-Deduction" method="post">
+    <div class="stockprice-feed-project-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <div class="row">
+                                        <div class="form-group data-custon-pick data-custom-mg data_4">
+                                            <div class="input-daterange input-group" id="datepicker">                                               
+                                                <div class="input-group date">                                                  
+                                                    <span class="input-group-addon">  Please select Month for deduction </span>
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" id="startDate" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-table-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sparkline13-list shadow-reset">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <h1>Please select Employee For Deductions </h1>
+                                <div class="sparkline13-outline-icon">
+                                    <button type="submit" class="btn btn-custon-four btn-success primary-btn-cl">Execute</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <table id="example" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th>Ecode</th>
+                                            <th>Name</th>
+                                            <th>Company</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                            <th>Employee Type</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Employees)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td id="@item.EmpID"> @item.EmpCode </td>
+                                                <td>@item.EmpName</td>
+                                                <td>@item.CompanyName</td>
+                                                <td>@item.DepartmentDesc</td>
+                                                <td>@item.DesignationDesc</td>
+                                                <td>@item.EmployeeType</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<script>
+    $("#frm-Deduction").on('submit', function (e) {
+        //debugger;
+        var TableData = new Array();
+        var $rows = $('table > tbody > tr.selected');
+        if ($rows.length <= 0) {
+            SendNotif("Alert!", "Please select atleast one Employee", "warning");
+            return false;
+        }
+
+        $rows.each(function (index, tr) {
+            $row = $(this);
+            var column2 = $row.find("td").eq(1).attr('id');
+            TableData.push(column2);
+        });
+        var fromDate = $('#startDate').val();        
+
+        //console.log(TableData);
+        $.ajax({
+            type: 'POST',
+            url: '/LeaveDeduction/startDeduction',
+            data: {
+                EmpID: TableData,
+                fromDate: fromDate                
+            },
+            success: function (res) {
+             
+                if (res.status == "success") {
+                    SendNotif("Congrats!", res.Message, "success");
+                }
+                else {
+                    SendNotif("Oppps!", res.Message, "error");
+                }
+            },
+            error: function () {
+                SendNotif("Oooopsss!", "Failed", "error");
+            }
+        });
+    });
+</script>

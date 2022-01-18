@@ -1,0 +1,176 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelPolicy
+
+@using System;
+@using System.Web.Optimization;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<link href="~/Assests/Home/PolicyIndex.css" rel="stylesheet" />
+@Styles.Render("~/bundles/switch_Css")
+
+
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            @using (Ajax.BeginForm("Update", "SystemPolicy", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>Create Policy</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Policy</p>
+                                    </div>
+                                </div>
+                                <div class="inline-group">
+                                    <div class="col-md-8">
+                                        <div class="login-input-area">
+                                            @Html.DropDownListFor(model => model.PolicyID, ViewBag.PolicyName as IEnumerable<SelectListItem>, "Please Select Policy", new { @class = "form-control m-input" })
+                                            @Html.ValidationMessageFor(model => model.PolicyID, "", new { @class = "text-danger" })
+
+                                            @Html.TextBoxFor(model => model.MasterID, new { @class = "form-control", required = "", style = "display: none;" })
+                                            @Html.ValidationMessageFor(model => model.TotalDays, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p style="padding-bottom:10px;">Total Days</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-3">
+                                        <div class="login-input-area" style="padding-top:5%;">
+                                            @Html.TextBoxFor(model => model.TotalDays, new { @class = "form-control", required = "", type = "number", min = "0" })
+                                            @Html.ValidationMessageFor(model => model.TotalDays, "", new { @class = "text-danger", type = "number" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Deduction Days</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-3">
+                                        <div class="login-input-area" style="padding-top:5%;">
+                                            @Html.TextBoxFor(model => model.Deduction, new { @class = "form-control", required = "", type = "number", min = "0" })
+                                            @Html.ValidationMessageFor(model => model.Deduction, "", new { @class = "text-danger", type = "number" })
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        @*<div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Sandwich Policy</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="switch switch-sm switch-primary">
+                                        @Html.CheckBoxFor(model => model.IsSandwichPolicy, new { name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Fifo Based</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="switch switch-sm switch-success">
+                                        @Html.CheckBoxFor(model => model.InOutTypeOrFifoBasedAttend, new { name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                        <br />
+                        <div class="dual-list-box-area mg-b-40">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="sparkline10-list shadow-reset">
+
+                                            <div class="sparkline10-graph">
+                                                <div class="basic-login-form-ad">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="dual-list-box-inner">
+                                                                @Html.DropDownListFor(model => model.SelectList, ViewBag.Leaves as IEnumerable<SelectListItem>, new { @class = "form-control dual_select", @multiple = "multiple" })
+                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <input type="submit" class="login-button login-button-lg" value="Update Policy" id="btnsubmit">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<!-- DUal ListBOx Js -->
+<script src="~/Assests/Home/js/duallistbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="~/Assests/Home/js/duallistbox/duallistbox.active.js"></script>
+@Scripts.Render("~/bundles/switch")
+
+
+<script>
+    function OnSuccess(msg) {
+        if (msg.Status == "Success") {
+            window.location = '/SystemPolicy/ListAll/';
+            SendNotif(msg.Status, msg.Message, 'success');
+        }
+        else {
+            SendNotif(msg.Status, msg.Message, 'error');
+        }
+    }
+    function OnFailure() {
+        SendNotif('Error', 'Something Went Wrong', 'error');
+    }
+</script>
+
+

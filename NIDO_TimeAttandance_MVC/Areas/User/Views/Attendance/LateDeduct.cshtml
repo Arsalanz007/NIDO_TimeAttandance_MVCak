@@ -1,0 +1,165 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.User.Models.ModelAttendance
+@using System.Web.Optimization
+
+@{
+    ViewBag.Title = "Manual";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@Styles.Render("~/bundles/manualPosting")
+<div class="row"><br /></div>
+<div class="user-profile-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               
+                <div class="row">
+                    <div class="col-lg-12" id="layout">
+                        <div class="">
+                           
+                            <div id="LeaveRequest" class="tab-pane animated flipInX custon-tab-style1">
+                                @using (Ajax.BeginForm("SendLateDeductRequest", "Attendance", new AjaxOptions { HttpMethod = "POST", LoadingElementId = "loader", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }, new { @class = "adminpro-form", id = "adminpro-order-form" }))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-title">
+                                                <h1>Leave Request</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2">
+                                                <div class="login-input-head">
+                                                    <p>Leave Type</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.LeaveID, ViewBag.EmpLeave as IEnumerable<SelectListItem>, "Please Select Leave", new { @class = "form-control m-input", required = "*", id = "LeaveID" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="login-input-head">
+                                                    <p>Lates</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="login-input-area">
+                                                    @Html.DropDownListFor(model => model.LateDeductID, ViewBag.EmpLates as IEnumerable<SelectListItem>, "Please Select Leave", new { @class = "form-control m-input", required = "*", id = "LeaveID" })
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2">
+                                                <div class="login-input-head">
+                                                    <p>Reason</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="input-group date">
+                                                    @Html.TextBoxFor(model => model.Reason, new { @class = "form-control", placeholder = "Please Enter reason", required = "*", autocomplete = "off" })
+                                                    <span class="input-group-addon"><i class="fa fa-repeat"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-2">
+                                                <div class="login-input-head">
+                                                    <p>Date</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group data-custon-pick col-md-8 data-custom-mg data_5">
+                                                <div class="input-daterange input-group" id="datepicker">
+                                                    <div class="input-daterange input-group">
+                                                        <span class="input-group-addon">From</span>
+                                                        @Html.TextBoxFor(model => model.LeaveStartDate, new { @class = "form-control", required = "*", id = "startDate", autocomplete = "off" })
+                                                        <span class="input-group-addon">to</span>
+                                                        @Html.TextBoxFor(model => model.LeaveEndDate, new { @class = "form-control", required = "*", id = "endDate", autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8">
+                                            <div class="login-button-pro">
+                                                <button type="submit" id="btnSubmit" class="login-button login-button-lg">Send Request</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+<script src="~/Assests/Dashboard/assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+<script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+<script>
+    $("#PrimaryModalblbgpro").on('hide.bs.modal', function () {
+
+        window.location.replace("/User/Attendance/ListAll/");
+
+    });
+    function OnBegin() { }
+    function OnFailure() { }
+    function OnSuccess(msg) {
+        if (msg.Status == "Error") {
+            $('#DangerP').text(msg.Message);
+            $('#DangerMsg')[0].click();
+        }
+        else if (msg.Status == "Success") {
+            $(".loading").hide();
+            $('#InfoP').text(msg.Message);
+            //Change URL
+            var oldUrl = $('#InfoA').attr("href");
+            var newUrl = oldUrl.replace("/Home/Index/", "/User/Attendance/ListAll/");
+            $('#InfoA').attr("href", newUrl);
+            $('#InfoMsg')[0].click();
+        }
+
+
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#btnSubmit').click(function () {
+            var start = new Date($('#startDate').val()),
+                end = new Date($('#endDate').val()),
+                diff = new Date(end - start),
+                days = diff / 1000 / 60 / 60 / 24;
+            days = days + 1;
+            var Leave = $("#LeaveID option:selected").text().split('-');
+            if (days > Leave[1]) {
+                SendNotif("Ooopss!", "leave Day should be equal or less than to allowed days", 'warning');
+                $('#endDate').val("");
+                return;
+            }
+
+        });
+
+    })
+
+    $("#adminpro-order-form").submit(function () {
+
+        $(".loading").show();
+        $("#manualRequestBtn").attr('disabled', 'disabled');
+
+    })
+
+</script>

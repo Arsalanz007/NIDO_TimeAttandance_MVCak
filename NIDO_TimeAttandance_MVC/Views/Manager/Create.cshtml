@@ -1,0 +1,224 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelManager
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <form method="post" id="frm-Manager">
+                @Html.ValidationSummary()
+                <div class="col-lg-12">
+                    <div class="login-bg">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Level</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.LevelID, ViewBag.ManagerLevel as IEnumerable<SelectListItem>, "Please Select Level", new { @class = "form-control m-input", required = "*", id = "LevelID" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Select Manager</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.ManagerID, ViewBag.Employee as IEnumerable<SelectListItem>, "Please Select Employee", new { @class = "chosen-select form-control Employee", required = "*", id = "Emp" })
+                                        @Html.ValidationMessageFor(model => model.ManagerID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Title</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "Please Enter Title", required = "*", id = "txtTitle" })
+                                        <span style="color:green;font-size:smaller">eg:- Manager, HOD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="login-form-area mg-t-30 mg-b-15">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="tableDepartment" class="cell-border compact stripe order-column">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Department)
+                                            {
+                                                <tr>
+                                                    <td>@item.DepartmentId</td>
+                                                    <td>@item.DepartmentDesc</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" id="btn-Save" class="login-button login-button-lg">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#tableDepartment').DataTable({
+            "paging": false,
+            "ordering": false,
+
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true,
+
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi',
+
+            },
+
+            'order': [[1, 'asc']]
+        });
+
+        $('#tableDepartment').on('click', 'td', function () {
+            var tr = $(this).closest("tr");
+            var rowindex = tr.index();
+            var rows = table.rows(rowindex).data();
+            var LevelID = $('#LevelID').val();
+            var Department = rows[0];
+            $.ajax({
+                type: 'POST',
+                url: '/Manager/IfExist/',
+                data: {
+                    DepartmentID: Department[0],
+                    LevelID: LevelID,
+
+                },
+                success: function (msg) {
+                    if (msg.Status == "Exist") {
+                        SendNotif('Sorry!', msg.Name + " is already exist on this Level & Department, please delete this first then try again.", 'warning');
+                        table.rows(rowindex).deselect();
+                    }
+                    else {
+
+                    }
+                },
+                Error: function () {
+
+                },
+            })
+        });
+
+      
+        // Handle form submission event
+        $('#frm-Manager').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+            var LevelID = $('#LevelID').val();
+            var EmployeeID = $('#Emp').val();
+            var Title = $('#txtTitle').val();
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            $(".se-pre-con").fadeIn("fast");
+            FormManagerSave(arr, LevelID, EmployeeID, Title);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        function FormManagerSave(arr, LevelID, EmployeeID, Title) {
+            $.ajax({
+                type: 'POST',
+                url: '/Manager/SaveManager/',
+                data: {
+                    Department: arr,
+                    LevelID: LevelID,
+                    EmployeeID: EmployeeID,
+                    Title: Title,
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/Manager/ListAll/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                    else {
+                        alert(msg);
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+</script>
+<script>
+    $('#btn-Save').click(function () {
+        if ($('#Emp').val() <= 0) {
+            SendNotif('ooopss!', "Please Select Employee", 'error');
+        }
+    });
+  
+</script>

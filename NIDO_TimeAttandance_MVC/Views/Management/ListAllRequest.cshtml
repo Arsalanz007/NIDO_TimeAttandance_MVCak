@@ -1,0 +1,242 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Models.ModelManagement>
+
+@{
+    ViewBag.Title = "ListAllRequest";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<style>
+    tr.group-header {
+        cursor: pointer;
+    }
+
+    tr.group-header {
+        cursor: pointer;
+    }
+</style>
+<link href="~/assests/abc/datatables.min.css" rel="stylesheet" />
+<div class="panel-body">
+    <button type="button" hidden class="btn btn-primary" id="btnmodal" data-target="#modal" data-toggle="modal"></button>
+    <div class="modal fade" id="modal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h1 class="modal-title" id="modalLabel">Please Enter Reason for rejection</h1>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Reason</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="txtReason" class="form-control" placeholder="Please Enter rejected Reason" required />
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="modal-footer">
+                        <button type="submit" id="btn_Reject" class="btn btn-danger">Reject</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Request</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                            @*<table id="tableReport" class="display cell-border compact stripe order-column">*@
+                                <thead>
+                                    <tr>
+                                        @*<th></th>*@
+                                        <th>Employee Name</th>
+                                        <th>Emp Code</th>
+                                        <th>Leave Start/Att Date</th>
+                                        <th>Leave End/Att Time</th>
+                                        <th>Leave Type/ In-Out</th>
+                                        <th>Reason</th>
+                                        <th data-field="action">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in Model.GroupBy(x => x.Code))
+                                    {
+                                        string GroupName = "";
+                                        if (group.Key.Trim() == "L")
+                                        {
+                                            GroupName = "Leave Details";
+                                        }
+                                        else
+                                        {
+                                            GroupName = "Manual Attendance Details";
+                                        }
+                                        <tr class="group-header">
+                                            <td colspan="7">
+                                                <span class="h4">@GroupName</span>
+                                            </td>
+                                        </tr>
+
+                                        foreach (var item in group)
+                                        {
+                                            string Date = "";
+                                            string Date2 = "";
+                                            string InOut = "";
+                                            if (item.Code.Trim() == "L")
+                                            {
+                                                Date = Convert.ToDateTime(item.LeaveStartDate).ToString("dd MMM yyy");
+                                                Date2 = Convert.ToDateTime(item.LeaveEndDate).ToString("dd MMM yyy");
+                                                InOut = item.LeaveName;
+                                            }
+                                            else
+                                            {
+                                                Date = Convert.ToDateTime(item.AttendanceDate).ToString("dd MMM yyy");
+                                                Date2 = item.AttendanceTime.ToString();
+                                                if (item.InOutTypeID == 1)
+                                                {
+                                                    InOut = "Time-IN";
+                                                }
+                                                else
+                                                {
+                                                    InOut = "Time-Out";
+                                                }
+                                            }
+                                            <tr>
+                                                @*<td>@item.EmpID</td>*@
+                                                <td>
+                                                    <div>
+                                                        <img src="@item.EmpImg" style="border-radius:50%" width="30" height="30" alt="" />@item.EmpName
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    @item.EmpCode
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:green" class="fa fa-calendar"> @Date</i></span>
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:orange" class="fa fa-clock-o"> @Date2</i></span>
+                                                </td>
+                                                <td>
+                                                    @InOut
+                                                </td>
+                                                <td>
+                                                    @item.Reason
+                                                </td>
+                                                <td>
+                                                    @{string Param = (item.MID + "|" + item.DID + "|" + item.EmpID + "|" + item.RequestID).ToString();}
+                                                    <input type="button" value="Approve" class="btn btn-custon-four btn-success warning-btn-cl" onclick="ActionLinkAlert('/Management/Approve','@Param')" />
+                                                    @*@Html.ActionLink("Approve", "Approve", new { id = item.MID + "|" + item.DID + "|" + item.EmpID + "|" + item.RequestID }, new { @class = "btn btn-custon-four btn-success warning-btn-cl" })*@|
+                                                    <a class="btn btn-custon-four btn-danger warning-btn-cl" onclick="Reject(@item.DID);">Reject</a>
+                                                    | @Html.ActionLink("Detail", "Index", "TrackRequest", new { area = "", id = item.TrackingID }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assests/Home/js/icheck/icheck.min.js"></script>
+<script src="~/Assests/Home/js/icheck/icheck-active.js"></script>
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+
+<script>
+    function redirect() {
+        window.location.href = "/User/Attendance/Manual/";
+    }
+
+    var table = $('#tableReport').DataTable({
+        'columnDefs': [
+            {
+                'targets': 0,
+                'checkboxes': {
+                    'selectRow': true
+                }
+            }
+        ],
+        'select': {
+            'style': 'multi'
+        },
+        'order': [[1, 'asc']],
+        initComplete: function () {
+            this.api().columns().every(function () {
+                var column = this;
+                var select = $('<select class="chosen-select form-control"><option value="">Filter</option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        },
+
+    });
+</script>
+
+<script>
+    function Reject(MID) {
+        $('#btnmodal')[0].click();
+        $('#btn_Reject').click(function () {
+            var Reason = $('#txtReason').val();
+
+            $.ajax({
+                url: '/Management/Rejected',
+                type: 'POST',
+                data: {
+                    id: MID,
+                    Reason: Reason,
+                },
+                success: function (data) {
+                    if (data.Status == "Success") {
+                        SendNotif('Congrat!', data.Message, 'success');
+                    }
+                    else {
+                        SendNotif('Ooopss!', data.Message, 'error');
+                    }
+                },
+                error: function () {
+                    SendNotif('Ooopss!', data.Message, 'warning');
+                }
+            })
+        })
+
+    }
+</script>

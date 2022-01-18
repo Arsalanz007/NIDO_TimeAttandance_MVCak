@@ -1,0 +1,126 @@
+﻿@using System.Data
+@{
+    ViewBag.Title = "GetEmployeeRoaster";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+@{
+    string ViewName = ViewBag.ViewName;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printableArea">
+    @{
+        var icon = (NIDO_TimeAttandance_MVC.tbl_IconControl)Session["Icon"];
+        DataTable dt = ViewBag.data;
+    }
+
+
+    <section class="panel">
+        <div class="panel-body">
+            <div class="invoice">
+                <div class="bill-info">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <h2 class="h4 mt-none mb-sm text-dark text-center text-bold">Attendance Report from @dateRange[0] to @dateRange[1]</h2>
+                                @*<h4 class="h5 m-none text-dark text-bold">@ViewBag.DateRange</h4>*@
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mt-md">
+                                <div class="text-center" style="width:30%;height:10%">
+
+                                    <img src="@icon.Report" alt="okler themes" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (DataColumn column in dt.Columns)
+                                {
+                                    <th class="text-center">@column.ToString()</th>
+                                }                               
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                            @foreach (DataRow rows in dt.Rows)
+                            {
+                                <tr>
+                                    @for (int i = 0; i < rows.ItemArray.Length; i++)
+                                    {
+
+                                        if (i > 1)
+                                        {
+                                            <td class="text-center">@rows[i].ToString()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">@rows[i]</td>
+                                        }
+
+                                    }
+                                    
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+
+

@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<!-- charts CSS
+       ============================================ -->
+<link rel="stylesheet" href="~/Assests/Home/css/charts.css">
+
+<div class="charts-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="charts-single-pro shadow-reset nt-mg-b-30">
+                    <div id="axis-chart">
+                        <canvas id="linechartmultiaxis"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="sparkline10-list shadow-reset">
+                    <div class="sparkline10-hd">
+                        <div class="main-sparkline10-hd">
+                            <h1>Jan @DateTime.Now.Year Till Dec @DateTime.Now.Year<span class="c3-ds-n"></span></h1>
+                            <div class="sparkline10-outline-icon">
+                                <span class="sparkline10-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span class="sparkline10-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph">
+                        <div id="pieC" style="height:345px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="sparkline13-graph">
+                <div class="datatable-dashv1-list custom-datatable-overright">
+                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Total Present</th>
+                                <th>Total Late</th>
+                                <th>Total Half Day</th>
+                                <th>Total Absent</th>
+                                <th>Total Early Going</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.tabular)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Month_Name
+                                    </td>
+                                    <td>
+                                        @item.Presents
+                                    </td>
+                                    <td>
+                                        @item.Late
+                                    </td>
+                                    <td>
+                                        @item.HalfDay
+                                    </td>
+                                    <td>
+                                        @item.Absent
+                                    </td>
+                                    <td>
+                                        @item.EarlyGoingCount
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/AttendanceHistory/getEmpdata',
+            datatype: "json",
+            type: 'POST',
+            contenttype: 'application/json; charset=utf-8',
+            success: function (msg) {
+                if (msg.Status == "Success") {
+                    var P_Data = [];
+                    var L_Data = [];
+                    var A_Data = [];
+                    var HD_Data = [];
+                    var EG_Data = [];
+                    var MonthName = [];
+                    var Present = 0;
+                    var Absent = 0;
+                    var Late = 0;
+                    var HalfDay = 0;
+                    var EaryGoing = 0;
+                    $.each(msg.Trend, function (key, value) {
+                        P_Data.push(this.Presents);
+                        Present += this.Presents;
+                        L_Data.push(this.Late);
+                        Late += this.Late;
+                        A_Data.push(this.Absent);
+                        Absent += this.Absent;
+                        HD_Data.push(this.HalfDay);
+                        HalfDay += this.HalfDay;
+                        EG_Data.push(this.EarlyGoingCount);
+                        EaryGoing += this.EarlyGoingCount;
+                        MonthName.push(this.Month_Name);
+                    });
+                    generateChart(P_Data, L_Data, A_Data, HD_Data, EG_Data, MonthName);
+                    DonoutChart(Present, Absent, Late, HalfDay, EaryGoing);
+                }
+            },
+            error: function () {
+
+            }
+        });
+        function generateChart(PresentData, LateData, AbsentData, HalfDayData, EarlyGoingData, MonthName) {
+            var ctx = document.getElementById("linechartmultiaxis");
+            var linechartmultiaxis = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: MonthName,
+                    datasets: [{
+                        label: "Present",
+                        fill: false,
+                        backgroundColor: 'green',
+                        borderColor: 'green',
+                        data: PresentData,
+                        yAxisID: "y-axis-1"
+                    }, {
+                        label: "Absent",
+                        fill: false,
+                        backgroundColor: 'orange',
+                        borderColor: 'orange',
+                        data: AbsentData,
+                        yAxisID: "y-axis-2"
+
+                    }, {
+                        label: "Late",
+                        fill: false,
+                        backgroundColor: 'red',
+                        borderColor: 'red',
+                        data: LateData,
+                        //yAxisID: "y-axis-2"
+
+                    }, {
+                        label: "Half Day",
+                        fill: false,
+                        backgroundColor: 'black',
+                        borderColor: 'black',
+                        data: HalfDayData,
+                        //yAxisID: "y-axis-2"
+
+                    }, {
+                        label: "Early Going",
+                        fill: false,
+                        backgroundColor: 'purple',
+                        borderColor: 'purple',
+                        data: EarlyGoingData,
+                        //yAxisID: "y-axis-2"
+
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    hoverMode: 'index',
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'Month wise detail of attendance'
+                    },
+                    scales: {
+                        yAxes: [{
+                            type: "linear",
+                            display: true,
+                            position: "left",
+                            id: "y-axis-1",
+                        }, {
+                            type: "linear",
+                            display: true,
+                            position: "right",
+                            id: "y-axis-2",
+                            gridLines: {
+                                drawOnChartArea: false,
+                            },
+                        }],
+                    }
+                }
+            });
+        }
+
+        function DonoutChart(Present, Absent, Late, HalfDay, EaryGoing) {
+
+
+            c3.generate({
+                bindto: '#pieC',
+                data: {
+                    columns: [
+                        ['Present', Present],
+                        ['Absent', Absent],
+                        ['Late', Late],
+                        ['HalfDay', HalfDay],
+                        ['EaryGoing', EaryGoing],
+
+                    ],
+                    colors: {
+                        Present: 'green',
+                        Absent: 'orange',
+                        Late: 'red',
+                        HalfDay: 'black',
+                        EaryGoing: 'purple',
+                    },
+                    type: 'donut'
+                }
+
+                ,
+                donut: {
+                    label: {
+                        format: function (d, v, i) {
+                            v = v * 100;
+                            //v.toFixed(2);
+                            v = v.toPrecision(3);
+                            return d;
+                        },
+                        threshold: 0.01
+                    }
+                }
+
+
+
+            });
+
+        }
+    })
+</script>
+

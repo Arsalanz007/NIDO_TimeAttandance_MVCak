@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NIDO_TimeAttandance_MVC", "NIDO_TimeAttandance_MVC\NIDO_TimeAttandance_MVC.csproj", "{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoEmailService", "AutoEmailService\AutoEmailService.csproj", "{207D2ECF-DD37-4F46-ABD3-1AD9EF273A84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1A4ACA3-1198-47BD-A334-4FD2457FA294}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{207D2ECF-DD37-4F46-ABD3-1AD9EF273A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207D2ECF-DD37-4F46-ABD3-1AD9EF273A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207D2ECF-DD37-4F46-ABD3-1AD9EF273A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207D2ECF-DD37-4F46-ABD3-1AD9EF273A84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7D9EC7F-9760-4DAA-B80E-BCC68AA8F19F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/zohaibhashmi
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AutoEmailService\\AutoEmailService.csproj
+		SccProjectName1 = AutoEmailService
+		SccLocalPath1 = AutoEmailService
+		SccProjectUniqueName2 = NIDO_TimeAttandance_MVC\\NIDO_TimeAttandance_MVC.csproj
+		SccProjectName2 = NIDO_TimeAttandance_MVC
+		SccLocalPath2 = NIDO_TimeAttandance_MVC
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,175 @@
+﻿@using System.Data
+@{
+    ViewBag.Title = "AttendanceReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@{
+
+    //   DataTable dt = TempData["AttendaceSummaryReport"] as DataTable;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+    DataTable dt = ViewBag.data;
+}
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Attendance sheet from @dateRange[0]  to @dateRange[1] </span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        @*@foreach (DataColumn column in dt.Columns)
+        {
+            <th>@column</th>
+        }*@
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        @for (int i = 1; i < 32; i++)
+                                        {
+
+                                            <th>@i</th>
+
+                                        }
+                                        <th>TD</th>
+                                        <th>Pre</th>
+                                        <th>Abs</th>
+                                        <th>LT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow rows in dt.Rows)
+                                    {
+                                    <tr>
+                                        @{ var count = rows.ItemArray.Length;
+                                            if (count > 33)
+                                            {
+                                                count = 33;
+                                            }
+                                        }
+                                        @{ 
+                                            var totalDays = 0;
+                                            var PresentDays = 0;
+                                            var Absent = 0;
+                                            var Leave = 0;
+                                        }
+
+                                        
+                                        @for (int i = 0; i < count; i++)
+                                        {
+                                            var rowD = rows[i];
+                                            string color = "";
+
+                                            if ((rows[i].ToString()).Split(',')[0] == "23:59:00")
+                                            {
+                                                rowD = "A";
+                                                totalDays = totalDays + 1;
+                                                Absent = Absent + 1;
+                                                color = "#ffa500";
+                                            }
+                                            else if ((rows[i].ToString()).Split(',')[0] == "23:50:00")
+                                            {
+                                                rowD = "L";
+                                                totalDays = totalDays + 1;
+                                                Leave = Leave + 1;
+
+                                                color = "#ff0000";
+                                            }
+                                            else if ((rows[i].ToString()).Split(',')[0] == "23:55:00")
+                                            {
+                                                rowD = "L";
+                                                totalDays = totalDays + 1;
+                                                Leave = Leave + 1;
+                                                color = "#d60afb";
+                                            }
+                                            else if ((rows[i].ToString()).Split(',')[0] == "00:00:00")
+                                            {
+                                                rowD = "H";
+                                                color = "#03a9f0";
+                                            }
+                                            else
+                                            {
+                                                color = "#008000";
+                                                totalDays = totalDays + 1;
+                                                PresentDays = PresentDays + 1;
+                                            }
+                                            if (i == 0)
+                                            {
+                                                string ImgPath = "";
+
+                                                if (string.IsNullOrEmpty(rowD.ToString()))
+                                                {
+                                                    ImgPath = "/Assests/Home/img/User_Circle.png";
+                                                }
+                                                else
+                                                {
+                                                    ImgPath = rowD.ToString();
+                                                }
+                                                <td>
+                                                    <div>
+                                                        <img src="@ImgPath" width="50px" height="50px" alt="" style="border-radius:100%" />
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                string[] data = rowD.ToString().Split(',');
+                                                <td>
+                                                    <span style="color:@color"> @data[0]</span><br />
+                                                    @if (data.Count() > 1 && data[1] == "00:00:00")
+                                                    {
+                                                        color = "#ffa500";
+                                                        <span style="color:@color"> MG</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (data.Count() > 1)
+                                                        {
+                                                            <span style="color:@color"> @data[1]</span>
+                                                        }
+                                                    }
+                                                </td>
+                                            }
+
+                                        }
+                                        <td>@totalDays</td>
+                                        <td>@PresentDays</td>
+                                        <td>@Absent</td>
+                                        <td>@Leave</td>
+                                        @{
+                                            var a = 35;
+                                            var b = rows.ItemArray.Length;
+
+                                        }
+                                        @if (b < a)
+                                        {
+                                            a = a - b;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                <td></td>
+                                            }
+                                        }
+
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

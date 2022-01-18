@@ -1,0 +1,189 @@
+﻿
+@model  IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.ExemptModel>
+
+@using NIDO_TimeAttandance_MVC.Areas.Payroll.Models
+
+@{
+        ViewBag.Title = "ExemptAdjustment";
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2></h2>
+
+@{
+
+    string date = ViewBag.DateRange;
+    //  string[] dateRange = date.Split(',');
+}
+<br />
+
+<br />
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Exempt Adjustment </span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div class="text-left">
+                                <input class="btn btn-success" type="button" id="target" value=" Update All" />
+                            </div>
+                            <table id="table" data-toggle="table" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none;">ID</th>
+                                        <th>Emp Name</th>
+                                        <th>Exempt Type</th>
+                                        <th>Month </th>
+                                        <th>Year </th>
+                                        <th>Date</th>
+                                        <th>Old Value</th>
+                                        <th>New Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+
+                                        //int count = 0;
+
+                                        @*<tr class="group-header">
+
+                                                <td colspan="5"> @item.EmpName </td>
+                                            </tr>*@
+                                        //foreach (var item in group)
+                                        //{
+                                        <tr data-empId="@item.empId">
+                                            <td class="empID">@item.empId</td>
+                                            <td>@item.EmpName</td>
+                                            <td class="exemptTypeId" data-exemptid="@item.ExemptTypeId">
+                                                @Enum.GetName(typeof(ExemptTypes), item.ExemptTypeId)
+                                            </td>
+                                            <td class="monthNo" data-month="@item.monthNo">@(new DateTime(2000, item.monthNo, 1).ToString("MMMM"))</td>
+                                            <td class="yearNo" data-year="@item.yearNo">@(new DateTime(item.yearNo, 1, 1).ToString("yyyy"))</td>
+
+                                            <td class="exemptDate">@item.ExemptDate.ToString("dd/MMM/yyyy")</td>
+
+
+                                            <td class="oldValue">@item.oldExemptValue</td>
+                                            <td><input type="number" class="form-control newValue" name="name" value=" @item.newExemptValue" /></td>
+
+                                        </tr>
+                                        //}
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#target").click(function () {
+
+        $(".se-pre-con").fadeIn("slow");
+        var TableData = new Array();
+        $('#table tr').each(function (row, tr) {
+
+            let newValue = $(tr).find('.newValue').val();
+            if (newValue) {
+                var obj = {};
+                obj.EmpId = $(tr).find('.empID').text().trim();
+                obj.ExemptTypeId = $(tr).find('.exemptTypeId').data("exemptid");
+                obj.MonthNo = $(tr).find('.monthNo').data("month");
+                obj.yearNo = $(tr).find('.yearNo').data("year");
+                obj.ExemptDate = $(tr).find('.exemptDate').text();
+                
+                
+                obj.oldExemptValue = $(tr).find('.oldValue').text().trim();
+                obj.newExemptValue = $(tr).find('.newValue').val();
+
+                TableData.push(obj);
+            }
+
+
+        });
+
+
+            console.log(TableData);
+        
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Payroll/Exempt/PostExemptData',
+            data: JSON.stringify({ data: TableData }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (msg) {
+
+                $(".se-pre-con").fadeOut("fast");
+                if (msg.status == "Success") {
+                    SendNotif('Success!', msg.Message, 'success');
+
+                    setTimeout(function () {
+                        window.location.replace(msg.URL);
+                    }, 1000)
+                
+
+                }
+                else {
+                    SendNotif('ooopss!', msg.Message, 'error');
+                }
+            },
+            error: function () {
+
+            }
+        })
+
+
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Adjustment/Update',
+        //    data: {
+        //        data: TableData
+
+        //    },
+        //    success: function (msg) {
+        //        if (msg.status == "Success") {
+        //            SendNotif('Success!', msg.Message, 'success');
+
+        //            window.location.href = '/Adjustment/Index';
+
+        //        }
+        //        else {
+        //            SendNotif('ooopss!', msg.Message, 'error');
+        //        }
+        //    },
+        //    error: function () {
+
+        //    }
+        //})
+    });
+    $(document).on('change', ".newValue", function () {
+
+        let value = $(this).val();
+        if (value < 0) {
+            $(this).val('');
+            SendNotif('ooopss!', "Please enter postive values", 'error');
+        }
+        
+
+    });
+
+</script>
+

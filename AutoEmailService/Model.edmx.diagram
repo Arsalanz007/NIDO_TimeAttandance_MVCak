@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec63021fbf2b44e4a24bad22d6f49a43" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.AllownceMaster" Width="1.5" PointX="7.5" PointY="68.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AttendanceLogMaster" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AttendancePooling" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AttendancePosting" Width="1.5" PointX="9.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CityMaster" Width="1.5" PointX="3" PointY="53.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CompanyMaster" Width="1.5" PointX="5.25" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CountryMaster" Width="1.5" PointX="0.75" PointY="54.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DeductionMaster" Width="1.5" PointX="10.5" PointY="82.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DepartmentMaster" Width="1.5" PointX="5.25" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DesignationMaster" Width="1.5" PointX="5.25" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DetailPolicy" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmailService" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Emp_FullAndFinalSettlement" Width="1.5" PointX="9.75" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpEducationDetail" Width="1.5" PointX="9.75" PointY="42.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpExperienceDetail" Width="1.5" PointX="9.75" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpFamilyDetail" Width="1.5" PointX="9.75" PointY="50.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmployeeType" Width="1.5" PointX="5.25" PointY="61.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpMaster" Width="1.5" PointX="7.5" PointY="44.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpScheduleDetail" Width="1.5" PointX="12" PointY="40.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpScheduleMaster" Width="1.5" PointX="9.75" PointY="54" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ErrorLogMaster" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GazettedHoliday" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GradeMaster" Width="1.5" PointX="5.25" PointY="64.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.InOutType" Width="1.5" PointX="6.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.JobDetail" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LeaveApproval" Width="1.5" PointX="12.75" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LeaveDeduction" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LeaveMapDetail" Width="1.5" PointX="12" PointY="62.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LeaveMapMaster" Width="1.5" PointX="9.75" PointY="62.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LeaveSetup" Width="1.5" PointX="10.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MartialStatu" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MasterPolicy" Width="1.5" PointX="7" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ShiftMaster" Width="1.5" PointX="7.5" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ShiftScheduleGeneralDetail" Width="1.5" PointX="15.75" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ShiftScheduleGeneralMaster" Width="1.5" PointX="7.5" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SysPolicy" Width="1.5" PointX="8.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AccountType" Width="1.5" PointX="3" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AdvanceDetail" Width="1.5" PointX="12" PointY="66.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AdvanceMaster" Width="1.5" PointX="9.75" PointY="66.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedAllowances" Width="1.5" PointX="9.75" PointY="58.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedBonuses" Width="1.5" PointX="12.75" PointY="50.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedDeductions" Width="1.5" PointX="12.75" PointY="58.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedEOBI" Width="1.5" PointX="15.75" PointY="54.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedLatePolicies" Width="1.5" PointX="15.75" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedProvidentFund" Width="1.5" PointX="15.75" PointY="57.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllocatedSecurityDeposit" Width="1.5" PointX="15.75" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AllowancePosting" Width="1.5" PointX="9.75" PointY="106.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AssetsMaster" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AutoEmailDetail" Width="1.5" PointX="8" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AutoEmailSetting" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_AutoEmailTypes" Width="1.5" PointX="5.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_BankMaster" Width="1.5" PointX="5.25" PointY="53.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_BonusMaster" Width="1.5" PointX="10.5" PointY="74.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_BonusPosting" Width="1.5" PointX="12.75" PointY="98.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Circular" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_DecConCategory" Width="1.5" PointX="11.25" PointY="78.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_DeductionPosting" Width="1.5" PointX="12.75" PointY="87.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EmpLateDeduct" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EmpLateDetails" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EmployeeStatus" Width="1.5" PointX="5.25" PointY="67.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EmpSalary_CalculationMethod" Width="1.5" PointX="2.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EOBIMaster" Width="1.5" PointX="13.5" PointY="77.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_EOBIPosting" Width="1.5" PointX="15.75" PointY="78.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ExemptMaster" Width="1.5" PointX="9.75" PointY="90.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ExemptTypes" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_IconControl" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_IncomeTaxMaster" Width="1.5" PointX="9.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_IncomeTaxPosting" Width="1.5" PointX="12" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LateAttendnaceMaster" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LatePolicyMaster" Width="1.5" PointX="13.5" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LeaveDeduction" Width="1.5" PointX="12.75" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LoanDetail" Width="1.5" PointX="12" PointY="94.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LoanMaster" Width="1.5" PointX="9.75" PointY="94.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_LoanStatusMaster" Width="1.5" PointX="9.75" PointY="99.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Manager" Width="1.5" PointX="15.75" PointY="61" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ManagerLevel" Width="1.5" PointX="13.5" PointY="74.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Notifications" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Organization_Heirarchy" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Pay_Schedule" Width="1.5" PointX="2.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_PaymentStatusMaster" Width="1.5" PointX="9.75" PointY="85.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Payroll_Options" Width="1.5" PointX="5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_PendingRequestDetail" Width="1.5" PointX="21" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_PendingRequestMaster" Width="1.5" PointX="15" PointY="44.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_PFWithdrawlDetail" Width="1.5" PointX="9.75" PointY="102.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ProvidentFundMaster" Width="1.5" PointX="13.5" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ProvidentFundPosting" Width="1.5" PointX="15.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Province" Width="1.5" PointX="3" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ReportCategory" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Reports" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Request" Width="1.5" PointX="12.75" PointY="44.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Role" Width="1.5" PointX="16.5" PointY="65.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_SalaryIncrement_Posting" Width="1.5" PointX="18.75" PointY="53.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_SalaryPostingMaster" Width="1.5" PointX="9.75" PointY="115.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_SecurityDepositMaster" Width="1.5" PointX="13.5" PointY="70.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_SecurityDepositPosting" Width="1.5" PointX="18.75" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Setting" Width="1.5" PointX="2.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_TaxMaster" Width="1.5" PointX="13.5" PointY="83" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_TaxPosting" Width="1.5" PointX="15.75" PointY="83.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_Template" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_TemplateName" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_UserRights" Width="1.5" PointX="18.75" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblMenu" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblPolicyType" Width="1.5" PointX="4.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblReason" Width="1.5" PointX="4.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblUserLoginHistory" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UserMaster" Width="1.5" PointX="18.75" PointY="58.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ValueType" Width="1.5" PointX="11.25" PointY="70.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.WishChecker" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.WishTempalte" Width="1.5" PointX="6.75" PointY="18.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedAllowances_AllownceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllowancePosting_AllownceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_AttendancePosting_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_BankM__CityI__74C5C55A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CityMaster_CountryMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_CityMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_CompanyMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ShiftMaster_CompanyMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_CountryMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Province_CountryMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedDeductions_deductionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_DeductionPosting_DeductionMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Salar__Depar__7B92BE7A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Manager_DepartmentMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Salar__Desig__5EF67FCC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_DesignationMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Emp_FullA__EmpId__1038D5A5" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpEducationDetail_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpExperienceDetail_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpFamilyDetail_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_EmployeeType" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EmpMaster__BankI__5458F5C8" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EmpMaster__EmpSt__5A27A90E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Alloc__EmpId__3BF75C52" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Alloc__EmpId__64F971E5" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_LoanM__EmpId__2C578814" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Salar__EmpId__5E025B93" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpMaster_GradeMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpScheduleMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LeaveApproval_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LeaveMapedMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AdvanceMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedAllowances_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedBonuses_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedDeductions_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedLatePolicies_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedSecurityDeposit_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_ExamMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Manager_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_PFWithdrawlDetial_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Request_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_SalaryPostingMaster_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_SecurityDepositPosting_EmpMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_UserMaster_EmpMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpScheduleDetail_EmpScheduleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpScheduleMaster_EmpScheduleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EmpScheduleMaster_ShiftScheduleGeneralMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LeaveApproval_LeaveApproval" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LeaveMapDetail_LeaveMapedMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_LeaveDeduction_LeaveSetup" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Request_LeaveSetup" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MasterPolicy_tblPolicyType" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ShiftScheduleGeneralDetail_ShiftMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ShiftScheduleGeneralDetail_ShiftScheduleGeneralMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_BankM__Accou__36C892E1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AdvanceDetail_tbl_AdvanceMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AdvanceDetail_tbl_PaymentStatusMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedBonuses_BonuseMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Alloc__EOBII__3CEB808B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedLatePolicies_tbl_LatePolicyMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Alloc__Provi__65ED961E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AllocatedSecurityDeposit_tbl_SecurityDepositMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_AutoEmailDetail_tbl_AutoEmailTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_BonusPosting_BonusMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_EOBIM__Categ__00D69684" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_ProvidentFundMaster_tbl_DecConCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Payro__Salar__72294FD1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_EOBIM__Value__01CABABD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_EOBIPosting_EOBIMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Incom__Incom__4D76EE0F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_LoanDetail_tbl_LoanMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_LoanDetail_tbl_LoanStatusMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Manager_tbl_ManagerLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_PendingRequestDetail_tbl_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Payro__Pay_S__71352B98" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_PendingRequestDetail_tbl_PendingRequestMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_PendingRequestMaster_tbl_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_ProvidentFundMaster_ValueTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_ProvidentFundPosting_ProvidentFundMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_Repor__Categ__78614C14" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_UserRights_tbl_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_UserMaster_tbl_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_SecurityDeposit_ValueTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_SecurityDepositPosting_tbl_SecurityDepositMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_TaxMaster_ValueTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_TaxPosting_TaxMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_Template_tbl_TemplateName" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tbl_UserRights_tblMenu1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblMenu_tblMenu" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

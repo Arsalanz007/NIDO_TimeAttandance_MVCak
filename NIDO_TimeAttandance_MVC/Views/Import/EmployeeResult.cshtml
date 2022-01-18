@@ -1,0 +1,107 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.User.Models.ImportExcelResult
+
+
+@{
+    ViewBag.Title = "SaveExcelData";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    th{
+        text-align:center;
+    }
+    td {
+        text-align:center;
+    }
+</style>
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+
+                        @if (ViewBag.Error != null)
+                        {
+                            <span class="alert alert-danger">@ViewBag.Error</span>
+                        }
+
+                        else
+                        {
+                            <div class="income-rate-total">
+
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+
+
+                                    <thead>
+                                        <tr>
+                                            <th> Total Rows</th>
+                                            <th> Accept Employee</th>
+                                            <th> Rejected Employee</th>
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@Model.TotalEmpCount</td>
+                                            <td>@Model.AcceptEmpCount</td>
+                                            <td>@Model.RejectEmpCount</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h2 style="font-family:none ; margin-top:10px;">Rejected Employee Info</h2>
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+
+
+                                    <thead>
+                                        <tr>
+
+                                            <th>Emp Code</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                            <th>City</th>
+                                            <th>Grade</th>
+                                            <th>Company</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.RejectEmpCount == 0)
+                                        {
+                                            <tr> <td colspan="7"> No Employee Rejected</td></tr>
+                                        }
+                                        @foreach (var item in Model.RejectEmpList)
+                                        {
+                                            <tr>
+                                                <td>@item.EmpCode</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Department</td>
+                                                <td>@item.Designation</td>
+                                                <td>@item.City</td>
+                                                <td>@item.Grade</td>
+                                                <td>@item.Company</td>
+
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,159 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.User.Models.ModelAttendance>
+
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<style>
+    tr.group-header {
+        cursor: pointer;
+    }
+
+    tr.group-header {
+        cursor: pointer;
+    }
+</style>
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Request</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Leave Start/Date</th>
+                                        <th>Leave End/Time</th>
+                                        <th>Leave Type/In-Out</th>
+                                        <th>Tracking ID</th>
+                                        <th>Approved</th>
+                                        <th data-field="action">
+                                            Action
+                                            <div class="button-drop-style-one" style="float:right">
+                                                <button type="button" class="btn btn-custon-four btn-success primary-btn-cl" onclick="redirect('/User/Attendance/Manual/')">
+                                                    Add New
+                                                    <i class="adminpro-icon adminpro-avatar"></i>
+                                                </button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in Model.GroupBy(x => x.Code))
+                                    {
+                                        string GroupName = "";
+                                        if (group.Key.Trim() == "L")
+                                        {
+                                            GroupName = "Leave Details";
+                                        }
+                                        else
+                                        {
+                                            GroupName = "Manual Attendance Details";
+                                        }
+                                        <tr class="group-header">
+                                            <td colspan="7">
+                                                <span class="h4">@GroupName</span>
+                                            </td>
+                                        </tr>
+
+                                        foreach (var item in group)
+                                        {
+                                            string Date = "";
+                                            string Date2 = "";
+                                            string InOut = "";
+                                            if (item.Code.Trim() == "L")
+                                            {
+                                                Date = Convert.ToDateTime(item.LeaveStartDate).ToString("dd MMM yyy");
+                                                Date2 = Convert.ToDateTime(item.LeaveEndDate).ToString("dd MMM yyy");
+                                                InOut = item.LeaveName;
+                                            }
+                                            else
+                                            {
+                                                Date = Convert.ToDateTime(item.AttendanceDate).ToString("dd MMM yyy");
+                                                Date2 = item.AttendanceTime.ToString();
+                                                if (item.InOutTypeID == 1)
+                                                {
+                                                    InOut = "Time-IN";
+                                                }
+                                                else
+                                                {
+                                                    InOut = "Time-Out";
+                                                }
+                                            }
+                                            string Aprroved = "";
+                                            string StatusSymbol = "";
+                                            string Colour = "";
+
+
+                                            if (item.IsApproved == true)
+                                            {
+                                                Aprroved = "Approved";
+                                                StatusSymbol = "fa fa-check";
+                                                Colour = "green";
+                                            }
+                                            else
+                                            {
+                                                Aprroved = "Not-Approved";
+                                                StatusSymbol = "adminpro-icon adminpro-danger-error";
+                                                Colour = "red";
+                                            }
+                                            <tr>
+                                                <td>
+                                                    @if (item.ReqStatus == "Initiated")
+                                                    {
+                                                        <span class="btn btn-success"> @item.ReqStatus</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="btn btn-danger"> @item.ReqStatus</span>
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:green" class="fa fa-calendar"> @Date</i></span>
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:orange" class="fa fa-clock-o"> @Date2</i></span>
+
+                                                </td>
+
+                                                <td>
+                                                    @InOut
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:#03a9f4" class="fa fa-map-marker"> @item.ReqTrackingID</i></span>
+
+                                                </td>
+                                                <td>
+                                                    <span><i style="color:@Colour" class="@StatusSymbol"> @Aprroved</i></span>
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Detail", "Index", "TrackRequest", new { area = "", id = item.ReqTrackingID }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })|
+                                                      <input type="button" value="Cancel" class="btn btn-custon-four btn-danger danger-btn-cl" onclick="ActionLinkAlert('/User/Attendance/CancelRequest',@item.ID)" />
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

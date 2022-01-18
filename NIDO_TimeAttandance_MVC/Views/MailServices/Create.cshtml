@@ -1,0 +1,156 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.AutoEmail
+@{
+    ViewBag.Title = "Save";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@using System.Web.Optimization;
+@Styles.Render("~/bundles/switch_Css")
+@Styles.Render("~/bundles/manualPosting")
+@using (Ajax.BeginForm("Save", "MailServices", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginAjax", OnFailure = "OnFailureAjax", OnSuccess = "OnSuccessAjax" }))
+{
+    <div class="login-form-area mg-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3"></div>
+
+                <div class="col-lg-12">
+                    <div class="login-bg">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1>Email Settings</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>In-Out</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-input-area">
+                                        @Html.DropDownListFor(model => model.MID, ViewBag.EmailName as IEnumerable<SelectListItem>, "Please Select Email", new { @class = "form-control m-input", required = "*", id = "Emailid" })
+                                        @Html.ValidationMessageFor(model => model.MID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>Time</p>
+                                    </div>
+                                </div>
+                               
+                        <div class="form-group col-md-8">
+                            <div class="input-group date">
+                                <input type="text" name="txttime" value="@Model.EmailTime" id="txttime" placeholder="Please enter time" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }'>
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                        @*<div class="row">
+
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <div class="login-input-head">
+                        <p>Date From</p>
+                    </div>
+                </div>
+
+                <div class="form-group data-custon-pick data_1 col-md-6">
+                    <div class="input-group date">
+                        @@Html.TextBoxFor(model => model.datefrom, new { required = "*", autocomplete = "off", @class = "form-control", data_val = "true", data_val_date = "The field AttendanceDate must be a date.", id = "EmailDateFrom", name = "AttendanceDate", placeholder = "Please Enter date", type = "text", value = "" })
+                        @@Html.ValidationMessageFor(model => model.datefrom, "", new { @class = "error required" }, "label")
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <div class="login-input-head">
+                        <p>Date To</p>
+                    </div>
+                </div>
+                <div class="form-group data-custon-pick data_1 col-md-6">
+                    <div class="input-group date">
+                        @Html.TextBoxFor(model => model.DateTo, new { required = "*", autocomplete = "off", @class = "form-control", data_val = "true", data_val_date = "The field AttendanceDate must be a date.", id = "EmailDateTo", name = "AttendanceDate", placeholder = "Please Enter date", type = "text", value = "", @onchange = "onchangeevent();" })
+                        @Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "error required" }, "label")
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="login-input-head">
+                                        <p>State</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="switch switch-sm switch-primary">
+                                        @Html.CheckBoxFor(model => model.isActive, new { name = "switch", type = "checkbox", @data_plugin_ios_switch = "" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="login-button-pro">
+                                    <button type="submit" class="login-button login-button-lg">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
+
+}
+@Scripts.Render("~/bundles/switch")
+<script src="~/Assests/Dashboard/assets/vendor/nanoscroller/nanoscroller.js"></script>
+<script src="~/Assests/Dashboard/assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="~/Assests/Dashboard/assets/javascripts/theme.js"></script>
+<script src="~/Assests/Dashboard/assets/javascripts/theme.init.js"></script>
+
+<script>
+
+    // Handle form submission event
+    function onchangeevent() {
+
+
+        var DateFrom = $('#EmailDateFrom').val();
+        var DateTo = $('#EmailDateTo').val();
+        var start = new Date(DateFrom);
+        var end = new Date(DateTo);
+
+        if (start <= end) {
+
+
+
+
+        }
+        else {
+            SendNotif('Error!', 'Invalid Date Range', 'error');
+            $('#EmailDateTo').val('').datepicker("refresh");
+            $('#EmailDateFrom').val('').datepicker("refresh");
+
+        }
+        // Prevent actual form submission
+        e.preventDefault();
+    }
+
+
+</script>

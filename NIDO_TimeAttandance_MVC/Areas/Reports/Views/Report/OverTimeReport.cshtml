@@ -1,0 +1,140 @@
+﻿@model IEnumerable<NIDO_TimeAttandance_MVC.Areas.Reports.Models.ModelMonthlyRepot>
+
+@using System;
+@using System.Collections.Generic;
+@using System.ComponentModel;
+@using System.Data;
+@using System.Drawing;
+@using System.Linq;
+@using System.Text;
+@using System.Threading.Tasks;
+
+@using System.IO;
+
+@{
+    ViewBag.Title = "OverTimeReport";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style>
+    tr.group-header {
+        cursor: pointer;
+    }
+
+    tr.group-header {
+        cursor: pointer;
+    }
+</style>
+@{
+
+    //   DataTable dt = TempData["AttendaceSummaryReport"] as DataTable;
+    string date = ViewBag.DateRange;
+    string[] dateRange = date.Split(',');
+}
+<div class="data-table-area mg-b-15">
+    <div class="row"><br /></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Over Time Report @dateRange[0] to @dateRange[1]</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr style="background-color: aquamarine;">
+
+
+                                        <th>Date</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
+                                        <th>Working Time</th>
+                                        <th>Over Time</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in Model.GroupBy(x => x.EmpName))
+                                    {
+                                        int count = 0;
+                                        var data = Model.Where(x => x.EmpName == group.Key).Select(x => new { x.EmpCode, x.EmpName, x.Designation }).FirstOrDefault();
+                                        <tr class="group-header ">
+                                            <td colspan="5" style="background-color:#1ab394; color:white">
+                                                <span class="h4" style="color:#03a9f4">@data.EmpName</span>
+                                                &nbsp;&nbsp;
+                                                <span class="h6" style="color:#03a9f4">@data.Designation</span>
+                                                &nbsp;&nbsp;
+                                                <span class="h6" style="color:#03a9f4">(Emp Code : @data.EmpCode )</span>
+
+                                            </td>
+                                        </tr>
+                                        foreach (var item in group)
+                                        {
+                                            count = count + item.OT.GetValueOrDefault();
+
+
+                                            <tr>
+                                                <td>
+                                                    @item.AttDate.ToString("dd MMM yyy") <span id="testDiv" style=" display:none; visibility:hidden; height:0px">@item.EmpName</span>
+                                                </td>
+                                                <td>
+                                                    @item.TimeIn <span id="testDiv" style=" display:none; visibility:hidden; height:0px">@item.EmpCode</span>
+                                                </td>
+                                                <td>
+                                                    @item.TimeOut
+                                                </td>
+                                                <td>
+                                                    @item.WorkingMin
+                                                </td>
+                                                <td>
+                                                    @{
+
+
+                                                        TimeSpan timeSpan = TimeSpan.FromMinutes(item.OT.GetValueOrDefault());
+
+                                                        string time = timeSpan.ToString(@"hh\:mm");
+                                                    }
+                                                    @time
+
+
+                                                </td>
+
+
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td colspan="4"><span style="color:#03a9f4">Total</span></td>
+                                            @{
+
+
+                                                TimeSpan timeSpan2 = TimeSpan.FromMinutes(count);
+
+                                                string time2 = timeSpan2.ToString(@"hh\:mm");
+                                            }
+
+                                            <td style="background:#f9f9f9;">@time2</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

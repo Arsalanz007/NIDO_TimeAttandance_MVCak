@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/Assests/Dashboard/assets/stylesheets/theme.css" />
+<!-- Vendor CSS -->
+@*<link rel="stylesheet" href="~/Assests/Dashboard/assets/vendor/bootstrap/css/bootstrap.css" />*@
+<!-- Invoice Print Style -->
+<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />
+
+<div class="stockprice-feed-project-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <h5>From here you can print out / Save in Pdf format</h5>
+                            <div class="price-adminpro-rate">
+                                <div class="text-right mr-lg">
+                                    <a onclick="printDiv('printableArea')" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="printableArea">
+    <link rel="stylesheet" href="~/Assests/Home/css/bootstrap.min.css">
+    @*<link rel="stylesheet" media="" href="~/Assests/Dashboard/assets/stylesheets/invoice-print.css" />*@
+    <style type="text/css">
+        @@media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+            /* page-break-after works, as well */
+        }
+
+        tr, td, th {
+            font-size: 12px;
+        }
+        td{
+            padding-left: 5px;
+        }
+
+        .printableArea {
+            font-size: 12px;
+        }
+        .blackBac {
+            color: white;
+            background-color: black
+        }
+        .textAlign-center{
+            text-align: center;
+        }
+    </style>
+
+    <section class="panel">
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+
+                <tbody>
+                    <tr>
+                        <td class="blackBac" colspan="2">Akbar Ali and sons</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="textAlign-center">EMPLOYEE EMPLOYMENT HISTORY REPORT</td>
+
+                    </tr>
+                    <tr class="textAlign-center">
+                        <td class="col-md-6 col-sm-6 col-xs-6"><strong>PERSONAL INFORMATION:</strong></td>
+                        <td class="col-md-6 col-sm-6 col-xs-6"><strong>JOB INFORMATION:</strong></td>
+                    </tr>
+                    <tr >
+                        <td>Name: </td>
+                        <td >Job Title:</td>
+                    </tr>
+                    <tr>
+                        <td>Father Name:</td>
+                        <td >Department:</td>
+                    </tr>
+                    <tr>
+                        <td>DOB:</td>
+                        <td >Trial Period:</td>
+                    </tr>
+                    <tr>
+                        <td>CNIC Number:</td>
+                        <td>Appointment Period:</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile No:</td>
+                        <td >Confirmation Date:</td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Contact:</td>
+                        <td>Job Exit Date:</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>Leaving Remarks:</td>
+                    </tr>
+                    <tr>
+                        <td>Offcial Email:</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Address:</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="textAlign-center">SALARY DETAIL</td>
+                    </tr>
+                    <tr class="textAlign-center">
+                        <td class="col-md-6 col-sm-6 col-xs-6"><strong>PERSONAL INFORMATION:</strong></td>
+                        <td class="col-md-6 col-sm-6 col-xs-6"><strong>JOB INFORMATION:</strong></td>
+                    </tr>            
+                </tbody>
+            </table>
+            <table class="table table-bordered table-striped">
+                <tbody>
+
+                    <tr>
+                        <td colspan="3" class="textAlign-center">Year 2020</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">Total Salary</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">Net Salary</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">Monthly Security Deduction</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 20,000</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 12345</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">January: 1000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 20,000</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 12345</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">January: 1000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 20,000</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 12345</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">January: 1000</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="textAlign-center">Year 2021</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">Total Salary</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">Net Salary</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">Monthly Security Deduction</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 20,000</td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">January: 12345</td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">January: 1000</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="textAlign-center">INCREMENTS</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Amount Increased: 5000</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Increment From: 01-02-2021</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Security Deduction: 3000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Amount Increased: 5000</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Increment From: 01-02-2021</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Security Deduction: 3000</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="textAlign-center">PROMOTION</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Current Designation: Sales Coordinator</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Department: Sales & Marketing</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Promoted Date:01-02-2021</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Current Designation: Sales Coordinator</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Department: Sales & Marketing</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Promoted Date:01-02-2021</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Current Designation: Sales Coordinator</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Department: Sales & Marketing</td>
+                        <td class="col-md-4 col-sm-4 col-xs-4">Promoted Date:01-02-2021</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="textAlign-center">REMARKS FROM MANAGEMENT</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="textAlign-center">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="textAlign-center">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="textAlign-center">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        //var html = '<html> <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> </head> ' + printContents + '</html>'
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        //document.body.innerHTML = html;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

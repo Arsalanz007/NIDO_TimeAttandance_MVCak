@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link href="~/Assests/Calender/css/bootstrap-year-calendar.css" rel="stylesheet" />
+<br />
+<div class="widgets-personal-info-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="calendar" class="calendar" style="background-color:white"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="comment-scrollbar" style="height:663px">
+                    @foreach (var R in ViewBag.LeaveRecord)
+                    {
+                        if (R.LeaveDsc == "Deduction")
+                        {
+                            <div class="widget-head-info-box">
+                                <div class="input-color">
+
+                                </div>
+
+                                <div class="persoanl-widget-hd">
+                                    <h2>@R.LeaveDsc</h2>
+                                    @*<p> <a id="detail" href="#" style="color:white">For more detail please click here</a> </p>*@
+                                    @*<p><a id="btnmodal" style="color:white" data-target="#modalDetails" data-toggle="modal"> For more detail please click here</a> </p>*@
+                                    <p><a href="#" id="btnDetail" style="color:white"> For more detail please click here</a> </p>
+
+                                </div>
+                                <div class="social-widget-result">
+                                    <span>@R.LeaveAllowed Leave Deduction(s)</span>
+                                </div>
+                            </div>
+                            <br />
+                        }
+                        else
+                        {
+                            <div class="widget-head-info-box">
+                                @if (R.LeaveDsc != "Total Leave")
+                                {
+                                    <div class="input-color">
+                                        <div class="color-box" style="background-color: @R.Color;"></div>
+                                    </div>
+                                }
+                                <div class="persoanl-widget-hd">
+                                    <h2>@R.LeaveDsc</h2>
+                                    <p>Summary</p>
+
+                                </div>
+                                <div class="social-widget-result">
+                                    <span>@R.LeaveAllowed Leave Allowed</span> |
+                                    <span>@R.LeaveAvailed Leave Availed</span> |
+                                    <span>@R.Balance Balance</span>
+                                </div>
+                            </div>
+                            <br />
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Departmentwise Detail PopUp start -->
+<a id="btnmodal" style="color:white" data-target="#modalDetails" data-toggle="modal"></a>
+<div class="panel-body">
+    <div class="modal fade" id="modalDetails" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document" id="empList">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h4 class="modal-title" id="modalLabel"> Leave Deduction details </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- accordion start-->
+                    <div class="adminpro-accordion-area">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="admin-pro-accordion-wrap mg-b-15 shadow-reset">
+                                        <div class="panel-group adminpro-custon-design" id="accordion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- accordion End-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Departmentwise Detail PopUp End -->
+<style>
+    /*ul {
+        margin: 20px;
+    }*/
+
+    .input-color {
+        position: relative;
+    }
+
+        .input-color input {
+            padding-right: 20px;
+        }
+
+        .input-color .color-box {
+            width: 50px;
+            height: 10px;
+            display: inline-block;
+            background-color: #ccc;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+</style>
+
+<script src="~/Assests/Calender/js/bootstrap-year-calendar.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#calendar').calendar()
+        $.ajax({
+            type: 'POST',
+            url: '/LeaveHistory/getLeaveData/',
+            success: function (msg) {
+                var data = [];
+                $.each(msg.dt, function (key, value) {
+                    data.push(
+                        {
+                            name: this.name,
+                            location: this.location,
+                            startDate: new Date(parseInt(this.startDate.substr(6))),
+                            endDate: new Date(parseInt(this.endDate.substr(6))),
+                            color: this.color,
+                        })
+                });
+                CreateCalender(data);
+            },
+            error: function () {
+            },
+        });
+    });
+    function CreateCalender(dataSource) {
+        $(function () {
+            var currentYear = new Date().getFullYear();
+            $('#calendar').calendar({
+                displayWeekNumber: true,
+                mouseOnDay: function (e) {
+                    if (e.events.length > 0) {
+                        var content = '';
+                        for (var i in e.events) {
+                            content += '<div class="event-tooltip-content">'
+                                + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
+                                + '<div class="event-location">' + e.events[i].location + '</div>'
+                                + '</div>';
+                        }
+                        $(e.element).popover({
+                            trigger: 'manual',
+                            container: 'body',
+                            html: true,
+                            content: content
+                        });
+                        $(e.element).popover('show');
+                    }
+                },
+                mouseOutDay: function (e) {
+                    if (e.events.length > 0) {
+                        $(e.element).popover('hide');
+                    }
+                },
+                dayContextMenu: function (e) {
+                    $(e.element).popover('hide');
+                },
+                dataSource: dataSource
+            });
+        });
+    };
+
+    $('#btnDetail').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/LeaveHistory/getDeductionDetail',
+            dataType: 'html',
+            datatype: "json",
+            contenttype: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#accordion').html(data);
+                $('#btnmodal').click();
+            },
+            error: function () { },
+        });
+    })
+</script>

@@ -1,0 +1,159 @@
+﻿
+<link href="~/Assests/abc/datatables.min.css" rel="stylesheet" />
+<form id="PartialForm" method="POST">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-daterange input-group">
+                        <span class="input-group-addon">Remarks</span>
+                        <textarea id="txtReason" cols="93" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="datatable-dashv1-list custom-datatable-overright">
+        <div class="form-group-inner">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                    <div class="bt-df-checkbox pull-left">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @foreach (var l in ViewBag.LeaveRecord)
+                                {
+                                    //string leaveDsc = l.LeaveDsc + "- Days-" + l.LeaveAllowed;
+                                    <div class="i-checks pull-left">
+                                        <label>
+                                            <input type="radio" checked value="@l.LeaveID" name="LeaveName"> <i></i> @l.LeaveDsc
+                                        </label>&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <table id="tableLeaveApproval" class="cell-border compact stripe order-column">
+            <thead>
+                <tr>
+                    <th></th>
+                    @*<th>Ecode</th>*@
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Absent Date</th>
+                    <th>Absent Day</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.AbsentRecord != null)
+                {
+                    foreach (var item in ViewBag.AbsentRecord)
+                    {
+                        string ID = item.EmpID + "|" + item.AttDate;
+                        string missingdate = item.AttDate.ToString("dd MMM yyyy");
+                        <tr>
+                            <td>@ID</td>
+                            @*<td>@item.EmpCode</td>*@
+                            <td>@item.EmpName</td>
+                            <td>@item.DepartmentDesc</td>
+                            <td>@item.DesignationDesc</td>
+                            <td><span><i style="color:palevioletred" class="fa fa-calendar">@missingdate </i></span></td>
+                            <td><span><i style="color:green" class="fa fa-clock-o"></i>@item.AttDay</span></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-custon-four btn-primary primary-btn-cl">
+        Submit
+        <i class="adminpro-icon adminpro-avatar"></i>
+    </button>
+</form>
+<!-- icheck JS
+    ============================================ -->
+<script src="~/Assests/Home/js/icheck/icheck.min.js"></script>
+<script src="~/Assests/Home/js/icheck/icheck-active.js"></script>
+
+<script src="~/Assests/abc/datatables.min.js"></script>
+<script src="~/Assests/abc/dataTables.checkboxes.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#tableLeaveApproval').DataTable({
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+            'order': [[1, 'asc']]
+        });
+
+        // Handle form submission event
+        $('#PartialForm').on('submit', function (e) {
+            var form = this;
+            var arr = new Array();
+            var Remarks = $("#txtReason").val(); 
+            var LeaveID = $("input[name='LeaveName']:checked").val();            
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element
+                arr.push(rowId);
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+            FormSubmitLeaveApproval(arr, Remarks, LeaveID);
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+
+        function FormSubmitLeaveApproval(arr, Remarks, LeaveID) {
+            $.ajax({
+                type: 'POST',
+                url: '/LeaveApproval/save/',
+                data: {
+                    EmpId: arr,                    
+                    Remarks: Remarks,
+                    LeaveID: LeaveID,
+                },
+                success: function (msg) {
+                    if (msg.Status == "Error") {
+                        $('#DangerP').text(msg.Message);
+                        $('#DangerMsg')[0].click();
+                    }
+                    else if (msg.Status == "Success") {
+                        $(".se-pre-con").fadeOut("fast");
+                        $('#InfoP').text(msg.Message);
+                        //Change URL
+                        var oldUrl = $('#InfoA').attr("href");
+                        var newUrl = oldUrl.replace("/Home/Index/", "/LeaveApproval/ListAll/");
+                        $('#InfoA').attr("href", newUrl);
+                        $('#InfoMsg')[0].click();
+                    }
+                },
+                Error: function () {
+                    alert("oops something went wrong");
+                },
+
+            })
+        }
+    });
+</script>

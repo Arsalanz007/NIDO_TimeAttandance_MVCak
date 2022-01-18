@@ -1,0 +1,210 @@
+﻿
+@model  IEnumerable<NIDO_TimeAttandance_MVC.Areas.Payroll.Models.EmpLateDetails>
+@{
+    ViewBag.Title = "GetAttendanceLogMaster";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@{
+
+    //string date = ViewBag.DateRange;
+    //string[] dateRange = date.Split(',');
+
+    var latePolicies = (List<tbl_LateAttendnaceMaster>)ViewBag.LateDeductList;
+}
+<br />
+
+<br />
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Date Range &nbsp;&nbsp; from &nbsp;&nbsp; @ViewBag.FromDate &nbsp;&nbsp;to&nbsp;&nbsp;@ViewBag.ToDate</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div class="text-left">
+                                <input class="btn btn-success" type="button" id="target" value=" Update All" />
+                            </div>
+
+                            <table id="table" data-toggle="table" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none;">ID</th>
+                                        <th>EmpCode</th>
+                                        <th>EmpName</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>Remark</th>
+                                        @*<th></th>*@
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="4">No Data found</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var group in Model.GroupBy(x => x.EmpId))
+                                        {
+
+                                            //int count = 0;
+                                            var data = Model.Where(x => x.EmpId == group.Key).FirstOrDefault();
+                                            foreach (var item in group)
+                                            {
+                                                <tr class="lateRow">
+
+                                                    <td class="empId" data-lateid="@item.Id">@item.EmpId</td>
+                                                    <td  >@item.EmpCode</td>
+                                                    <td  >@item.EmpName</td>
+                                                    <td>@item.AttDate.Value.ToString("dd MMM yyy")</td>
+
+                                                    <td class="col-lg-3">
+                                                        @item.TimeIn.Value
+                                                        @*<div style="padding-right:10px !important;">
+                                                                <input id="EmpTime" type="time" class="form-control" value="@item.AttDate.Value.ToString("HH:mm")" />
+                                                            </div>*@
+                                                    </td>
+                                                    <td>
+                                                        <div class="login-input-area">
+                                                            <select class="lateDeductId">
+                                                                <option value="">Select</option>
+                                                                @{ int itemid = 0;
+                                                                    int checkzero = 0;
+                                                                }
+                                                                @foreach (var item2 in latePolicies.Where(c => c.LatePolicyId == item.LatePolicyId).ToList())
+                                                                {
+                                                                    if (item.DeductId == item2.Id)
+                                                                    {
+                                                                        <option selected value="@item2.Id">@item.Deduct_Amount</option>
+                                                                        itemid = item2.Id;
+                                                                        if (item.Deduct_Amount == 0)
+                                                                        { <option  value="@item2.Id">@item2.Deduct_Percent</option>
+                                                                        
+                                                                            checkzero++;
+                                                                        }
+                                                                            
+                                                                            
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <option value="@item2.Id">@item2.Deduct_Percent</option>
+
+                                                                        if (item2.Deduct_Percent == 0) { checkzero++; }
+
+                                                                    }
+
+
+                                                                }
+                                                                @{
+                                                                    if (checkzero == 0)
+                                                                    {
+                                                                        <option value="@itemid">0</option>
+                                                                    }
+
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="text" class="form-control remark" value="@item.Remarks" name="Remarks"  ></td>
+                                                    @*<td><input type="checkbox" class="isLateChange" value="" /></td>*@
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".isLateChange").change(function () {
+            alert();
+            let isChecked = $(this).prop("Checked");
+
+
+            isChecked ? $(this).closest('tr').find('select').removeAttr('disabled') : $(this).closest('tr').find('select').attr('disabled', true);
+        })
+
+    })
+
+
+
+
+    $("#target").click(function () {
+
+        var emplist = [];
+
+        var TableData = new Array();
+        $('#table').find('.lateRow').each(function (row, tr) {
+
+            var empObj = {};
+            empObj.Id = $(tr).find(".empId").data('lateid');
+            empObj.EmpId = $(tr).find(".empId").html().trim();
+            empObj.Late_DeductId = $(tr).find(".lateDeductId").val();
+            empObj.Late_DeductAmount = $(tr).find(".lateDeductId option:selected").text();
+            empObj.Remarks = $(tr).find(".remark").val();
+
+
+            emplist.push(empObj);
+            debugger;
+            // TableData.push($(tr).find('#empID').text().trim() + '-' + $(tr).find('#InOutTypeID option:selected').val() + '?' + $(tr).find('td:eq(1)').text() + '&' + $(tr).find('#EmpTime').val())
+
+        });
+        debugger;
+        let data = JSON.stringify({ 'model': emplist });
+
+        console.log(JSON.stringify(emplist));
+        ////TableData = $.toJSON(TableData);
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Payroll/LateAttendance/AdjustLateDeduct',
+            data: data,
+            success: function (msg) {
+                if (msg.Status == "Success") {
+                    SendNotif('Success!', msg.Message, 'success');
+
+                    window.location.href = msg.URL;
+
+                }
+                else {
+                    SendNotif('ooopss!', msg.Message, 'error');
+                }
+            },
+            error: function () {
+
+            }
+        })
+    });
+
+
+</script>
+

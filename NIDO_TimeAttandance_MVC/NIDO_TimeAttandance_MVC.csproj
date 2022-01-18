@@ -1,0 +1,1856 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CCD0D0AF-BE4D-4ED6-A0A7-B9D14EE6A42F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NIDO_TimeAttandance_MVC</RootNamespace>
+    <AssemblyName>NIDO_TimeAttandance_MVC</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.11.3.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.11.3\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Speech.Synthesis.Core, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Speech.Synthesis.Core.0.1.0\lib\netstandard2.0\Speech.Synthesis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Speech.Synthesis.Microsoft, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Speech.Synthesis.Microsoft.0.1.0\lib\netstandard2.0\Speech.Synthesis.Microsoft.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.7.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assests\abc\dataTables.checkboxes.css" />
+    <Content Include="Assests\abc\dataTables.checkboxes.min.js" />
+    <Content Include="Assests\abc\datatables.min.css" />
+    <Content Include="Assests\abc\datatables.min.js" />
+    <Content Include="Assests\abc\jquery.min.js" />
+    <Content Include="Assests\Calender\css\bootstrap-year-calendar.css" />
+    <Content Include="Assests\Calender\css\bootstrap-year-calendar.min.css" />
+    <Content Include="Assests\Calender\js\bootstrap-year-calendar.js" />
+    <Content Include="Assests\Calender\js\bootstrap-year-calendar.min.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.ca.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.cs.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.de.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.es.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.eu.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.fi.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.fr.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.hr.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.hu.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.id.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.is.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.it.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.ja.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.lt.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.lv.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.nl.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.pl.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.pt.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.ru.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.sk.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.sr.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.th.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.tr.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.ua.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.uk.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.uz.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.zh-CN.js" />
+    <Content Include="Assests\Calender\js\languages\bootstrap-year-calendar.zh-TW.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\theme.admin.extension.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\theme.custom.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\theme.init.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\theme.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.charts.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.lightbox.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.modals.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.nestable.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.notifications.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.portlets.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.treeview.js" />
+    <Content Include="Assests\Dashboard\assets\javascripts\ui-elements\examples.widgets.js" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\invoice-print.css" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\skins\default.css" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\skins\extension.css" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\theme-admin-extension.css" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\theme-custom.css" />
+    <Content Include="Assests\Dashboard\assets\stylesheets\theme.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\css\datepicker.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\css\datepicker3.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ar.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.az.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.cy.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.da.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.de.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.el.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.et.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.fa.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.gl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.he.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.id.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.is.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.it.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ka.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.kk.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.mk.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl-BE.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.no.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.sq.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.th.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.ua.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.vi.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-fileupload\bootstrap-fileupload.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-fileupload\bootstrap-fileupload.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-markdown\css\bootstrap-markdown.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-markdown\js\bootstrap-markdown.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-markdown\js\markdown.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-markdown\js\to-markdown.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-maxlength\bootstrap-maxlength.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-multiselect\bootstrap-multiselect.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-multiselect\bootstrap-multiselect.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-tagsinput\bootstrap-tagsinput.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-timepicker\css\bootstrap-responsive.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-timepicker\css\bootstrap-timepicker.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap-wizard\jquery.bootstrap.wizard.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot-tooltip\jquery.flot.tooltip.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\excanvas.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\excanvas.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.colorhelpers.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.colorhelpers.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.canvas.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.canvas.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.categories.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.categories.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.crosshair.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.crosshair.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.errorbars.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.errorbars.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.fillbetween.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.fillbetween.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.image.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.image.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.navigate.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.navigate.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.pie.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.pie.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.resize.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.resize.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.selection.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.selection.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.stack.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.stack.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.symbol.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.symbol.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.threshold.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.threshold.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.time.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.flot.time.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\jquery.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\LICENSE.txt" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assests\Dashboard\assets\vendor\fuelux\css\spinner.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\fuelux\js\spinner.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\changelog.txt" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\fullcalendar.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\fullcalendar.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\fullcalendar.print.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\gcal.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang-all.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ar-ma.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ar-sa.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ar.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\bg.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ca.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\cs.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\da.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\de-at.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\de.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\el.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\en-au.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\en-ca.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\en-gb.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\es.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\fa.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\fi.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\fr-ca.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\fr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\hi.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\hr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\hu.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\id.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\is.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\it.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ja.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ko.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\lt.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\lv.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\nl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\pl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\pt-br.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\pt.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ro.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\ru.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\sk.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\sl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\sr-cyrl.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\sr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\sv.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\th.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\tr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\uk.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\vi.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\zh-cn.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lang\zh-tw.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lib\jquery-ui.custom.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lib\jquery.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\lib\moment.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\fullcalendar\license.txt" />
+    <Content Include="Assests\Dashboard\assets\vendor\gauge\gauge.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\gmaps\gmaps.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\ios7-switch\ios7-switch.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\isotope\jquery.isotope.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\isotope\jquery.isotope.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-appear\jquery.appear.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-autosize\jquery.autosize.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-browser-mobile\jquery.browser.mobile.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-easypiechart\jquery.easypiechart.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-placeholder\jquery.placeholder.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-ui\js\jquery-1.10.2.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-ui\js\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery-ui\js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery\jquery.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\jquery\jquery.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\magnific-popup\magnific-popup.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\magnific-popup\magnific-popup.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\modernizr\modernizr.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\nanoscroller\nanoscroller.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\nanoscroller\nanoscroller.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\AjaxLoader.gif" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\grabbing.png" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\owl.carousel.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\owl.carousel.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\owl.theme.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\owl-carousel\owl.transitions.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\pnotify\pnotify.custom.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\pnotify\pnotify.custom.js" />
+    <Content Include="Assests\Dashboard\assets\vendor\summernote\summernote-bs3.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\summernote\summernote.css" />
+    <Content Include="Assests\Dashboard\assets\vendor\summernote\summernote.js" />
+    <Content Include="Assests\Home\css\accordions.css" />
+    <Content Include="Assests\Home\css\adminpro-custon-icon.css" />
+    <Content Include="Assests\Home\css\alerts.css" />
+    <Content Include="Assests\Home\css\animate.css" />
+    <Content Include="Assests\Home\css\bootstrap-editable.css" />
+    <Content Include="Assests\Home\css\bootstrap.min.css" />
+    <Content Include="Assests\Home\css\buttons.css" />
+    <Content Include="Assests\Home\css\c3.min.css" />
+    <Content Include="Assests\Home\css\charts.css" />
+    <Content Include="Assests\Home\css\chosen\bootstrap-chosen.css" />
+    <Content Include="Assests\Home\css\chosen\chosen-sprite.png" />
+    <Content Include="Assests\Home\css\chosen\chosen.jquery.js" />
+    <Content Include="Assests\Home\css\code-editor\ambiance.css" />
+    <Content Include="Assests\Home\css\code-editor\codemirror.css" />
+    <Content Include="Assests\Home\css\colorpicker\colorpicker.css" />
+    <Content Include="Assests\Home\css\cropper\cropper.min.css" />
+    <Content Include="Assests\Home\css\data-table\bootstrap-editable.css" />
+    <Content Include="Assests\Home\css\data-table\bootstrap-table.css" />
+    <Content Include="Assests\Home\css\datapicker\datepicker3.css" />
+    <Content Include="Assests\Home\css\datetimepicker.css" />
+    <Content Include="Assests\Home\css\dropzone.css" />
+    <Content Include="Assests\Home\css\duallistbox\bootstrap-duallistbox.min.css" />
+    <Content Include="Assests\Home\css\filepond.css" />
+    <Content Include="Assests\Home\css\FileUpload\css\component.css" />
+    <Content Include="Assests\Home\css\FileUpload\css\demo.css" />
+    <Content Include="Assests\Home\css\FileUpload\css\normalize.css" />
+    <Content Include="Assests\Home\css\font-awesome.min.css" />
+    <Content Include="Assests\Home\css\form.css" />
+    <Content Include="Assests\Home\css\form\all-type-forms.css" />
+    <Content Include="Assests\Home\css\form\themesaller-forms.css" />
+    <Content Include="Assests\Home\css\ionRangeSlider\ion.rangeSlider.css" />
+    <Content Include="Assests\Home\css\ionRangeSlider\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Assests\Home\css\ionRangeSlider\sprite-skin-flat.png" />
+    <Content Include="Assests\Home\css\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Assests\Home\css\jvectormap\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Assests\Home\css\Lobibox.min.css" />
+    <Content Include="Assests\Home\css\main.css" />
+    <Content Include="Assests\Home\css\mCSB_buttons.png" />
+    <Content Include="Assests\Home\css\meanmenu.min.css" />
+    <Content Include="Assests\Home\css\modals.css" />
+    <Content Include="Assests\Home\css\normalize.css" />
+    <Content Include="Assests\Home\css\notifications.css" />
+    <Content Include="Assests\Home\css\Organization_Chart.css" />
+    <Content Include="Assests\Home\css\preloader\preloader-style.css" />
+    <Content Include="Assests\Home\css\responsive.css" />
+    <Content Include="Assests\Home\css\select2-bootstrap.css" />
+    <Content Include="Assests\Home\css\select2.css" />
+    <Content Include="Assests\Home\css\select2.png" />
+    <Content Include="Assests\Home\css\select2\select2.min.css" />
+    <Content Include="Assests\Home\css\summernote.css" />
+    <Content Include="Assests\Home\css\switcher\color-eight.css" />
+    <Content Include="Assests\Home\css\switcher\color-five.css" />
+    <Content Include="Assests\Home\css\switcher\color-four.css" />
+    <Content Include="Assests\Home\css\switcher\color-nine.css" />
+    <Content Include="Assests\Home\css\switcher\color-one.css" />
+    <Content Include="Assests\Home\css\switcher\color-seven.css" />
+    <Content Include="Assests\Home\css\switcher\color-six.css" />
+    <Content Include="Assests\Home\css\switcher\color-switcher.css" />
+    <Content Include="Assests\Home\css\switcher\color-ten.css" />
+    <Content Include="Assests\Home\css\switcher\color-three.css" />
+    <Content Include="Assests\Home\css\switcher\color-two.css" />
+    <Content Include="Assests\Home\css\tab-menus.css" />
+    <Content Include="Assests\Home\css\tabs.css" />
+    <Content Include="Assests\Home\css\touchspin\jquery.bootstrap-touchspin.min.css" />
+    <Content Include="Assests\Home\css\tree-viewer\32px.png" />
+    <Content Include="Assests\Home\css\tree-viewer\throbber.gif" />
+    <Content Include="Assests\Home\css\tree-viewer\tree-viewer.css" />
+    <Content Include="Assests\Home\css\typeahead.js-bootstrap.css" />
+    <Content Include="Assests\Home\css\x-editor-style.css" />
+    <Content Include="Assests\Home\font-css.css" />
+    <Content Include="Assests\Home\fonts\adminpro-icon.svg" />
+    <Content Include="Assests\Home\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assests\Home\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assests\Home\img\boyDp.png" />
+    <Content Include="Assests\Home\img\clear.png" />
+    <Content Include="Assests\Home\img\cropper\1.jpg" />
+    <Content Include="Assests\Home\img\favicon.ico" />
+    <Content Include="Assests\Home\img\girlDp.png" />
+    <Content Include="Assests\Home\img\googlemap\1.png" />
+    <Content Include="Assests\Home\img\green1.png" />
+    <Content Include="Assests\Home\img\loading.gif" />
+    <Content Include="Assests\Home\img\logo\2.png" />
+    <Content Include="Assests\Home\img\logo\HeaderLogo.jpg" />
+    <Content Include="Assests\Home\img\logo\log.png" />
+    <Content Include="Assests\Home\img\logo\logo.png" />
+    <Content Include="Assests\Home\img\logo\logoTransparent.png" />
+    <Content Include="Assests\Home\img\logo\NewLogo.png" />
+    <Content Include="Assests\Home\img\message\1.jpg" />
+    <Content Include="Assests\Home\img\message\2.jpg" />
+    <Content Include="Assests\Home\img\message\3.jpg" />
+    <Content Include="Assests\Home\img\message\4.jpg" />
+    <Content Include="Assests\Home\img\message\User_Circle.png" />
+    <Content Include="Assests\Home\img\notification\1.jpg" />
+    <Content Include="Assests\Home\img\notification\2.jpg" />
+    <Content Include="Assests\Home\img\notification\3.jpg" />
+    <Content Include="Assests\Home\img\notification\4.jpg" />
+    <Content Include="Assests\Home\img\notification\5.jpg" />
+    <Content Include="Assests\Home\img\notification\6.jpg" />
+    <Content Include="Assests\Home\img\profile\1.jpg" />
+    <Content Include="Assests\Home\img\profile\Mohsin Arif.jpeg" />
+    <Content Include="Assests\Home\img\throbber_12.gif" />
+    <Content Include="Assests\Home\img\User_Circle.png" />
+    <Content Include="Assests\Home\js\bootstrap-datetimepicker.js" />
+    <Content Include="Assests\Home\js\bootstrap-editable.js" />
+    <Content Include="Assests\Home\js\bootstrap.min.js" />
+    <Content Include="Assests\Home\js\c3-charts\c3-active.js" />
+    <Content Include="Assests\Home\js\c3-charts\c3.min.js" />
+    <Content Include="Assests\Home\js\c3-charts\d3.min.js" />
+    <Content Include="Assests\Home\js\charts\area-chart.js" />
+    <Content Include="Assests\Home\js\charts\bar-chart.js" />
+    <Content Include="Assests\Home\js\charts\Chart.js" />
+    <Content Include="Assests\Home\js\charts\line-chart.js" />
+    <Content Include="Assests\Home\js\charts\rounded-chart.js" />
+    <Content Include="Assests\Home\js\chat-active\jquery.chat.js" />
+    <Content Include="Assests\Home\js\chosen\chosen-active.js" />
+    <Content Include="Assests\Home\js\chosen\chosen.jquery.js" />
+    <Content Include="Assests\Home\js\code-editor\code-editor-active.js" />
+    <Content Include="Assests\Home\js\code-editor\code-editor.js" />
+    <Content Include="Assests\Home\js\code-editor\codemirror.js" />
+    <Content Include="Assests\Home\js\colorpicker\color-picker-active.js" />
+    <Content Include="Assests\Home\js\colorpicker\jquery.spectrum.min.js" />
+    <Content Include="Assests\Home\js\counterup\counterup-active.js" />
+    <Content Include="Assests\Home\js\counterup\jquery.counterup.min.js" />
+    <Content Include="Assests\Home\js\counterup\waypoints.min.js" />
+    <Content Include="Assests\Home\js\cropper\cropper-actice.js" />
+    <Content Include="Assests\Home\js\cropper\cropper.min.js" />
+    <Content Include="Assests\Home\js\custom-file-input.js" />
+    <Content Include="Assests\Home\js\d3.min.js" />
+    <Content Include="Assests\Home\js\data-map\bootstrap3-typeahead.min.js" />
+    <Content Include="Assests\Home\js\data-map\d3.min.js" />
+    <Content Include="Assests\Home\js\data-map\data-maps-active.js" />
+    <Content Include="Assests\Home\js\data-map\datamaps.all.min.js" />
+    <Content Include="Assests\Home\js\data-map\topojson.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-editable.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table-cookie.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table-editable.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table-export.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table-key-events.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table-resizable.js" />
+    <Content Include="Assests\Home\js\data-table\bootstrap-table.js" />
+    <Content Include="Assests\Home\js\data-table\colResizable-1.5.source.js" />
+    <Content Include="Assests\Home\js\data-table\data-table-active.js" />
+    <Content Include="Assests\Home\js\data-table\tableExport.js" />
+    <Content Include="Assests\Home\js\datapicker\bootstrap-datepicker.js" />
+    <Content Include="Assests\Home\js\datapicker\datepicker-active.js" />
+    <Content Include="Assests\Home\js\datepicker-active.js" />
+    <Content Include="Assests\Home\js\dropzone.js" />
+    <Content Include="Assests\Home\js\duallistbox\duallistbox.active.js" />
+    <Content Include="Assests\Home\js\duallistbox\jquery.bootstrap-duallistbox.js" />
+    <Content Include="Assests\Home\js\filepond.js" />
+    <Content Include="Assests\Home\js\flot\Chart.min.js" />
+    <Content Include="Assests\Home\js\flot\dashtwo-flot-active.js" />
+    <Content Include="Assests\Home\js\flot\flot-active.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.pie.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.resize.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.spline.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.symbol.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.time.js" />
+    <Content Include="Assests\Home\js\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Assests\Home\js\flot\widget-flot-chart-active.js" />
+    <Content Include="Assests\Home\js\form-active.js" />
+    <Content Include="Assests\Home\js\google.maps\google.maps-active.js" />
+    <Content Include="Assests\Home\js\icheck\icheck-active.js" />
+    <Content Include="Assests\Home\js\icheck\icheck.min.js" />
+    <Content Include="Assests\Home\js\input-mask\jasny-bootstrap.min.js" />
+    <Content Include="Assests\Home\js\ionRangeSlider\ion.rangeSlider.active.js" />
+    <Content Include="Assests\Home\js\ionRangeSlider\ion.rangeSlider.min.js" />
+    <Content Include="Assests\Home\js\jquery-ui.min.js" />
+    <Content Include="Assests\Home\js\jquery.form.min.js" />
+    <Content Include="Assests\Home\js\jquery.maskedinput.min.js" />
+    <Content Include="Assests\Home\js\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Assests\Home\js\jquery.meanmenu.js" />
+    <Content Include="Assests\Home\js\jquery.mockjax.js" />
+    <Content Include="Assests\Home\js\jquery.scrollUp.min.js" />
+    <Content Include="Assests\Home\js\jquery.sticky.js" />
+    <Content Include="Assests\Home\js\jquery.validate.min.js" />
+    <Content Include="Assests\Home\js\jvectormap\jquery-jvectormap-2.0.2.min.js" />
+    <Content Include="Assests\Home\js\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Assests\Home\js\jvectormap\jvectormap-active.js" />
+    <Content Include="Assests\Home\js\knob\jquery.knob.js" />
+    <Content Include="Assests\Home\js\knob\knob-active.js" />
+    <Content Include="Assests\Home\js\Lobibox.js" />
+    <Content Include="Assests\Home\js\main.js" />
+    <Content Include="Assests\Home\js\map\france_departments.js" />
+    <Content Include="Assests\Home\js\map\jquery.mapael.js" />
+    <Content Include="Assests\Home\js\map\map-active.js" />
+    <Content Include="Assests\Home\js\map\raphael.min.js" />
+    <Content Include="Assests\Home\js\map\usa_states.js" />
+    <Content Include="Assests\Home\js\map\world_countries.js" />
+    <Content Include="Assests\Home\js\masking-active.js" />
+    <Content Include="Assests\Home\js\mock-active.js" />
+    <Content Include="Assests\Home\js\modal-active.js" />
+    <Content Include="Assests\Home\js\moment.min.js" />
+    <Content Include="Assests\Home\js\multiple-email\multiple-email-active.js" />
+    <Content Include="Assests\Home\js\notification-active.js" />
+    <Content Include="Assests\Home\js\password-meter\password-meter-active.js" />
+    <Content Include="Assests\Home\js\password-meter\pwstrength-bootstrap.min.js" />
+    <Content Include="Assests\Home\js\password-meter\zxcvbn.js" />
+    <Content Include="Assests\Home\js\pdf\jquery.media.js" />
+    <Content Include="Assests\Home\js\pdf\pdf-active.js" />
+    <Content Include="Assests\Home\js\peity\jquery.peity.min.js" />
+    <Content Include="Assests\Home\js\peity\peity-active.js" />
+    <Content Include="Assests\Home\js\rangle-slider\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Assests\Home\js\rangle-slider\jquery-ui-touch-punch.min.js" />
+    <Content Include="Assests\Home\js\rangle-slider\rangle-active.js" />
+    <Content Include="Assests\Home\js\rounded-counter\jquery.appear.js" />
+    <Content Include="Assests\Home\js\rounded-counter\jquery.countdown.min.js" />
+    <Content Include="Assests\Home\js\rounded-counter\jquery.knob.js" />
+    <Content Include="Assests\Home\js\rounded-counter\knob-active.js" />
+    <Content Include="Assests\Home\js\select2.js" />
+    <Content Include="Assests\Home\js\select2\select2-active.js" />
+    <Content Include="Assests\Home\js\select2\select2.full.min.js" />
+    <Content Include="Assests\Home\js\skycons\skycons.active.js" />
+    <Content Include="Assests\Home\js\skycons\skycons.min.js" />
+    <Content Include="Assests\Home\js\sparkline\jquery.sparkline.min.js" />
+    <Content Include="Assests\Home\js\sparkline\sparkline-active.js" />
+    <Content Include="Assests\Home\js\summernote-active.js" />
+    <Content Include="Assests\Home\js\summernote.min.js" />
+    <Content Include="Assests\Home\js\switcher\styleswitch.js" />
+    <Content Include="Assests\Home\js\switcher\switch-active.js" />
+    <Content Include="Assests\Home\js\todo\jquery.todo.js" />
+    <Content Include="Assests\Home\js\touchspin\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="Assests\Home\js\touchspin\touchspin-active.js" />
+    <Content Include="Assests\Home\js\tree-line\jstree.active.js" />
+    <Content Include="Assests\Home\js\tree-line\jstree.min.js" />
+    <Content Include="Assests\Home\js\typeahead.js" />
+    <Content Include="Assests\Home\js\typeaheadjs.js" />
+    <Content Include="Assests\Home\js\vendor\jquery-1.11.3.min.js" />
+    <Content Include="Assests\Home\js\vendor\modernizr-2.8.3.min.js" />
+    <Content Include="Assests\Home\js\wow\wow.min.js" />
+    <Content Include="Assests\Home\js\xediable-active.js" />
+    <Content Include="Assests\Home\loaderjquery.min.js" />
+    <Content Include="Assests\Home\loadermodernizr.js" />
+    <Content Include="Assests\Home\PolicyIndex.css" />
+    <Content Include="Assests\Home\style.css" />
+    <Content Include="Assests\images\805.gif" />
+    <Content Include="Assests\images\Bell-icon.png" />
+    <Content Include="Assests\images\birthdayLog.png" />
+    <Content Include="Assests\images\deduct.png" />
+    <Content Include="Assests\images\Email.png" />
+    <Content Include="Assests\images\exit.jpg" />
+    <Content Include="Assests\images\gross-salary.png" />
+    <Content Include="Assests\images\IN.jpg" />
+    <Content Include="Assests\images\loaderFinal1.gif" />
+    <Content Include="Assests\images\netcash.png" />
+    <Content Include="Assests\images\new.png" />
+    <Content Include="Assests\images\plane.png" />
+    <Content Include="Assests\images\send.png" />
+    <Content Include="Assests\images\tax.png" />
+    <Content Include="Assests\js\datepicker.ca-ES.js" />
+    <Content Include="Assests\js\datepicker.cs-CZ.js" />
+    <Content Include="Assests\js\datepicker.da-DK.js" />
+    <Content Include="Assests\js\datepicker.de-DE.js" />
+    <Content Include="Assests\js\datepicker.el-GR.js" />
+    <Content Include="Assests\js\datepicker.en-GB.js" />
+    <Content Include="Assests\js\datepicker.en-US.js" />
+    <Content Include="Assests\js\datepicker.es-ES.js" />
+    <Content Include="Assests\js\datepicker.fi-FI.js" />
+    <Content Include="Assests\js\datepicker.fr-FR.js" />
+    <Content Include="Assests\js\datepicker.hu-HU.js" />
+    <Content Include="Assests\js\datepicker.is-IS.js" />
+    <Content Include="Assests\js\datepicker.it-IT.js" />
+    <Content Include="Assests\js\datepicker.ja-JP.js" />
+    <Content Include="Assests\js\datepicker.js" />
+    <Content Include="Assests\js\datepicker.km-KH.js" />
+    <Content Include="Assests\js\datepicker.ko-KR.js" />
+    <Content Include="Assests\js\datepicker.lt-LT.js" />
+    <Content Include="Assests\js\datepicker.lv-LV.js" />
+    <Content Include="Assests\js\datepicker.nb-NO.js" />
+    <Content Include="Assests\js\datepicker.nl-NL.js" />
+    <Content Include="Assests\js\datepicker.oc-FR.js" />
+    <Content Include="Assests\js\datepicker.pl-PL.js" />
+    <Content Include="Assests\js\datepicker.pt-BR.js" />
+    <Content Include="Assests\js\datepicker.ru-RU.js" />
+    <Content Include="Assests\js\datepicker.sk-SK.js" />
+    <Content Include="Assests\js\datepicker.sv-SE.js" />
+    <Content Include="Assests\js\datepicker.th-TH.js" />
+    <Content Include="Assests\js\datepicker.tr-TR.js" />
+    <Content Include="Assests\js\datepicker.ug-CN.js" />
+    <Content Include="Assests\js\datepicker.vi-VN.js" />
+    <Content Include="Assests\js\datepicker.zh-CN.js" />
+    <Content Include="Assests\js\main.js" />
+    <Content Include="Assests\images\favicon.ico" />
+    <Content Include="Assests\images\icon.png" />
+    <Content Include="Assests\images\loaderFinal.gif" />
+    <Content Include="Assests\images\LoginLogo.PNG" />
+    <Content Include="Assests\images\NedoLogo.jpg" />
+    <Content Include="Assests\pdfmake-0.1.62-pdfmake.js" />
+    <Content Include="Assests\pdfmake.js" />
+    <Content Include="Assests\Real\css\bootstrap.css" />
+    <Content Include="Assests\Real\css\pe-icon-7-stroke.css" />
+    <Content Include="Assests\Real\css\rotating-card.css" />
+    <Content Include="Assests\Real\images\Absent.jpg" />
+    <Content Include="Assests\Real\images\Holiday.jpg" />
+    <Content Include="Assests\Real\images\Late.jpg" />
+    <Content Include="Assests\Real\images\Present.jpg" />
+    <Content Include="Assests\Real\images\rotating_card_profile.png" />
+    <Content Include="Assests\Real\images\rotating_card_profile2.png" />
+    <Content Include="Assests\Real\images\rotating_card_profile3.png" />
+    <Content Include="Assests\Real\images\rotating_card_thumb.jpg" />
+    <Content Include="Assests\Real\images\rotating_card_thumb.png" />
+    <Content Include="Assests\Real\images\rotating_card_thumb2.png" />
+    <Content Include="Assests\Real\images\rotating_card_thumb3.png" />
+    <Content Include="Assests\Real\images\tim_logo.png" />
+    <Content Include="Assests\Real\js\bootstrap.min.js" />
+    <Content Include="Assests\Real\js\jquery-1.10.2.js" />
+    <Content Include="Assests\StyleSheet.css" />
+    <Content Include="Assests\TodayCalender.css" />
+    <Content Include="Assests\vfs_fonts.js" />
+    <Content Include="Email\Debug\AutoEmailService.exe" />
+    <Content Include="Email\Debug\AutoEmailService.exe.config" />
+    <Content Include="Email\Debug\AutoEmailService.pdb" />
+    <Content Include="Email\Debug\EntityFramework.dll" />
+    <Content Include="Email\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="Email\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="Email\Debug\EntityFramework.xml" />
+    <Content Include="Email\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="Email\Debug\System.Web.Helpers.dll" />
+    <Content Include="Email\Debug\System.Web.Helpers.xml" />
+    <Content Include="Email\Debug\System.Web.Mvc.dll" />
+    <Content Include="Email\Debug\System.Web.Mvc.xml" />
+    <Content Include="Email\Debug\System.Web.Razor.dll" />
+    <Content Include="Email\Debug\System.Web.Razor.xml" />
+    <Content Include="Email\Debug\System.Web.WebPages.Deployment.dll" />
+    <Content Include="Email\Debug\System.Web.WebPages.Deployment.xml" />
+    <Content Include="Email\Debug\System.Web.WebPages.dll" />
+    <Content Include="Email\Debug\System.Web.WebPages.Razor.dll" />
+    <Content Include="Email\Debug\System.Web.WebPages.Razor.xml" />
+    <Content Include="Email\Debug\System.Web.WebPages.xml" />
+    <Content Include="fonts\fonts\adminpro-icon.svg" />
+    <Content Include="fonts\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Assests\images\Thumbs.db" />
+    <Content Include="Assests\Home\fonts\adminpro-icon.ttf" />
+    <Content Include="Assests\Home\fonts\adminpro-icon.woff" />
+    <Content Include="Assests\Home\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assests\Home\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assests\Home\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assests\Home\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assests\Home\fonts\FontAwesome.otf" />
+    <Content Include="Assests\Home\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assests\Home\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assests\Home\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assests\Home\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Assests\Home\fonts\summernote.eot" />
+    <Content Include="Assests\Home\fonts\summernote.ttf" />
+    <Content Include="Assests\Home\fonts\summernote.woff" />
+    <Content Include="Assests\Home\img\cropper\Thumbs.db" />
+    <Content Include="Assests\Home\img\googlemap\Thumbs.db" />
+    <Content Include="Assests\Home\img\message\Thumbs.db" />
+    <Content Include="Assests\Home\img\notification\Thumbs.db" />
+    <Content Include="Assests\Home\img\profile\Thumbs.db" />
+    <Content Include="Assests\Home\img\Thumbs.db" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\config.json" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assests\Dashboard\assets\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\API.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\CONTRIBUTING.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\FAQ.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\Makefile" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\NEWS.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\PLUGINS.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\flot\README.md" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assests\Dashboard\assets\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Reports\Views\web.config" />
+    <Content Include="Areas\Reports\Views\Shared\_Attandance.cshtml" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\User\Views\UserHome\Index.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\Index.cshtml" />
+    <Content Include="Areas\User\Views\AttendanceHistory\Index.cshtml" />
+    <Content Include="Areas\User\Views\UserHome\Profile.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\Manual.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\ListAll.cshtml" />
+    <Content Include="Assests\Calender\bower.json" />
+    <Content Include="Assests\Calender\LICENSE" />
+    <Content Include="Assests\Calender\package.json" />
+    <Content Include="Assests\Calender\README.md" />
+    <Content Include="Areas\User\Views\LeaveHistory\Index.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\AllRequest.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetAbsentReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetAttendanceSummary.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetLateReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetLeaveReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\Reporting.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetHalfDayReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetEarlyMinReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetTimeOutReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetTransaction.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\trackMe.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\Working.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\OverTimeReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\ManualReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\AttendanceReport.cshtml" />
+    <Content Include="libman.json" />
+    <Content Include="Areas\Reports\Views\Report\getFullReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetEmployeeRoaster.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetDailyAttendace.cshtml" />
+    <Content Include="Areas\Reports\Views\Shared\_DailyAttendance.cshtml" />
+    <Content Include="fonts\fonts\adminpro-icon.ttf" />
+    <Content Include="fonts\fonts\adminpro-icon.woff" />
+    <Content Include="fonts\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fonts\FontAwesome.otf" />
+    <Content Include="fonts\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\fonts\summernote.eot" />
+    <Content Include="fonts\fonts\summernote.ttf" />
+    <Content Include="fonts\fonts\summernote.woff" />
+    <Content Include="Areas\Payroll\Views\Advance\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Advance\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Advance\EditAdvanceDetail.cshtml" />
+    <Content Include="Areas\Payroll\Views\Advance\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\AllowanceAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\AllowanceAllocation\Select.cshtml" />
+    <Content Include="Areas\Payroll\Views\Allowances\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Allowances\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Allowances\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\DeductionAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\DeductionAllocation\Select.cshtml" />
+    <Content Include="Areas\Payroll\Views\Deduction\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Deduction\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Deduction\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\Loan\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Loan\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Loan\EditLoanDetail.cshtml" />
+    <Content Include="Areas\Payroll\Views\Loan\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\PaySlip\GeneratePaySlip.cshtml" />
+    <Content Include="Areas\Payroll\Views\PaySlip\Index.cshtml" />
+    <Content Include="Areas\Payroll\Views\SalaryInfo\EditSalaryInfo.cshtml" />
+    <Content Include="Areas\Payroll\Views\SalaryInfo\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\SalaryPosting\Index.cshtml" />
+    <Content Include="Areas\Payroll\Views\Tax\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Tax\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Tax\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\web.config" />
+    <Content Include="Areas\Payroll\Views\EOBIAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\EOBIAllocation\Select.cshtml" />
+    <Content Include="Areas\Payroll\Views\EOBI\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\EOBI\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\EOBI\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\ProvidentFundAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\ProvidentFundAllocation\Select.cshtml" />
+    <Content Include="Areas\Payroll\Views\ProvidentFund\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\ProvidentFund\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\ProvidentFund\ListAll.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GeneratePaySlip.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetAdvanceReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetLoanReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\SalarySummaryReport.cshtml" />
+    <Content Include="Areas\Payroll\Views\PayrollHome\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetLoanSummaryReport.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bank\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bank\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bank\ListAll.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetSalaryTransferLetterReport.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetEmpIncomeTaxReport.cshtml" />
+    <Content Include="Areas\Payroll\Views\IncomeTax\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\IncomeTax\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\EmpSettlement\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetFullAndFinalSettlementReport.cshtml" />
+    <Content Include="Areas\Payroll\Views\SalaryIncrement\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\SalaryIncrement\Increment.cshtml" />
+    <Content Include="Areas\Payroll\Views\PFWithdrawl\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\PFWithdrawl\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\PFWithdrawl\Index.cshtml" />
+    <Content Include="Areas\Payroll\Views\PFWithdrawl\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bonus\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bonus\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\Bonus\ListAll.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetSalaryIncrementReport.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\Import.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\SaveExcelData.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\PayrollOption\Index.cshtml" />
+    <Content Include="Areas\Payroll\Views\BonusAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\BonusAllocation\Select.cshtml" />
+    <Content Include="Areas\Payroll\Views\Exempt\Index.cshtml" />
+    <Content Include="Areas\Payroll\Views\Exempt\ExemptAdjustment.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetOverTimeReport.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDeposit\Create.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDeposit\Edit.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDeposit\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDepositAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDepositAllocation\Select.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetTransactionWithLocation.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetPaySlipMasterSheet.cshtml" />
+    <Content Include="Areas\Payroll\Views\Loan\CreateLoanDetail.cshtml" />
+    <Content Include="Areas\Payroll\Views\Advance\CreateAdvanceDetail.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDepositAllocation\OpeningBalanceList.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\LateDeduct.cshtml" />
+    <EntityDeploy Include="Model_Attendance.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_Attendance.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model_Attendance.edmx.diagram">
+      <DependentUpon>Model_Attendance.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Payroll\Views\LateAttendance\LateExempt.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\GetLateRecord.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\GetLatePolicy.cshtml" />
+    <Content Include="Areas\Payroll\Views\LateAttendance\CreateLatePolicy.cshtml" />
+    <Content Include="Areas\Payroll\Views\LatePolicyAllocation\ListAll.cshtml" />
+    <Content Include="Areas\Payroll\Views\LatePolicyAllocation\Select.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\ImportAttendance.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\ImportLeaves.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\SaveExcelAttendanceData.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\SaveExcelLeaveData.cshtml" />
+    <Content Include="Areas\User\Views\Attendance\ImportApprovedLeaves.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetEmployeeHistory.cshtml" />
+    <Content Include="Areas\Payroll\Views\SecurityDepositAllocation\CustomSecurityDeposit.cshtml" />
+    <Content Include="Areas\Reports\Views\Report\GetEmployeeHistoryReport.cshtml" />
+    <None Include="Properties\PublishProfiles\AkbarAliPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <Content Include="Model_Attendance.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Attendance.edmx</DependentUpon>
+      <LastGenOutput>Model_Attendance.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model_Attendance.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Attendance.edmx</DependentUpon>
+      <LastGenOutput>Model_Attendance.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\Helper.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.2.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\script-custom-editor.js" />
+    <Content Include="Assests\sounds\sound1.ogg" />
+    <Content Include="Assests\sounds\sound2.ogg" />
+    <Content Include="Assests\sounds\sound3.ogg" />
+    <Content Include="Assests\sounds\sound4.ogg" />
+    <Content Include="Assests\sounds\sound5.ogg" />
+    <Content Include="Assests\sounds\sound6.ogg" />
+    <Content Include="Uploads\Logo\download.jpg" />
+    <Content Include="Uploads\Logo\LoginLogo.PNG" />
+    <Content Include="Uploads\Logo\NedoLogo.jpg" />
+    <Content Include="Uploads\Logo\sequel.jpg" />
+    <Content Include="Uploads\ProfilePic\User_10\20191223_10_28468420_10214361912669007_4208059401564585984_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_10\thumb_20191223_10_28468420_10214361912669007_4208059401564585984_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_161\20200104_161_logoTransparent.png" />
+    <Content Include="Uploads\ProfilePic\User_161\thumb_20200104_161_logoTransparent.png" />
+    <Content Include="Uploads\ProfilePic\User_199\20191116_199_IMG_7072.JPG" />
+    <Content Include="Uploads\ProfilePic\User_199\thumb_20191116_199_IMG_7072.JPG" />
+    <Content Include="Uploads\ProfilePic\User_\20191231__IMG-20180808-WA0035.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20191231__IMG_7072.JPG" />
+    <Content Include="Uploads\ProfilePic\User_\20200102__14330144_10209370373608971_918440905076674073_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200102__67374137_2376026799154662_2172102052648321024_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200104__53932223_266532660926607_3785312475063255040_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200104__80253757_2642283115888712_2545077493669298176_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200104__IMG_20170219_091643.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200104__IMG_8603.JPG" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__16299933_1897329277180464_7909062564913550690_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__48373864_2504795222871252_5861638767055470592_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__69593261_2346670432264006_2257629020608790528_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__80253757_2642283115888712_2545077493669298176_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__FB_IMG_1564945673864.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\20200106__SnapPic Collage_201912200822501_1576782679310.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20191231__IMG-20180808-WA0035.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20191231__IMG_7072.JPG" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200102__14330144_10209370373608971_918440905076674073_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200102__67374137_2376026799154662_2172102052648321024_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200104__53932223_266532660926607_3785312475063255040_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200104__80253757_2642283115888712_2545077493669298176_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200104__IMG_20170219_091643.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200104__IMG_8603.JPG" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__16299933_1897329277180464_7909062564913550690_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__48373864_2504795222871252_5861638767055470592_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__69593261_2346670432264006_2257629020608790528_o.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__80253757_2642283115888712_2545077493669298176_n.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__FB_IMG_1564945673864.jpg" />
+    <Content Include="Uploads\ProfilePic\User_\thumb_20200106__SnapPic Collage_201912200822501_1576782679310.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllownceMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Payroll\Controllers\AdvanceController .cs" />
+    <Compile Include="Areas\Payroll\Controllers\LatePolicyAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\AllowanceAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\AllowancesController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\BankController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\BonusAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\BonusController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\DeductionAllocationController .cs" />
+    <Compile Include="Areas\Payroll\Controllers\DeductionController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\EmpSettlementController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\EOBIAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\EOBIController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\ExemptController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\IncomeTaxController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\LateAttendanceController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\LoanController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\PayrollHomeController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\PayrollOptionController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\PaySlipController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\PFWithdrawlController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\ProvidentFundAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\ProvidentFundController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\SalaryIncrementController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\SalaryInfoController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\SalaryPostingController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\SecurityDepositAllocationController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\SecurityDepositController.cs" />
+    <Compile Include="Areas\Payroll\Controllers\TaxController.cs" />
+    <Compile Include="Areas\Payroll\Models\AdvanceDetailModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AdvanceModel .cs" />
+    <Compile Include="Areas\Payroll\Models\AdvanceReportModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedLatePolicyModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedAllowanceModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedBonusModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedDeductionModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedEOBIModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedProvidentFundModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllocatedSecurityDepositModel.cs" />
+    <Compile Include="Areas\Payroll\Models\AllowanceModel.cs" />
+    <Compile Include="Areas\Payroll\Models\BankModel.cs" />
+    <Compile Include="Areas\Payroll\Models\BonusModel.cs" />
+    <Compile Include="Areas\Payroll\Models\CustomSecurityModel.cs" />
+    <Compile Include="Areas\Payroll\Models\DeductionModel.cs" />
+    <Compile Include="Areas\Payroll\Models\EmployeeHistoryModel.cs" />
+    <Compile Include="Areas\Payroll\Models\EmpSettlementModel.cs" />
+    <Compile Include="Areas\Payroll\Models\EmpTaxReportModel.cs" />
+    <Compile Include="Areas\Payroll\Models\EOBIModel.cs" />
+    <Compile Include="Areas\Payroll\Models\ExemptModel.cs" />
+    <Compile Include="Areas\Payroll\Models\IncomeTaxModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LateAttendanceModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LateDeductModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LateExemptModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LatePolicyMasterModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LeaveModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LoanDetailModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LoanLedgerModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LoanModel.cs" />
+    <Compile Include="Areas\Payroll\Models\LoanReportModel.cs" />
+    <Compile Include="Areas\Payroll\Models\OverTimeModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PayrollDashModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PayrollOptionModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipAdvanceModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipAllowanceModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipBonusModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipDeductionModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipEOBIModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipMasterSheetModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipProvidentFundModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipSecurityDepositModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PaySlipTaxModel.cs" />
+    <Compile Include="Areas\Payroll\Models\PFWithdrawlModel.cs" />
+    <Compile Include="Areas\Payroll\Models\ProvidentFundModel.cs" />
+    <Compile Include="Areas\Payroll\Models\SalaryIncrementModel.cs" />
+    <Compile Include="Areas\Payroll\Models\SalaryPostingModel.cs" />
+    <Compile Include="Areas\Payroll\Models\SalaryTransferLetterModel.cs" />
+    <Compile Include="Areas\Payroll\Models\SecurityDepositModel.cs" />
+    <Compile Include="Areas\Payroll\Models\SecurityDepositOPModel.cs" />
+    <Compile Include="Areas\Payroll\Models\TaxModel.cs" />
+    <Compile Include="Areas\Payroll\PayrollAreaRegistration.cs" />
+    <Compile Include="Areas\Reports\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Reports\Models\ModelMonthlyRepot.cs" />
+    <Compile Include="Areas\Reports\Models\ModelReports.cs" />
+    <Compile Include="Areas\Reports\ReportsAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\AttendanceController.cs" />
+    <Compile Include="Areas\User\Controllers\AttendanceHistoryController.cs" />
+    <Compile Include="Areas\User\Controllers\LeaveHistoryController.cs" />
+    <Compile Include="Areas\User\Controllers\UserHomeController.cs" />
+    <Compile Include="Areas\User\Models\EmpExcelModel.cs" />
+    <Compile Include="Areas\User\Models\ModelAttendance.cs" />
+    <Compile Include="Areas\User\Models\ModelAttendanceHistory.cs" />
+    <Compile Include="Areas\User\Models\ModelLeaveHistory.cs" />
+    <Compile Include="Areas\User\Models\ModelUser.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="AttendanceLogMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttendancePooling.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttendancePosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalenderDates_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AdjustmentController.cs" />
+    <Compile Include="Controllers\CircularController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\LeaveDeductionController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DesignationController.cs" />
+    <Compile Include="Controllers\EmployeeProfileController.cs" />
+    <Compile Include="Controllers\EmployeeTypeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GazettedHolidayController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveApprovalController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
+    <Compile Include="Controllers\LeaveMapController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MailServicesController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\ManageUserController.cs" />
+    <Compile Include="Controllers\ManualAttandanceController.cs" />
+    <Compile Include="Controllers\MonitoringController.cs" />
+    <Compile Include="Controllers\OrganizationHeirarchyController.cs" />
+    <Compile Include="Controllers\PostingController.cs" />
+    <Compile Include="Controllers\RoasterController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleMapController.cs" />
+    <Compile Include="Controllers\ScheduleUpdateController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\SystemPolicyController.cs" />
+    <Compile Include="Controllers\TrackRequestController.cs" />
+    <Compile Include="CountryMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeductionMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DesignationMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetailPolicy.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dtos\RequestDto.cs" />
+    <Compile Include="EmailService.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpEducationDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpExperienceDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpFamilyDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeType.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpScheduleDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpScheduleMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Emp_FullAndFinalSettlement.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorLogMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="findProcedure_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_get_notable_query_plans_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_get_performance_counters_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_get_performance_counter_statistics_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_get_query_text_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_query_text_from_handle_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_trace_gettable_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GazettedHoliday.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GradeMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Hubs\ProgressHub.cs" />
+    <Compile Include="InOutType.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveApproval.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveDeduction.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveMapDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveMapMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveSetup.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MartialStatu.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPolicy.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AutoEmail.cs" />
+    <Compile Include="Models\clsEmployeeProfile.cs" />
+    <Compile Include="Models\EmailModelBulk.cs" />
+    <Compile Include="Models\Home.cs" />
+    <Compile Include="Models\Logo.cs" />
+    <Compile Include="Models\ModelAttendanceLogMaster.cs" />
+    <Compile Include="Models\ModelCircular.cs" />
+    <Compile Include="Models\ModelCity.cs" />
+    <Compile Include="Models\ModelCompany.cs" />
+    <Compile Include="Models\ModelConfiguration.cs" />
+    <Compile Include="Models\ModelDepartment.cs" />
+    <Compile Include="Models\ModelDesignation.cs" />
+    <Compile Include="Models\ModelEducation.cs" />
+    <Compile Include="Models\ModelEmployeeType.cs" />
+    <Compile Include="Models\ModelEmpProfile.cs" />
+    <Compile Include="Models\ModelExperince.cs" />
+    <Compile Include="Models\ModelFamilyInfo.cs" />
+    <Compile Include="Models\ModelGazettedHoliday.cs" />
+    <Compile Include="Models\ModelGrade.cs" />
+    <Compile Include="Models\ModelLeave.cs" />
+    <Compile Include="Models\ModelLeaveApproval.cs" />
+    <Compile Include="Models\ModelLeaveMap.cs" />
+    <Compile Include="Models\ModelLogin.cs" />
+    <Compile Include="Models\ModelManagement.cs" />
+    <Compile Include="Models\ModelManager.cs" />
+    <Compile Include="Models\ModelManageUser.cs" />
+    <Compile Include="Models\ModelManualPosting.cs" />
+    <Compile Include="Models\ModelPolicy.cs" />
+    <Compile Include="Models\ModelPosting.cs" />
+    <Compile Include="Models\ModelRoaster.cs" />
+    <Compile Include="Models\ModelRole.cs" />
+    <Compile Include="Models\ModelRoleMap.cs" />
+    <Compile Include="Models\ModelScheduleUpdate.cs" />
+    <Compile Include="Models\ModelServices.cs" />
+    <Compile Include="Models\ModelShift.cs" />
+    <Compile Include="Models\Months.cs" />
+    <Compile Include="Models\OrganizationHeirarchy.cs" />
+    <Compile Include="Model_Attendance.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Attendance.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model_Attendance.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model_Attendance.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Attendance.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_AttendanceSummary_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_DdlLeaveRecord_By_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Deduction_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetAttendanceDataBy_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetBirthdayAnd_Aniversory_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetDailyAttaendanceDetail_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetDailyAttendanceDepartmentWise_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetDailyAttendanceStats_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetDailyUserData_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetLeaveDataBy_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetLeaveRecord_By_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetManagers_Manager_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetMissingEntriesBy_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetRoaster_By_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetTeamBy_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetTop5_Team_LateAttendance_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_GetYearlyAttendanceDataBy_ID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Get_LeaveReport_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Get_Manual_Attendance_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Get_RoleMap_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Get_Team_Annual_LateAttendance_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_MonthlyAttendancePaySlip_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_MonthlyAttendanceSummary_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_MonthlyAttendance_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_TrackRequestBy_TrackingID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nstp_Working_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AdminAuthorize.cs" />
+    <Compile Include="Security\DashboardSession.cs" />
+    <Compile Include="Security\EncryptDecrypt.cs" />
+    <Compile Include="ShiftMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShiftScheduleGeneralDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShiftScheduleGeneralMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Split_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="stp_GetLeaveMapStatus_by_MID_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="stp_GetMissingEntriesEmployee_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="stp_GetPayrollDashboardData_Result.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysPolicy.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenu.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPolicyType.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblReason.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserLoginHistory.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AccountType.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AdvanceDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AdvanceMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedAllowances.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedBonuses.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedDeductions.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedEOBI.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedLatePolicies.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedProvidentFund.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllocatedSecurityDeposit.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AllowancePosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AssetsMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AutoEmailDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AutoEmailSetting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AutoEmailTypes.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_BankMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_BonusMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_BonusPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Circular.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_DecConCategory.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_DeductionPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EmpLateDeduct.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EmpLateDetails.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EmployeeStatus.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EmpSalary_CalculationMethod.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EOBIMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_EOBIPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ExemptMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ExemptTypes.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_IconControl.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_IncomeTaxMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_IncomeTaxPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LateAttendnaceMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LatePolicyMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LeaveDeduction.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LoanDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LoanMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_LoanStatusMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Manager.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ManagerLevel.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Notifications.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Organization_Heirarchy.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_PaymentStatusMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Payroll_Options.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Pay_Schedule.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_PendingRequestDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_PendingRequestMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_PFWithdrawlDetail.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ProvidentFundMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ProvidentFundPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Province.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ReportCategory.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Reports.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Request.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Role.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_SalaryIncrement_Posting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_SalaryPostingMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_SecurityDepositMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_SecurityDepositPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Setting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TaxMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TaxPosting.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Template.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TemplateName.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_UserRights.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMaster.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\DataHelper.cs" />
+    <Compile Include="Utilities\EmailSending.cs" />
+    <Compile Include="Utilities\ErrorLogging.cs" />
+    <Compile Include="Utilities\Functions.cs" />
+    <Compile Include="Utilities\Navigation.cs" />
+    <Compile Include="Utilities\NotificationComponents.cs" />
+    <Compile Include="Utilities\OldDB.cs" />
+    <Compile Include="ValueType.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WishChecker.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WishTempalte.cs">
+      <DependentUpon>Model_Attendance.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\Designation\ListAll.cshtml" />
+    <Content Include="Views\Designation\Create.cshtml" />
+    <Content Include="Views\Designation\Edit.cshtml" />
+    <Content Include="Views\Department\ListAll.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Company\ListAll.cshtml" />
+    <Content Include="Views\Company\Create.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
+    <Content Include="Views\City\ListAll.cshtml" />
+    <Content Include="Views\City\Create.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\Grade\ListAll.cshtml" />
+    <Content Include="Views\Grade\Create.cshtml" />
+    <Content Include="Views\Grade\Edit.cshtml" />
+    <Content Include="Views\EmployeeType\ListAll.cshtml" />
+    <Content Include="Views\EmployeeType\Create.cshtml" />
+    <Content Include="Views\EmployeeType\Edit.cshtml" />
+    <Content Include="Views\EmployeeProfile\ListAll.cshtml" />
+    <Content Include="Views\EmployeeProfile\Create.cshtml" />
+    <Content Include="Views\Shared\_Education.cshtml" />
+    <Content Include="Views\EmployeeProfile\_Experince.cshtml" />
+    <Content Include="Views\EmployeeProfile\Experince.cshtml" />
+    <Content Include="Views\Shared\_FamilyInfo.cshtml" />
+    <Content Include="Views\EmployeeProfile\Edit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shift\ListAll.cshtml" />
+    <Content Include="Views\Shift\Create.cshtml" />
+    <Content Include="Views\Shift\Edit.cshtml" />
+    <Content Include="Views\Roaster\Create.cshtml" />
+    <Content Include="Views\Roaster\Index.cshtml" />
+    <Content Include="Views\Roaster\ListAll.cshtml" />
+    <Content Include="Views\GazettedHoliday\CreateNew.cshtml" />
+    <Content Include="Views\ScheduleUpdate\Index.cshtml" />
+    <Content Include="Views\ScheduleUpdate\ListAll.cshtml" />
+    <Content Include="Views\Leave\ListAll.cshtml" />
+    <Content Include="Views\Leave\Create.cshtml" />
+    <Content Include="Views\Leave\Edit.cshtml" />
+    <Content Include="Views\LeaveMap\ListAll.cshtml" />
+    <Content Include="Views\LeaveMap\Index.cshtml" />
+    <Content Include="Views\Posting\ListAll.cshtml" />
+    <Content Include="Views\Posting\Index.cshtml" />
+    <Content Include="Views\ManualAttandance\Index.cshtml" />
+    <Content Include="Views\ManualAttandance\ListAll.cshtml" />
+    <Content Include="Views\Shared\_DepartmentWiseDetail.cshtml" />
+    <Content Include="Views\LeaveApproval\Index.cshtml" />
+    <Content Include="Views\Shared\_LeaveApproval.cshtml" />
+    <Content Include="Views\LeaveApproval\ListAll.cshtml" />
+    <Content Include="Views\Shared\_LeaveApprovalDetail.cshtml" />
+    <Content Include="Views\Shared\_OnLeaveDetail.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\ListAll.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\RoleMap\Index.cshtml" />
+    <Content Include="Views\ManageUser\ListAll.cshtml" />
+    <Content Include="Views\ManageUser\Create.cshtml" />
+    <Content Include="Views\ManageUser\Edit.cshtml" />
+    <Content Include="Views\Error\Error_404.cshtml" />
+    <Content Include="Views\Shared\_LockScreen.cshtml" />
+    <Content Include="Views\Error\LockScreen.cshtml" />
+    <Content Include="Views\Manager\Create.cshtml" />
+    <Content Include="Views\Manager\ListAll.cshtml" />
+    <Content Include="Views\Management\ListAllRequest.cshtml" />
+    <Content Include="Views\TrackRequest\Index.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Home\GetAllNotifications.cshtml" />
+    <Content Include="Views\Configuration\Index.cshtml" />
+    <Content Include="Views\Configuration\Template.cshtml" />
+    <Content Include="Views\Configuration\ListAll.cshtml" />
+    <Content Include="Views\Configuration\Edit.cshtml" />
+    <Content Include="Views\Management\MyTeam.cshtml" />
+    <Content Include="Views\Management\TeamAttendance.cshtml" />
+    <Content Include="Views\Management\LateAttendace.cshtml" />
+    <Content Include="Views\Configuration\AllEmailSetting.cshtml" />
+    <Content Include="Views\Configuration\EditEmail.cshtml" />
+    <Content Include="Views\Circular\Index.cshtml" />
+    <Content Include="Views\Circular\ListAll.cshtml" />
+    <Content Include="Views\Circular\Edit.cshtml" />
+    <Content Include="Views\Shared\_RealTimeMonitoring.cshtml" />
+    <Content Include="Views\Monitoring\Index.cshtml" />
+    <Content Include="Views\MailServices\Index.cshtml" />
+    <Content Include="Views\MailServices\SendService.cshtml" />
+    <Content Include="Views\Shared\ReportTable.cshtml" />
+    <Content Include="Views\Configuration\LogoControl.cshtml" />
+    <Content Include="Views\Shared\RoleMapTable.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <Content Include="Views\SystemPolicy\Create.cshtml" />
+    <Content Include="Views\SystemPolicy\ListAll.cshtml" />
+    <Content Include="Views\SystemPolicy\Edit.cshtml" />
+    <Content Include="Views\Adjustment\GetAttendanceLogMaster.cshtml" />
+    <Content Include="Views\MailServices\Late.cshtml" />
+    <Content Include="Views\LeaveDeduction\Index.cshtml" />
+    <Content Include="Views\Shared\_DeductionDetail.cshtml" />
+    <Content Include="Views\OrganizationHeirarchy\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
+    <Content Include="Views\MailServices\ListAll.cshtml" />
+    <Content Include="Views\MailServices\Create.cshtml" />
+    <Content Include="Views\MailServices\Edit.cshtml" />
+    <Content Include="Views\Configuration\WishTemplate.cshtml" />
+    <Content Include="Views\Adjustment\Index.cshtml" />
+    <Content Include="Views\Home\Testing.cshtml" />
+    <Content Include="Views\Home\Testing1.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Payroll\Views\Posting\" />
+    <Folder Include="Areas\Payroll\Views\Shared\" />
+    <Folder Include="Areas\User\Views\Shared\" />
+    <Folder Include="Files\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50304</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5630/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

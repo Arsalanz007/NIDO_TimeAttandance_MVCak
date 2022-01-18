@@ -1,0 +1,282 @@
+﻿@model NIDO_TimeAttandance_MVC.Areas.Payroll.Models.AdvanceModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="login-form-area mg-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.AdvanceId ,new { id="advanceId"})
+            <div class="col-lg-12">
+                <div class="login-bg">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="login-title">
+                                <h1>Update Advance</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>EmpCode</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    @Html.DisplayFor(model => model.EmpCode)
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>EmpName</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    @Html.DisplayFor(model => model.EmpName)
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>Apply Date</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    @{ string applymonth = Model.ApplyDate != null ? Convert.ToDateTime(Model.ApplyDate.Value).ToString("dd/MMM/yyyy") : "-"; }
+                                    @Html.DisplayFor(modelItem => applymonth)
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>Advance Start Date</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    @{ string startmonth = Model.AdvanceStartDate != null ? Convert.ToDateTime(Model.AdvanceStartDate.Value).ToString("dd/MMM/yyyy") : "null";}
+                                    @Html.DisplayFor(modelItem => startmonth)
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>Advance Maturity Date</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    @{ string matmonth = Model.AdvanceMaturityDate != null ? Convert.ToDateTime(Model.AdvanceMaturityDate.Value).ToString("dd/MMM/yyyy") : " ";}
+                                    @Html.DisplayFor(modelItem => matmonth)
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>Advance Amount</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+
+                                    @Html.DisplayFor(modelItem => modelItem.AdvanceAmount)
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>Advance Description</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <div>
+
+                                    @*@Html.DisplayFor(modelItem => modelItem.AdvanceDesc)*@
+                                    <textarea id="description" class="form-control" style="border:5px;" rows="4">@Model.AdvanceDesc</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <div>
+                                    <p>&nbsp;</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div>
+                                    <button id="btnSaveDesc" class="btn btn-success">Save Description</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+
+                            <h1><span class="table-project-n">Advance Detail</span></h1>
+                            <div class="sparkline13-outline-icon">
+                                <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th>Serial No</th>
+                                        <th>Installment Date</th>
+                                        <th>Payment Status</th>
+                                        <th>Installment Amount</th>
+                                        <th>
+                                            Action
+                                            <a class="btn btn-custon-four btn-success primary-btn-cl" href="/Payroll/Advance/CreateAdvanceDetail?advanceId=@Model.AdvanceId">
+                                                Add New
+                                                <i class="adminpro-icon adminpro-avatar"></i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.AdvanceInstallments.Select((x, i) => new { Data = x, Index = i + 1 }))
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Index
+                                            </td>
+                                            <td>
+                                                @{ string month = Convert.ToDateTime(item.Data.AdvanceInstallmentDate.Value).ToString("MMM/yyyy");}
+                                                @Html.DisplayFor(modelItem => month)
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.PaymentStatusDesc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.InstallmentAmount)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "EditAdvanceDetail", new { detailId = item.Data.AdvanceDetailId }, new { @class = "btn btn-custon-four btn-warning warning-btn-cl" })
+                                                @*<input type="button" value="Delete" class="btn btn-custon-four btn-danger danger-btn-cl" onclick="ActionLinkAlert('/Payroll/Loan/DeleteLoanDetail',@item.Data.LoanDetailId)" />*@
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#btnSaveDesc').click(function () {
+        var AdvanceId = $('#advanceId').val();
+        var description = $('#description').val();
+
+    
+       
+        $.ajax({
+     
+            type: 'POST',
+            url: `/Advance/UpdateAdvanceMaster/${AdvanceId}?description=${description}`,
+
+            success: function (msg) {
+                debugger;
+                alert(msg);
+                if (msg.Status == "Success") {
+                    SendNotif('Success!', msg.Message, 'success');
+
+                    window.location.href = msg.Url;
+
+                }
+                else {
+                    SendNotif('ooopss!', msg.Message, 'error');
+                }
+            },
+            error: function () {
+                SendNotif('ooopss!', msg.Message, 'error');
+            }
+         });
+        });
+</script>

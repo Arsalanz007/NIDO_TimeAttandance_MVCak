@@ -1,0 +1,292 @@
+﻿@model NIDO_TimeAttandance_MVC.Models.ModelGazettedHoliday
+@using System.Web.Optimization
+@{
+    /**/
+
+    ViewBag.Title = "CreateNew";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@Styles.Render("~/bundles/fullcalandarbundle")
+
+<div class="panel-body">
+    <button type="button" hidden class="btn btn-primary" id="btnmodal" data-target="#modal" data-toggle="modal"></button>
+    <div class="modal fade" id="modal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h1 class="modal-title" id="modalLabel">Please fill out these information</h1>
+                </div>
+                @using (Ajax.BeginForm("SaveGazettedHoliday", "GazettedHoliday", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", OnFailure = "OnFailure", OnSuccess = "OnSuccess", OnComplete = "OnComplete" }, new { @class = "form-horizontal mb-lg", id = "demo-form", novalidate = "novalidate" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        <div class="form-group mt-lg">
+                            <label class="col-sm-3 control-label">Holiday Discription</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.GazettedHolidayDesc, new { @class = "form-control", placeholder = "Please Enter Holiday Dsc", required = "*", id = "holidayDsc", autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Holiday dates</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" id="txtHolidays" name="txtHolidays" data-plugin-datepicker data-plugin-options='{ "multidate": true }' class="form-control" autocomplete="off" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<a class="mb-xs mt-xs mr-xs modal-basic btn btn-warning" id="btnwarning" href="#modalHeaderColorWarning" hidden>Warning</a>
+<div id="modalHeaderColorWarning" class="modal-block modal-header-color modal-block-warning mfp-hide">
+    <section class="panel">
+        <header class="panel-heading">
+            <h2 class="panel-title">Warning!</h2>
+        </header>
+        @using (Ajax.BeginForm("DeleteGazettedHoliday", "GazettedHoliday", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginDelete", OnFailure = "OnFailure", OnSuccess = "OnSuccessDeleted" }, new { @class = "form-horizontal mb-lg", id = "demo-form", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(m => m.GazettedHolidayId, new { id = "GazettedHolidayId" })
+            <div class="panel-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fa fa-warning"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Warning</h4>
+                        <p>Are you to delete this?</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-warning">Yes</button>
+                        <button id="closeMOdal" class="btn btn-warning modal-dismiss">Close</button>
+                    </div>
+                </div>
+            </footer>
+        }
+    </section>
+</div>
+
+
+
+
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-9">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-md-3">
+            <p class="h4 text-light"></p>
+            <hr />
+            <div id='external-events'>
+                <div class="external-event label " style="width:70%; background:green;color: white;" data-event-class="fc-event-success">Holiday</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/Js_fullcalandarbundle")
+
+<script>
+    $(function () {
+        $('.abc').datepicker({
+            autoHide: true,
+            zIndex: 2048,
+        });
+    });
+</script>
+<script>
+    (function ($) {
+        'use strict';
+        var initCalendarDragNDrop = function () {
+            $('#external-events div.external-event').each(function () {
+
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+        };
+
+        var initCalendar = function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/GazettedHoliday/GetHolidays",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.GazettedHolidayDesc,
+                            description: v.GazettedHolidayId,
+                            start: moment(v.GazettedHolidayDate),
+                            end: v.GazettedHolidayDate != null ? moment(v.GazettedHolidayDate) : null,
+                            allDay: true,
+
+                        });
+                    })
+                    GenerateCalander(events);
+                },
+                error: function (error) {
+                    //GenerateCalander(events);
+                }
+            })
+
+            function GenerateCalander(events) {
+                var $calendar = $('#calendar');
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                $calendar.fullCalendar({
+                    header: {
+                        left: 'title',
+                        right: 'prev,today,next,basicDay,basicWeek,month'
+                    },
+                    timeFormat: '',
+
+                    titleFormat: {
+                        month: 'MMMM YYYY',      // September 2009
+                        week: "MMM d YYYY",      // Sep 13 2009
+                        day: 'dddd, MMM d, YYYY' // Tuesday, Sep 8, 2009
+                    },
+
+                    themeButtonIcons: {
+                        prev: 'fa fa-caret-left',
+                        next: 'fa fa-caret-right',
+                    },
+
+                    editable: false,
+                    droppable: true, // this allows things to be dropped onto the calendar !!!
+                    drop: function (date, allDay) { // this function is called when something is dropped
+                        var $externalEvent = $(this);
+                        // retrieve the dropped element's stored Event Object
+                        var originalEventObject = $externalEvent.data('eventObject');
+                        // we need to copy it, so that multiple events don't have a reference to the same object
+                        var copiedEventObject = $.extend({}, originalEventObject);
+
+                        // assign it the date that was reported
+                        copiedEventObject.start = date;
+                        copiedEventObject.allDay = allDay;
+                        copiedEventObject.className = $externalEvent.attr('data-event-class');
+                        //alert(date);
+                        $('#txtHolidays').val(convertDate(date));
+                        $('#btnmodal')[0].click();
+                        // render the event on the calendar
+                        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#RemoveAfterDrop').is(':checked')) {
+                            // if so, remove the element from the "Draggable Events" list
+                            $(this).remove();
+                        }
+
+                    },
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view, ) {
+                        $("#GazettedHolidayId").val(calEvent.description);
+                        $('#btnwarning')[0].click();
+
+                    }
+                });
+
+                // FIX INPUTS TO BOOTSTRAP VERSIONS
+                var $calendarButtons = $calendar.find('.fc-header-right > span');
+                $calendarButtons
+                    .filter('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mt-sm mr-md mb-sm ml-sm"></div>')
+                    .parent()
+                    .after('<br class="hidden" />');
+
+                $calendarButtons
+                    .not('.fc-button-prev, .fc-button-today, .fc-button-next')
+                    .wrapAll('<div class="btn-group mb-sm mt-sm"></div>');
+
+                $calendarButtons
+                    .attr({ 'class': 'btn btn-sm btn-default' });
+
+            }
+
+        };
+
+        $(function () {
+            initCalendar();
+            initCalendarDragNDrop();
+        });
+
+    }).apply(this, [jQuery]);
+</script>
+
+<script>
+    function OnSuccess(msg) {
+        if (msg.Status == "Error") {
+            $('#DangerP').text(msg.Message);
+            $('#DangerMsg')[0].click();
+        }
+        else if (msg.Status == "Success") {
+            $('#InfoP').text(msg.Message);
+            //Change URL
+            $('#modal').fadeOut('fast');
+            var oldUrl = $('#InfoA').attr("href");
+            var newUrl = oldUrl.replace("/Home/Index/", "/GazettedHoliday/CreateNew");
+            $('#InfoA').attr("href", newUrl);
+            $('#InfoMsg')[0].click();
+
+        }
+    }
+</script>
+
+<script>
+    function OnBegin() {        
+        if ($('#txtHolidays').val() == "" || $('#holidayDsc').val() == "") {
+            SendNotif("Oooops!", "Please Enter Description", 'warning');
+            return false;
+        }
+    }
+    function OnBeginDelete() { }
+    function OnFailure() { }
+    
+    function OnSuccessDeleted(msg) {
+        if (msg.Status == "Error") {
+            $('#DangerP').text(msg.Message);
+            $('#DangerMsg')[0].click();
+        }
+        else if (msg.Status == "Success") {
+            $('#closeMOdal').click();            
+            SendNotif("Congrats!", "Holiday has been successfully deleted", 'success');
+            location.reload(true);
+        }
+    }
+</script>
